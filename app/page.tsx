@@ -9,7 +9,7 @@ import { QrSection } from "@/src/components/organisms/qr";
 import { useState } from "react";
 
 export default function Home() {
-  const [bgImage, setBgImage] = useState("/hero.png");
+  const [bgImage, setBgImage] = useState("/robin-rebeca.png");
 
   return (
     <div className="relative min-h-screen text-white">
