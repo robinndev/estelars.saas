@@ -4,10 +4,16 @@ import { useState } from "react";
 import { couples } from "@/src/mocks/couples";
 import { FaInstagram, FaReddit, FaTiktok } from "react-icons/fa";
 import { CoupleCard } from "../couple-card";
-import { MusicPlayer } from "../molecules/music-player";
+import { useRouter } from "next/navigation";
 
 export const Hero = ({ setBgImage }: { setBgImage: (img: string) => void }) => {
   const [hoveredCouple, setHoveredCouple] = useState<any>(null);
+
+  const router = useRouter();
+
+  const handleNavigate = () => {
+    router.push("/create");
+  };
 
   return (
     <div className="relative w-full min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-16 pt-4">
@@ -27,7 +33,10 @@ export const Hero = ({ setBgImage }: { setBgImage: (img: string) => void }) => {
             </p>
 
             <div className="flex justify-center lg:justify-start gap-4">
-              <button className="bg-red-600 hover:bg-red-700 text-white px-6 md:px-8 py-3 rounded-md font-semibold transition-all">
+              <button
+                onClick={() => handleNavigate()}
+                className="bg-red-600 cursor-pointer hover:bg-red-700 text-white px-6 md:px-8 py-3 rounded-md font-semibold transition-all"
+              >
                 ▶ Quero criar minha história
               </button>
               <button className="bg-white/20 hover:bg-white/30 text-white px-6 md:px-8 py-3 rounded-md font-semibold transition-all">

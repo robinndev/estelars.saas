@@ -2,15 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
-import { FaPlay, FaPause, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
+import { motion, useAnimation } from "framer-motion";
 
-export const MusicPlayer = ({ videoId }: { videoId: string }) => {
+export const MusicPlayer = ({
+  videoId,
+  title = "Sleeping in my car",
+  artist = "Roxette",
+}: {
+  videoId: string;
+  title?: string;
+  artist?: string;
+}) => {
   const playerRef = useRef<any>(null);
-
-  const [playerReady, setPlayerReady] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(false);
-  const [volume, setVolume] = useState(60);
+  const [progress, setProgress] = useState(0);
 
   const opts = {
     height: "1",
@@ -21,16 +26,10 @@ export const MusicPlayer = ({ videoId }: { videoId: string }) => {
       disablekb: 1,
       modestbranding: 1,
       rel: 0,
-      mute: 0,
     },
   };
 
   const getPlayer = () => playerRef.current?.target;
-
-  useEffect(() => {
-    if (!playerReady) return;
-    getPlayer()?.setVolume(volume);
-  }, [volume, playerReady]);
 
   const togglePlay = () => {
     const player = getPlayer();
@@ -45,126 +44,73 @@ export const MusicPlayer = ({ videoId }: { videoId: string }) => {
     }
   };
 
-  const toggleMute = () => {
-    const p = getPlayer();
-    if (!p) return;
-
-    if (muted) {
-      p.unMute();
-      setMuted(false);
-    } else {
-      p.mute();
-      setMuted(true);
+  // Simula barra de progresso
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (playing) {
+      interval = setInterval(() => {
+        setProgress((prev) => (prev >= 100 ? 0 : prev + 0.5));
+      }, 500);
     }
-  };
+    return () => clearInterval(interval);
+  }, [playing]);
+
+  // Animação do disco
+  const rotation = useAnimation();
+  useEffect(() => {
+    if (playing) {
+      rotation.start({
+        rotate: 360,
+        transition: { repeat: Infinity, duration: 10, ease: "linear" },
+      });
+    } else {
+      rotation.stop();
+    }
+  }, [playing, rotation]);
 
   return (
-    <div
-      className="
-        bg-white/10 
-        rounded-2xl 
-        backdrop-blur-xl 
-        shadow-xl 
-        border border-white/20 
-        flex flex-col lg:flex-col p-4 lg:p-6 
-        gap-4 lg:gap-6
-        w-full
-      "
-    >
-      {/* DESKTOP VERSION */}
-      <div className="hidden lg:flex flex-col items-center gap-6">
-        <div className="w-48 h-48 rounded-2xl overflow-hidden shadow-2xl">
-          <img
-            src={`https://static1.purepeople.com.br/articles/1/38/60/01/@/4433559-no-filme-enrolados-a-princesa-rapunze-1200x0-2.jpg`}
-            className="w-full h-full object-cover"
-          />
-        </div>
+    <div className="w-full max-w-sm relative p-6 flex flex-col items-center gap-4 rounded-3xl shadow-xl border border-white/20 bg-gradient-to-br from-purple-500/30 to-pink-500/20 backdrop-blur-xl overflow-hidden">
+      {/* Glow animado atrás */}
+      <motion.div
+        className="absolute -inset-4 bg-gradient-to-r from-pink-400 to-purple-600 rounded-3xl blur-3xl opacity-50"
+        animate={{ rotate: [0, 360] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
 
-        <button
-          onClick={togglePlay}
-          className="bg-white/30 hover:bg-white/40 p-5 rounded-full shadow-lg text-white transition-all"
-        >
-          {playing ? <FaPause size={26} /> : <FaPlay size={26} />}
-        </button>
+      {/* Disco girando */}
+      <motion.div
+        animate={rotation}
+        className="w-48 h-48 rounded-full overflow-hidden shadow-2xl z-10 cursor-pointer"
+        onClick={togglePlay}
+      >
+        <img
+          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+          alt={title}
+          className="w-full h-full object-cover rounded-full"
+        />
+      </motion.div>
 
-        <div className="flex items-center gap-4 w-full">
-          <button
-            onClick={toggleMute}
-            className="text-white hover:text-gray-200 transition"
-          >
-            {muted ? <FaVolumeMute size={22} /> : <FaVolumeUp size={22} />}
-          </button>
-
-          <input
-            type="range"
-            className="w-full accent-white"
-            min={0}
-            max={100}
-            value={muted ? 0 : volume}
-            onChange={(e) => {
-              const val = Number(e.target.value);
-              setVolume(val);
-              if (val === 0) {
-                setMuted(true);
-                getPlayer()?.mute();
-              } else {
-                setMuted(false);
-                getPlayer()?.unMute();
-              }
-            }}
-          />
-        </div>
+      {/* Barra de progresso */}
+      <div className="w-full h-1 bg-white/20 rounded-full mt-2 z-10 relative">
+        <motion.div
+          className="h-1 bg-rose-400 rounded-full absolute left-0 top-0"
+          style={{ width: `${progress}%` }}
+        />
       </div>
 
-      {/* MOBILE — Spotify Style */}
-      <div className="flex lg:hidden items-center gap-4 w-full">
-        {/* Small Cover */}
-        <div className="w-16 h-16 rounded-xl overflow-hidden shadow-lg shrink-0">
-          <img
-            src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-            className="w-full h-full object-cover"
-          />
-        </div>
+      {/* Tocando agora pulsante */}
+      <motion.span
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+        className="text-sm text-white font-semibold uppercase tracking-wider z-10"
+      >
+        Tocando agora
+      </motion.span>
 
-        {/* Controls + Slider */}
-        <div className="flex-1 flex flex-col gap-2">
-          {/* Controls */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={togglePlay}
-              className="text-white bg-white/20 p-2 rounded-full hover:bg-white/30 transition"
-            >
-              {playing ? <FaPause size={18} /> : <FaPlay size={18} />}
-            </button>
-
-            <button
-              onClick={toggleMute}
-              className="text-white hover:text-gray-200 transition"
-            >
-              {muted ? <FaVolumeMute size={18} /> : <FaVolumeUp size={18} />}
-            </button>
-          </div>
-
-          {/* Slider */}
-          <input
-            type="range"
-            className="w-full accent-white"
-            min={0}
-            max={100}
-            value={muted ? 0 : volume}
-            onChange={(e) => {
-              const val = Number(e.target.value);
-              setVolume(val);
-              if (val === 0) {
-                setMuted(true);
-                getPlayer()?.mute();
-              } else {
-                setMuted(false);
-                getPlayer()?.unMute();
-              }
-            }}
-          />
-        </div>
+      {/* Nome da música */}
+      <div className="text-center z-10">
+        <h2 className="text-lg font-bold text-white">{title}</h2>
+        <p className="text-sm text-gray-200 mt-1">{artist}</p>
       </div>
 
       {/* Invisible YouTube */}
@@ -174,7 +120,6 @@ export const MusicPlayer = ({ videoId }: { videoId: string }) => {
           opts={opts}
           onReady={(e) => {
             playerRef.current = e;
-            setPlayerReady(true);
           }}
         />
       </div>
