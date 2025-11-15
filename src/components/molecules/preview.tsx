@@ -3,13 +3,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Heart, Music2, Pause, Play } from "lucide-react";
-import { TimeCard } from "./time-card";
-import type { PreviewProps, TimeTogether } from "@/src/@types/preview";
+import { Heart } from "lucide-react";
 import { AudioPlayer } from "./audio-player";
 import { Count } from "./count";
 
-export default function Preview({ selectedLayout }: PreviewProps) {
+export default function Preview() {
   const [progress, setProgress] = useState(30);
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -26,7 +24,7 @@ export default function Preview({ selectedLayout }: PreviewProps) {
   return (
     <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-b from-black via-[#0a0a0f] to-[#0d0018] p-8">
       <motion.div
-        key={selectedLayout}
+        // key={selectedLayout}
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6 }}
