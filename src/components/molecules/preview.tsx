@@ -70,6 +70,8 @@ export default function Preview({
     return () => clearInterval(interval);
   }, [image]);
 
+  console.log(color);
+
   return (
     <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-b from-black via-[#0a0a0f] to-[#0d0018] p-8">
       <motion.div
@@ -129,7 +131,7 @@ export default function Preview({
             {/* CASAL */}
             <div className="flex flex-col items-center mt-[-38px] px-4 text-center">
               <div className="p-3 bg-white/10 backdrop-blur rounded-full border border-white/10 shadow-md mb-3">
-                <Heart className="w-7 h-7 text-violet-400" />
+                <Heart className={`w-7 h-7`} style={{ color }} />
               </div>
 
               <h1 className="text-3xl font-bold text-white tracking-tight">
@@ -146,7 +148,7 @@ export default function Preview({
             </div>
 
             {/* CONTADOR */}
-            <Count startDate={parsedDate} value={0} />
+            <Count startDate={parsedDate} value={0} color={color} />
 
             {/* PLAYER */}
             {selectedPlan === "premium" && musicLink && (
@@ -155,6 +157,7 @@ export default function Preview({
                 setIsPlaying={setIsPlaying}
                 progress={progress}
                 musicLink={musicLink}
+                color={color}
               />
             )}
           </div>

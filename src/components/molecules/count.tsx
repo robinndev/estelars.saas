@@ -5,9 +5,10 @@ import { TimeCard } from "./time-card";
 interface ICount {
   startDate: Date;
   value?: number; // valor inicial opcional
+  color?: any;
 }
 
-export const Count = ({ startDate }: ICount) => {
+export const Count = ({ startDate, color }: ICount) => {
   const [timeTogether, setTimeTogether] = useState<TimeTogether>({
     years: 0,
     days: 0,
@@ -46,6 +47,7 @@ export const Count = ({ startDate }: ICount) => {
       <div className="flex justify-center gap-2 mt-3">
         {labels.map((label, idx) => (
           <TimeCard
+            color={color}
             key={label}
             label={label}
             value={values[idx]}

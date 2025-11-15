@@ -1,19 +1,47 @@
 import { motion } from "framer-motion";
-import { Heart, Music2, Pause, Play } from "lucide-react";
+import { Music2, Pause, Play } from "lucide-react";
 
 interface AudioPlayerProps {
   isPlaying: boolean;
   setIsPlaying: (playing: boolean) => void;
   progress: number;
   musicLink?: string;
+  color?: string; // hex, ex: "#8b5cf6"
 }
+
+// Função para gerar um gradiente a partir de um hex
+const generateGradient = (hex: string) => {
+  if (!hex.startsWith("#")) return hex;
+  // Pegando os componentes R, G, B
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  // Ajustando para gerar um tom mais claro
+  const lighten = (c: number, amount: number) =>
+    Math.min(255, Math.floor(c + (255 - c) * amount));
+
+  const colorStart = `rgb(${lighten(r, 0.1)}, ${lighten(g, 0.1)}, ${lighten(
+    b,
+    0.1
+  )})`;
+  const colorEnd = `rgb(${lighten(r, 0.3)}, ${lighten(g, 0.3)}, ${lighten(
+    b,
+    0.3
+  )})`;
+
+  return `linear-gradient(90deg, ${colorStart}, ${colorEnd})`;
+};
 
 export const AudioPlayer = ({
   isPlaying,
   setIsPlaying,
   progress,
   musicLink,
+  color = "#8b5cf6",
 }: AudioPlayerProps) => {
+  const gradient = generateGradient(color);
+
   return (
     <div className="mt-6 w-full max-w-sm px-6 mb-6">
       <motion.div
@@ -25,11 +53,12 @@ export const AudioPlayer = ({
         <div className="w-full flex justify-between items-center mb-2">
           <Music2 className="w-4 h-4 text-gray-300" />
           <p className="text-sm font-medium text-gray-200 truncate mx-2">
-            <span className="text-violet-400">Tema:</span> Nossa Música
+            <span style={{ color }}>Tema:</span> Nossa Música
           </p>
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="p-1 rounded-full text-violet-400 hover:text-violet-300 transition"
+            className="p-1 rounded-full transition"
+            style={{ color }}
           >
             {isPlaying ? (
               <Pause className="w-5 h-5" fill="currentColor" />
@@ -39,10 +68,13 @@ export const AudioPlayer = ({
           </button>
         </div>
 
-        <div className="w-full h-1 bg-white/20 rounded-full">
+        <div className="w-full h-1 bg-white/20 rounded-full overflow-hidden">
           <motion.div
-            className="h-full bg-violet-500 rounded-full shadow-[0_0_10px_rgba(150,100,255,0.8)]"
-            style={{ width: `${progress}%` }}
+            className="h-full rounded-full shadow-[0_0_10px_rgba(150,100,255,0.8)]"
+            style={{
+              width: `${progress}%`,
+              background: gradient,
+            }}
             layout
             transition={{ duration: 0.4 }}
           />

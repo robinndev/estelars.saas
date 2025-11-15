@@ -14,7 +14,7 @@ export default function CreatePage() {
   const [coupleName, setCoupleName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [color, setColor] = useState("#8b0000");
+  const [color, setColor] = useState("#a684ff");
   const [startDate, setStartDate] = useState("");
   const [startHour, setStartHour] = useState("");
   const [image, setImage] = useState<File[] | null>(null);
