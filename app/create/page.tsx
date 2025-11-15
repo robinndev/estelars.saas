@@ -5,7 +5,10 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function CreatePage() {
-  const [selectedLayout, setSelectedLayout] = useState<string>("layout1");
+  const [selectedColor, setSelectedColor] = useState<
+    "black" | "white" | "blue"
+  >("black");
+
   const [selectedPlan, setSelectedPlan] = useState<"free" | "premium">("free");
 
   // Campos
@@ -19,10 +22,10 @@ export default function CreatePage() {
   const [image, setImage] = useState<string | null>(null);
   const [musicLink, setMusicLink] = useState("");
 
-  const layouts = [
-    { id: "layout1", label: "Layout Minimalista" },
-    { id: "layout2", label: "Layout Romântico" },
-    { id: "layout3", label: "Layout Moderno" },
+  const themes = [
+    { id: "black", label: "Black", bg: "bg-black", text: "text-white" },
+    { id: "white", label: "White", bg: "bg-white", text: "text-black" },
+    { id: "blue", label: "Blue", bg: "bg-blue-700", text: "text-white" },
   ];
 
   const handleImage = (e: any) => {
@@ -39,97 +42,76 @@ export default function CreatePage() {
       initial={{ opacity: 0, scale: 0.97, filter: "blur(20px)" }}
       animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
       transition={{ duration: 0.9, ease: "easeOut" }}
-      className="min-h-screen w-full bg-white flex"
+      className="min-h-screen w-full bg-black flex"
     >
       {/* -------------------------------- */}
-      {/* PREVIEW AQUI — SEU COMPONENTE     */}
+      {/* PREVIEW AQUI                     */}
       {/* -------------------------------- */}
-      <div className="w-1/2 h-screen p-10 flex items-start justify-center text-white">
-        <Preview selectedLayout={selectedLayout} />
+      <div className="w-1/2 h-screen flex justify-center text-white bg-black items-center">
+        <Preview selectedColor={selectedColor} />
       </div>
 
-      {/* ----------------------------------- */}
-      {/* FORMULÁRIO - PARTE DIREITA          */}
-      {/* ----------------------------------- */}
+      {/* -------------------------------- */}
+      {/* FORMULÁRIO                       */}
+      {/* -------------------------------- */}
       <div
         className="w-1/2 h-screen p-10 overflow-y-auto space-y-10"
         style={{ backgroundColor: "#f7f7f7" }}
       >
-        {/* ----------------------- */}
-        {/* Seleção de Layouts      */}
-        {/* ----------------------- */}
+        {/* --------------------------- */}
+        {/* TEMAS (celularzinhos)       */}
+        {/* --------------------------- */}
         <div>
           <h1 className="text-xl font-semibold mb-4 text-red-900">
-            Escolha o layout
+            Tema do Fundo
           </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {layouts.map((l) => (
+            {themes.map((t) => (
               <label
-                key={l.id}
+                key={t.id}
                 className={`
                   cursor-pointer rounded-xl p-4 flex flex-col items-center gap-4 
                   border-2 transition-all
                   ${
-                    selectedLayout === l.id
+                    selectedColor === t.id
                       ? "border-red-900 bg-red-900/10"
                       : "border-red-900/30 hover:border-red-900/60"
                   }
                 `}
               >
-                {/* Mini-preview fake */}
-                <div className="w-full h-24 rounded-lg bg-red-900/10 p-2 flex flex-col gap-1">
-                  {l.id === "layout1" && (
-                    <div className="flex flex-col gap-1 h-full">
-                      <div className="w-full h-2/3 bg-red-900/30 rounded-md" />
-                      <div className="w-3/4 h-2 bg-red-900/20 rounded" />
-                      <div className="w-1/2 h-2 bg-red-900/20 rounded" />
-                    </div>
-                  )}
-
-                  {l.id === "layout2" && (
-                    <div className="flex gap-2 h-full">
-                      <div className="w-1/2 h-full bg-red-900/30 rounded-md" />
-                      <div className="flex flex-col justify-between w-1/2">
-                        <div className="w-full h-2 bg-red-900/20 rounded" />
-                        <div className="w-3/4 h-2 bg-red-900/20 rounded" />
-                        <div className="w-1/2 h-2 bg-red-900/20 rounded" />
-                      </div>
-                    </div>
-                  )}
-
-                  {l.id === "layout3" && (
-                    <div className="flex flex-col gap-2 h-full">
-                      <div className="flex gap-2">
-                        <div className="w-1/3 h-10 bg-red-900/30 rounded-md" />
-                        <div className="w-1/3 h-10 bg-red-900/20 rounded-md" />
-                        <div className="w-1/3 h-10 bg-red-900/10 rounded-md" />
-                      </div>
-                      <div className="w-full h-2 bg-red-900/20 rounded" />
-                      <div className="w-2/3 h-2 bg-red-900/20 rounded" />
-                    </div>
-                  )}
+                {/* Mini celular bonito */}
+                <div
+                  className={`
+                    w-20 h-40 rounded-2xl border overflow-hidden
+                    flex flex-col items-center justify-center
+                    ${t.bg} ${t.text} border-red-900/20
+                  `}
+                >
+                  <div className="w-10 h-2 rounded-md bg-gray-400/40 mb-3" />
+                  <div className="w-14 h-2 rounded-md bg-gray-400/40 mb-1" />
+                  <div className="w-8 h-2 rounded-md bg-gray-400/40" />
                 </div>
 
                 <input
                   type="radio"
-                  name="layout"
-                  checked={selectedLayout === l.id}
-                  onChange={() => setSelectedLayout(l.id)}
+                  name="theme"
+                  checked={selectedColor === t.id}
+                  onChange={() => setSelectedColor(t.id as any)}
                   className="accent-red-900 h-5 w-5"
                 />
 
                 <span className="text-center text-red-900 text-sm font-medium">
-                  {l.label}
+                  {t.label}
                 </span>
               </label>
             ))}
           </div>
         </div>
 
-        {/* ----------------------- */}
-        {/* Campos do formulário     */}
-        {/* ----------------------- */}
+        {/* ---------------------------- */}
+        {/* CAMPOS DO FORMULÁRIO         */}
+        {/* ---------------------------- */}
         <div className="space-y-6 text-red-900">
           <div>
             <label className="block mb-1 font-medium">Nome do casal</label>
@@ -226,9 +208,9 @@ export default function CreatePage() {
           </div>
         </div>
 
-        {/* ----------------------- */}
-        {/* Planos                  */}
-        {/* ----------------------- */}
+        {/* --------------------------- */}
+        {/* PLANOS                      */}
+        {/* --------------------------- */}
         <div className="mt-12 text-red-900">
           <h2 className="text-lg font-semibold mb-3">Escolha o plano</h2>
 
