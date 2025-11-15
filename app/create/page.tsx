@@ -38,7 +38,7 @@ export default function CreatePage() {
       transition={{ duration: 0.9, ease: "easeOut" }}
       className="min-h-screen w-full bg-black flex"
     >
-      <div className="w-1/2 h-screen flex justify-center items-center bg-black text-white">
+      <div className="w-1/2 h-screen flex justify-center items-center text-white">
         <Preview
           coupleName={coupleName}
           message={message}

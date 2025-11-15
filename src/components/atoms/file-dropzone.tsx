@@ -65,7 +65,7 @@ export function FileDropzone({ onChange, selectedPlan }: FileDropzoneProps) {
           maxSize={10 * 1024 * 1024}
           onError={console.error}
           className={`
-            border border-white/10 rounded-2xl
+            border border-white/10 rounded-2xl hover:bg-black
             bg-gradient-to-br from-black/80 to-black/90
             backdrop-blur-xl p-10
             flex flex-col items-center justify-center

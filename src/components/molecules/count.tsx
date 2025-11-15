@@ -4,7 +4,7 @@ import { TimeCard } from "./time-card";
 
 interface ICount {
   startDate: Date;
-  value?: number; // valor inicial opcional
+  value?: number;
   color?: any;
 }
 

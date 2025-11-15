@@ -81,7 +81,12 @@ export default function Preview({
         className="relative flex items-center justify-center"
       >
         {/* PHONE FRAME */}
-        <div className="relative w-[370px] h-[700px] rounded-[36px] p-3 bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_0_40px_rgba(140,80,255,0.3)]">
+        <div
+          className="relative w-[370px] h-[700px] rounded-[36px] p-3 bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_0_40px_rgba(140,80,255,0.3)]"
+          style={{
+            boxShadow: `0 0 199px ${color}30`,
+          }}
+        >
           {/* NOTCH */}
           <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[120px] h-[22px] bg-white/20 rounded-b-3xl flex items-center justify-center z-10 backdrop-blur">
             <div className="w-10 h-1 bg-white/40 rounded-full" />
@@ -130,12 +135,17 @@ export default function Preview({
 
             {/* CASAL */}
             <div className="flex flex-col items-center mt-[-38px] px-4 text-center">
-              <div className="p-3 bg-white/10 backdrop-blur rounded-full border border-white/10 shadow-md mb-3">
+              <div
+                className="p-3 bg-white/10 backdrop-blur rounded-full border border-white/10 shadow-md mb-3"
+                style={{
+                  boxShadow: `0 0 20px ${color}50, 0 0 40px ${color}40, 0 0 60px ${color}30`,
+                }}
+              >
                 <Heart className={`w-7 h-7`} style={{ color }} />
               </div>
 
               <h1 className="text-3xl font-bold text-white tracking-tight">
-                {coupleName || "Ana & Bruno"}
+                {coupleName || "Nome do casal"}
               </h1>
 
               <p className="text-gray-300 text-sm font-light mt-2">

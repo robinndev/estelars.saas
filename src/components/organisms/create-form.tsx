@@ -106,19 +106,19 @@ export default function CreateForm(props: CreateFormProps) {
   return (
     <div className="w-1/2 h-screen p-10 overflow-y-auto flex flex-col justify-between gap-14 bg-black/30 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_-10px_rgba(0,0,0,0.6)] rounded-3xl text-[#e7d8d8]">
       {/* TEMA */}
-      <div className="border-white/10">
+      {/* <div className="border-white/10">
         <ThemeSelector
           themes={themes}
           selectedColor={selectedColor}
           setSelectedColor={setSelectedColor}
         />
-      </div>
+      </div> */}
 
       {/* CAMPOS */}
       <div className="space-y-5">
         <Input
           label="Nome do casal"
-          placeholder="Ex: Ana & João"
+          placeholder="Ex: Ana & João (Não use emojis)"
           value={coupleName}
           onChange={(e) => setCoupleName(e.target.value)}
           onBlur={() => handleTouch("coupleName")}
@@ -132,7 +132,7 @@ export default function CreateForm(props: CreateFormProps) {
           type="email"
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
-          placeholder="para enviar o link final"
+          placeholder="Para receber seu QR Code"
           onBlur={() => handleTouch("userEmail")}
         />
         {touched.userEmail && fieldErrors.userEmail && (
@@ -208,7 +208,7 @@ export default function CreateForm(props: CreateFormProps) {
             onChange={(e) => setMusicLink(e.target.value)}
             placeholder={
               selectedPlan === "premium"
-                ? "Link da música"
+                ? "Link da música (YouTube)"
                 : "Apenas no Premium"
             }
             className={`w-full p-3 rounded-lg border bg-black/40 text-white outline-none transition ${
