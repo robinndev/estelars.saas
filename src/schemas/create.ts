@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const planSchema = z.enum(["free", "premium"]);
+export const planSchema = z.enum(["normal", "premium"]);
 
 export const createFormSchema = z.object({
   coupleName: z.string().min(1, "Informe o nome do casal"),
@@ -8,7 +8,10 @@ export const createFormSchema = z.object({
   message: z.string().min(1, "A mensagem é obrigatória"),
   color: z.string(),
   startDate: z.date(),
-  startHour: z.string(),
+  startHour: z.string().min(1, "Informe a hora"),
+  image: z.any().refine((val) => val && val.length > 0, {
+    message: "Envie ao menos 1 foto",
+  }),
   plan: planSchema,
   musicLink: z.string().optional(),
 });
@@ -16,12 +19,10 @@ export const createFormSchema = z.object({
 export const validatedSchema = createFormSchema.refine(
   (data) => {
     if (data.plan === "premium") return true;
-    return !data.musicLink; // free não pode ter música
+    return !data.musicLink;
   },
   {
     path: ["musicLink"],
     message: "Apenas o plano Premium permite adicionar música",
   }
 );
-
-export type FormData = z.infer<typeof createFormSchema>;

@@ -4,10 +4,10 @@ import { TimeCard } from "./time-card";
 
 interface ICount {
   startDate: Date;
-  value: number;
+  value?: number; // valor inicial opcional
 }
 
-export const Count = ({ startDate, value }: ICount) => {
+export const Count = ({ startDate }: ICount) => {
   const [timeTogether, setTimeTogether] = useState<TimeTogether>({
     years: 0,
     days: 0,
@@ -16,13 +16,15 @@ export const Count = ({ startDate, value }: ICount) => {
     seconds: 0,
   });
 
-  const labels = ["anos", "dias", "horas", "minutos", "segundos"];
-  const values = Object.values(timeTogether);
+  console.log(startDate);
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (!startDate || isNaN(startDate.getTime())) return;
+
       const now = new Date();
-      const diff = Math.max(0, now.getTime() - startDate.getTime());
+      const diff = now.getTime() - startDate.getTime(); // diferença em ms
+      if (diff < 0) return; // evita negativo
 
       setTimeTogether({
         years: Math.floor(diff / (1000 * 60 * 60 * 24 * 365)),
@@ -34,7 +36,10 @@ export const Count = ({ startDate, value }: ICount) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [startDate]);
+
+  const labels = ["anos", "dias", "horas", "minutos", "segundos"];
+  const values = Object.values(timeTogether);
 
   return (
     <div className="text-center -mt-1 px-4">

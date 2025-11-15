@@ -5,12 +5,14 @@ interface AudioPlayerProps {
   isPlaying: boolean;
   setIsPlaying: (playing: boolean) => void;
   progress: number;
+  musicLink?: string;
 }
 
 export const AudioPlayer = ({
   isPlaying,
   setIsPlaying,
   progress,
+  musicLink,
 }: AudioPlayerProps) => {
   return (
     <div className="mt-6 w-full max-w-sm px-6 mb-6">

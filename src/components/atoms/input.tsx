@@ -6,6 +6,7 @@ interface InputProps {
   value: string;
   onChange: (e: any) => void;
   placeholder?: string;
+  onBlur?: () => void;
 }
 
 export function Input({
@@ -14,6 +15,7 @@ export function Input({
   value,
   onChange,
   placeholder,
+  onBlur,
 }: InputProps) {
   return (
     <div className="space-y-1">
@@ -26,6 +28,7 @@ export function Input({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
         className="
           w-full p-3 rounded-xl outline-none transition
           bg-white/5 backdrop-blur-xl

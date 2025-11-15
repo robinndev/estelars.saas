@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { Crown, Music } from "lucide-react";
 
 interface PlanSelectorProps {
-  selectedPlan: "free" | "premium";
-  setSelectedPlan: (v: "free" | "premium") => void;
+  selectedPlan: "normal" | "premium";
+  setSelectedPlan: (v: "normal" | "premium") => void;
 }
 
 export function PlanSelector({
@@ -14,8 +14,8 @@ export function PlanSelector({
 }: PlanSelectorProps) {
   const plans = [
     {
-      id: "free",
-      title: "Plano Free",
+      id: "normal",
+      title: "Plano Normal",
       description: "Recursos essenciais, sem música.",
       price: 19,
       icon: Music,
@@ -60,7 +60,7 @@ export function PlanSelector({
                     : "border-white/10 hover:border-purple-400/40"
                 }
               `}
-              onClick={() => setSelectedPlan(p.id as "free" | "premium")}
+              onClick={() => setSelectedPlan(p.id as "normal" | "premium")}
             >
               {/* Glow animado do selecionado */}
               {active && (
@@ -117,7 +117,7 @@ export function PlanSelector({
                 type="radio"
                 checked={active}
                 className="hidden"
-                onChange={() => setSelectedPlan(p.id as "free" | "premium")}
+                onChange={() => setSelectedPlan(p.id as "normal" | "premium")}
               />
             </motion.label>
           );

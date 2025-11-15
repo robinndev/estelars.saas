@@ -6,19 +6,19 @@ import { motion } from "framer-motion";
 export function ColorPicker({
   value,
   onChange,
+  onBlur,
 }: {
   value: string;
   onChange: any;
+  onBlur?: () => void;
 }) {
   const colorRef = useRef<HTMLInputElement | null>(null);
 
-  // dispara o color picker nativo
   const openNativePicker = () => {
     if (!colorRef.current) return;
     try {
       colorRef.current.click();
     } catch (e) {
-      // fallback silencioso
       console.warn("Não foi possível abrir o color picker nativo:", e);
     }
   };
@@ -42,7 +42,6 @@ export function ColorPicker({
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
-        {/* Bolinha apenas visual */}
         <motion.div
           className="
             w-14 h-14 rounded-xl border border-white/20 shadow-inner
@@ -51,8 +50,8 @@ export function ColorPicker({
           whileHover={{ scale: 1.08 }}
         />
 
-        {/* Campo HEX estiloso — PARA DE PROPAGAR clique/focus */}
         <input
+          onBlur={onBlur}
           type="text"
           value={value}
           onChange={onChange}
@@ -67,13 +66,11 @@ export function ColorPicker({
           "
         />
 
-        {/* INPUT COLOR INVISÍVEL (usado para abrir o nativo via ref) */}
         <input
           ref={colorRef}
           type="color"
           value={value}
           onChange={onChange}
-          // mantém no fluxo visual como absoluto e invisível — NÃO usar display:none
           className="absolute left-0 top-0 w-full h-full opacity-0 pointer-events-none"
           aria-label="seletor de cores"
         />

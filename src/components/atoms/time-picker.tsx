@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Clock, Minus, Plus } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -14,11 +14,18 @@ import { Button } from "@/components/ui/button";
 export function DarkTimePicker({
   value,
   onChange,
+  onBlur,
 }: {
   value: string;
   onChange: (val: string) => void;
+  onBlur?: () => void;
 }) {
   const [internal, setInternal] = useState(value || "12:00");
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setInternal(value || "12:00");
+  }, [value]);
 
   const update = (newVal: string) => {
     setInternal(newVal);
@@ -41,8 +48,16 @@ export function DarkTimePicker({
     update(newVal);
   };
 
+  const handleOpenChange = (isOpen: boolean) => {
+    // Se fechou sem interagir, dispara onBlur
+    if (!isOpen && onBlur) {
+      onBlur();
+    }
+    setOpen(isOpen);
+  };
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"

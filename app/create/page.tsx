@@ -7,7 +7,9 @@ import { useState } from "react";
 
 export default function CreatePage() {
   const [selectedColor, setSelectedColor] = useState("black");
-  const [selectedPlan, setSelectedPlan] = useState("free");
+  const [selectedPlan, setSelectedPlan] = useState<"normal" | "premium">(
+    "normal"
+  );
 
   const [coupleName, setCoupleName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -15,7 +17,7 @@ export default function CreatePage() {
   const [color, setColor] = useState("#8b0000");
   const [startDate, setStartDate] = useState("");
   const [startHour, setStartHour] = useState("");
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<File[] | null>(null);
   const [musicLink, setMusicLink] = useState("");
 
   const themes = [
@@ -24,12 +26,9 @@ export default function CreatePage() {
     { id: "blue", label: "Blue", bg: "bg-blue-700", text: "text-white" },
   ];
 
-  const handleImage = (e: any) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => setImage(reader.result as string);
-    reader.readAsDataURL(file);
+  const handleImage = (files: File[]) => {
+    console.log(files);
+    setImage(files);
   };
 
   return (
@@ -40,7 +39,17 @@ export default function CreatePage() {
       className="min-h-screen w-full bg-black flex"
     >
       <div className="w-1/2 h-screen flex justify-center items-center bg-black text-white">
-        <Preview />
+        <Preview
+          coupleName={coupleName}
+          message={message}
+          color={color}
+          startDate={startDate}
+          startHour={startHour}
+          image={image}
+          musicLink={musicLink}
+          selectedPlan={selectedPlan}
+          selectedColor={selectedColor}
+        />
       </div>
 
       <CreateForm
@@ -64,6 +73,7 @@ export default function CreatePage() {
         setMusicLink={setMusicLink}
         selectedPlan={selectedPlan}
         setSelectedPlan={setSelectedPlan}
+        image={image}
       />
     </motion.div>
   );

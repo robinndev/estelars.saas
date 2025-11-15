@@ -5,6 +5,7 @@ interface TextAreaProps {
   value: string;
   onChange: (e: any) => void;
   placeholder?: string;
+  onBlur?: () => void;
 }
 
 export function TextArea({
@@ -12,6 +13,7 @@ export function TextArea({
   value,
   onChange,
   placeholder,
+  onBlur,
 }: TextAreaProps) {
   return (
     <div className="space-y-1">
@@ -24,6 +26,7 @@ export function TextArea({
         rows={4}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         className="
           w-full p-3 rounded-xl outline-none transition
           bg-white/5 backdrop-blur-xl

@@ -14,12 +14,24 @@ import { CalendarIcon } from "lucide-react";
 export function DarkDatePicker({
   value,
   onChange,
+  onBlur,
 }: {
-  value: Date | undefined;
-  onChange: (date: Date | undefined) => void;
+  value: Date | undefined | string;
+  onChange: (date: string) => void;
+  onBlur?: () => void;
 }) {
+  const [open, setOpen] = useState(false);
+
+  const handleOpenChange = (isOpen: boolean) => {
+    // Se fechou sem selecionar nada, dispara onBlur
+    if (!isOpen && onBlur) {
+      onBlur();
+    }
+    setOpen(isOpen);
+  };
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -34,7 +46,10 @@ export function DarkDatePicker({
         >
           <CalendarIcon className="mr-2 h-5 w-5 text-indigo-300" />
           {value ? (
-            format(value, "dd/MM/yyyy")
+            format(
+              typeof value === "string" ? new Date(value) : value,
+              "dd/MM/yyyy"
+            )
           ) : (
             <span className="text-gray-400">Selecionar data</span>
           )}
@@ -50,8 +65,12 @@ export function DarkDatePicker({
       >
         <Calendar
           mode="single"
-          selected={value}
-          onSelect={onChange}
+          selected={typeof value === "string" ? new Date(value) : value}
+          onSelect={(date) => {
+            if (!date) return;
+            onChange(date.toISOString());
+            setOpen(false); // fecha popover ao escolher
+          }}
           className="rounded-xl"
         />
       </PopoverContent>

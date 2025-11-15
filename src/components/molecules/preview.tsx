@@ -1,18 +1,58 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import { AudioPlayer } from "./audio-player";
 import { Count } from "./count";
 
-export default function Preview() {
+interface PreviewProps {
+  coupleName: string;
+  message: string;
+  color: string;
+  startDate: string;
+  startHour: string;
+  image: File[] | null;
+  musicLink: string;
+  selectedPlan: "normal" | "premium";
+  selectedColor: string;
+}
+
+export default function Preview({
+  coupleName,
+  message,
+  color,
+  startDate,
+  startHour,
+  image,
+  musicLink,
+  selectedPlan,
+  selectedColor,
+}: PreviewProps) {
   const [progress, setProgress] = useState(30);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const startDate = new Date("2024-06-12T00:00:00");
+  const [datePart, setDatePart] = useState("");
 
+  useEffect(() => {
+    const datePart = startDate
+      ? startDate.split("T")[0]
+      : new Date().toISOString().split("T")[0];
+    setDatePart(datePart);
+  }, [startDate, startHour]);
+
+  const parsedDate = useMemo(() => {
+    const [hours = "00", minutes = "00"] = startHour
+      ? startHour.split(":")
+      : [];
+    return new Date(
+      `${datePart}T${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`
+    );
+  }, [datePart, startHour]);
+
+  // Progress do audio
   useEffect(() => {
     if (!isPlaying) return;
     const interval = setInterval(() => {
@@ -21,10 +61,18 @@ export default function Preview() {
     return () => clearInterval(interval);
   }, [isPlaying]);
 
+  // Carousel de imagens
+  useEffect(() => {
+    if (!image || image.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % image.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [image]);
+
   return (
     <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-b from-black via-[#0a0a0f] to-[#0d0018] p-8">
       <motion.div
-        // key={selectedLayout}
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6 }}
@@ -41,13 +89,41 @@ export default function Preview() {
           <div className="w-full h-full bg-black/30 backdrop-blur-xl rounded-[28px] overflow-y-auto flex flex-col border border-white/10">
             {/* HERO */}
             <div className="relative w-full h-1/2 flex-shrink-0">
-              <Image
-                src="/couple-sun.png"
-                alt="Hero"
-                fill
-                className="object-cover rounded-t-[28px]"
-              />
-              <div className="absolute bottom-0 w-full h-40 bg-linear-to-t from-[#28272A] to-transparent" />
+              <AnimatePresence mode="wait">
+                {image && image.length > 0 ? (
+                  image.length > 1 ? (
+                    <motion.div
+                      key={currentIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1.5 }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={URL.createObjectURL(image[currentIndex])}
+                        alt={`Hero ${currentIndex}`}
+                        fill
+                        className="object-cover rounded-t-[28px]"
+                      />
+                    </motion.div>
+                  ) : (
+                    // Se só tem 1 imagem, renderiza direto sem animação
+                    <div className="absolute inset-0">
+                      <Image
+                        src={URL.createObjectURL(image[0])}
+                        alt="Hero"
+                        fill
+                        className="object-cover rounded-t-[28px]"
+                      />
+                    </div>
+                  )
+                ) : (
+                  <div className="w-full h-full bg-gray-800 rounded-t-[28px]" />
+                )}
+              </AnimatePresence>
+
+              <div className="absolute bottom-0 w-full h-40 bg-gradient-to-t from-[#28272A] to-transparent" />
             </div>
 
             {/* CASAL */}
@@ -57,11 +133,11 @@ export default function Preview() {
               </div>
 
               <h1 className="text-3xl font-bold text-white tracking-tight">
-                Ana <span className="text-violet-400">&</span> Bruno
+                {coupleName || "Ana & Bruno"}
               </h1>
 
               <p className="text-gray-300 text-sm font-light mt-2">
-                Eu te amo mais a cada dia que passa. Você é meu tudo.
+                {message || "Sua mensagem especial aparecerá aqui..."}
               </p>
 
               <p className="text-gray-400 mt-5 text-sm font-normal">
@@ -70,14 +146,17 @@ export default function Preview() {
             </div>
 
             {/* CONTADOR */}
-            <Count startDate={startDate} value={0} />
+            <Count startDate={parsedDate} value={0} />
 
             {/* PLAYER */}
-            <AudioPlayer
-              isPlaying={isPlaying}
-              setIsPlaying={setIsPlaying}
-              progress={progress}
-            />
+            {selectedPlan === "premium" && musicLink && (
+              <AudioPlayer
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+                progress={progress}
+                musicLink={musicLink}
+              />
+            )}
           </div>
         </div>
       </motion.div>
