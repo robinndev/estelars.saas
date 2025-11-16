@@ -1,3 +1,8 @@
+Commands
+- stripe listen --forward-to localhost:3000/api/stripe/webhook
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

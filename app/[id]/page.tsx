@@ -55,7 +55,7 @@ export default function CoupleProfile() {
             color={mockCoupleData.color}
             startDate={mockCoupleData.startDate}
             startHour={mockCoupleData.startHour}
-            image={mockCoupleData.image as File[] | null} // se forem File[], adapte se precisar
+            image={mockCoupleData.image as unknown as File[] | null} // cast via unknown because mock data is string[] (paths)
             musicLink="das" // ou algum link de música se tiver
             selectedPlan="premium" // ou "normal"
           />
