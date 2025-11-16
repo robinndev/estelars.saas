@@ -5,13 +5,13 @@ import { ColorPicker } from "@/src/components/atoms/color-picker";
 import { Input } from "@/src/components/atoms/input";
 import { PlanSelector } from "@/src/components/atoms/plan-selector";
 import { TextArea } from "@/src/components/atoms/text-area";
-import { ThemeSelector } from "@/src/components/atoms/theme-selector";
 import { FileDropzone } from "../atoms/file-dropzone";
 import { DarkDatePicker } from "../atoms/date-picker";
 import { DarkTimePicker } from "../atoms/time-picker";
 import { BuyButton } from "../atoms/buy-button";
 import { PLAN_PRICES } from "@/src/@types/plans";
 import { validatedSchema } from "@/src/schemas/create";
+import { uploadImage } from "@/lib/supabase/storage";
 
 interface CreateFormProps {
   themes: { id: string; label: string; bg: string; text: string }[];
@@ -39,9 +39,6 @@ interface CreateFormProps {
 
 export default function CreateForm(props: CreateFormProps) {
   const {
-    themes,
-    selectedColor,
-    setSelectedColor,
     coupleName,
     setCoupleName,
     userEmail,
@@ -96,11 +93,44 @@ export default function CreateForm(props: CreateFormProps) {
   const isFormValid =
     parsed.success && !!startHour && !!startDate && !!image && image.length > 0;
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!isFormValid) return;
-    const price = PLAN_PRICES[selectedPlan as keyof typeof PLAN_PRICES];
-    console.log("🎉 Dados válidos:", rawData);
-    console.log("💰 Vai pagar:", price);
+
+    const uploadedImages = [];
+    if (image && image.length > 0) {
+      for (const file of image) {
+        const { fileId, url } = await uploadImage(file);
+        uploadedImages.push({ file_id: fileId, url });
+      }
+    }
+
+    const payload = {
+      couple_name: coupleName,
+      start_date: startDateObj,
+      start_hour: startHour,
+      message,
+      color,
+      music: musicLink || undefined,
+      plan: selectedPlan,
+      plan_price: PLAN_PRICES[selectedPlan],
+      email_address: userEmail,
+      is_recurring: false,
+      billing_cycle: undefined,
+      images: uploadedImages,
+    };
+
+    try {
+      const res = await fetch("/api/create-site", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      console.log("✅ Site criado:", data);
+    } catch (err) {
+      console.error("❌ Erro ao criar site:", err);
+    }
   }
 
   return (
