@@ -10,6 +10,51 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+enum PaymentState {
+  draft
+  paid
+  canceled
+}
+
+enum Plan {
+  normal
+  premium
+}
+
+model Site {
+  id            String        @id @default(cuid())
+  couple_name   String
+  start_date    DateTime
+  start_hour    String
+  message       String
+  color         String
+  music         String?
+  plan          Plan
+  plan_price    Float
+  payment_state PaymentState  @default(draft)
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+  photos        Photo[]
+  email_address String
+  purchase_date DateTime      @default(now())
+  is_recurring  Boolean       @default(false)
+  billing_cycle BillingCycle?
+}
+
+enum BillingCycle {
+  monthly
+  yearly
+}
+
+model Photo {
+  id      String @id @default(cuid())
+  url     String
+  file_id String
+  site    Site   @relation(fields: [site_id], references: [id])
+  site_id String
 }

@@ -27,7 +27,6 @@ export default function CreatePage() {
   ];
 
   const handleImage = (files: File[]) => {
-    console.log(files);
     setImage(files);
   };
 

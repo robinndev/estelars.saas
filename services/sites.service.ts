@@ -22,7 +22,7 @@ export const sitesService = {
     message: string;
     color: string;
     music?: string;
-    plan: "basic" | "premium";
+    plan: "normal" | "premium";
     plan_price: number;
     email_address: string;
     is_recurring?: boolean;
@@ -79,5 +79,48 @@ export const sitesService = {
         error instanceof Error ? error.message : "Erro desconhecido"
       );
     }
+  },
+
+  async getById(siteId: string) {
+    return prisma.site.findUnique({
+      where: { id: siteId },
+      include: { photos: true },
+    });
+  },
+
+  async updatePaymentState(siteId: string, state: "paid" | "canceled") {
+    return prisma.site.update({
+      where: { id: siteId },
+      data: { payment_state: state },
+    });
+  },
+
+  async deleteById(siteId: string) {
+    // 1️⃣ Busca o site com todas as fotos
+    const site = await this.getById(siteId);
+
+    if (!site) return null;
+
+    // 2️⃣ Monta os caminhos dos arquivos no storage
+    const filesToDelete = site.photos.map((photo) => `images/${photo.file_id}`);
+
+    // 3️⃣ Apaga as imagens no storage
+    if (filesToDelete.length > 0) {
+      const { error: storageError } = await supabaseServer.storage
+        .from("images")
+        .remove(filesToDelete);
+
+      if (storageError) {
+        console.error("Erro ao apagar imagens do Supabase:", storageError);
+        // ❗️ Não retorna aqui
+        // Se der erro no storage, ainda apagamos o site no banco
+      }
+    }
+
+    // 4️⃣ Apaga o site (e cascata apaga as fotos da tabela)
+    return prisma.site.delete({
+      where: { id: siteId },
+      include: { photos: true },
+    });
   },
 };

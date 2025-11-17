@@ -1,21 +1,34 @@
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-10-29.clover",
 });
 
+type PaymentMethodType = Stripe.Checkout.SessionCreateParams.PaymentMethodType;
+
 export const stripeService = {
-  async createCheckoutSession({ siteId }: { siteId: string }) {
+  async createCheckoutSession({
+    siteId,
+    payment_methods,
+    plan_type,
+  }: {
+    siteId: string;
+    payment_methods?: PaymentMethodType[];
+    plan_type: "normal" | "premium";
+  }) {
     return await stripe.checkout.sessions.create({
-      mode: "payment",
-      payment_method_types: ["card"],
+      mode: plan_type === "normal" ? "subscription" : "payment",
+      payment_method_types: payment_methods || ["card"],
       line_items: [
         {
-          price: process.env.STRIPE_PRICE_ID!,
+          price:
+            plan_type === "normal"
+              ? process.env.STRIPE_SUBSCRIPTION_PRICE_ID!
+              : process.env.STRIPE_PRICE_ID!,
           quantity: 1,
         },
       ],
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?siteId=${siteId}`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success/${siteId}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/cancel`,
       metadata: { siteId },
     });

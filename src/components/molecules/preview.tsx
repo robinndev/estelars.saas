@@ -70,8 +70,6 @@ export default function Preview({
     return () => clearInterval(interval);
   }, [image]);
 
-  console.log(color);
-
   return (
     <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-b from-black via-[#0a0a0f] to-[#0d0018] p-8">
       <motion.div

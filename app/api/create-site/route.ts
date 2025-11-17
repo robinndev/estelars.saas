@@ -1,4 +1,5 @@
 import { sitesService } from "@/services/sites.service";
+import { stripeService } from "@/services/stripe.service";
 
 export async function POST(req: Request) {
   try {
@@ -16,10 +17,19 @@ export async function POST(req: Request) {
       email_address: body.email_address,
       is_recurring: body.is_recurring,
       billing_cycle: body.billing_cycle,
-      images: body.images, // array de { url, file_id }
+      images: body.images,
     });
 
-    return Response.json(site);
+    const checkoutSession = await stripeService.createCheckoutSession({
+      siteId: site.id,
+      payment_methods: ["card"],
+      plan_type: body.plan_type,
+    });
+
+    return Response.json({
+      checkout_url: checkoutSession.url,
+      site_id: site.id,
+    });
   } catch (error: any) {
     console.error("Erro na rota POST /api/sites:", error);
     return Response.json(

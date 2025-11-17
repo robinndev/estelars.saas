@@ -1,18 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
+import { LoadingIndicator } from "./loading-indicator";
 
 export function BuyButton({
   onClick,
   disabled = false,
+  isLoading,
 }: {
   onClick?: () => void;
   disabled?: boolean;
+  isLoading?: boolean;
 }) {
   return (
     <motion.button
       onClick={disabled ? undefined : onClick}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       whileTap={disabled ? {} : { scale: 0.96 }}
       whileHover={disabled ? {} : { scale: 1.04 }}
       className={`
@@ -22,7 +26,7 @@ export function BuyButton({
         tracking-wide
         transition-all duration-300
         backdrop-blur-lg
-
+        hover:cursor-pointer
         ${
           disabled
             ? `
@@ -40,8 +44,13 @@ export function BuyButton({
         }
       `}
     >
-      Criar nosso site
-      <p className="text-sm font-light">Preencha os dados faltantes</p>
+      {isLoading ? (
+        <LoadingIndicator />
+      ) : disabled ? (
+        "Preencha o formulário"
+      ) : (
+        "Criar sua história"
+      )}
     </motion.button>
   );
 }

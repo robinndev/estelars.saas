@@ -12,6 +12,9 @@ import { BuyButton } from "../atoms/buy-button";
 import { PLAN_PRICES } from "@/src/@types/plans";
 import { validatedSchema } from "@/src/schemas/create";
 import { uploadImage } from "@/lib/supabase/storage";
+import { useRouter } from "next/navigation";
+
+type UploadResult = { fileId: string; url: string };
 
 interface CreateFormProps {
   themes: { id: string; label: string; bg: string; text: string }[];
@@ -60,6 +63,9 @@ export default function CreateForm(props: CreateFormProps) {
   } = props;
 
   const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const handleTouch = (field: string) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
@@ -93,13 +99,35 @@ export default function CreateForm(props: CreateFormProps) {
   const isFormValid =
     parsed.success && !!startHour && !!startDate && !!image && image.length > 0;
 
+  async function uploadWithRetry(
+    file: File,
+    retries = 2,
+    delay = 500
+  ): Promise<UploadResult> {
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        const result = await uploadImage(file); // sua função atual
+        return result; // garante que sempre retorna UploadResult
+      } catch (err) {
+        if (attempt < retries) {
+          console.warn(`Upload falhou, tentando novamente (${attempt + 1})...`);
+          await new Promise((res) => setTimeout(res, delay));
+        } else {
+          throw err; // todas as tentativas falharam
+        }
+      }
+    }
+    throw new Error("Falha inesperada no upload"); // só pra TS não reclamar
+  }
+
   async function handleSubmit() {
     if (!isFormValid) return;
+    setIsLoading(true);
 
     const uploadedImages = [];
     if (image && image.length > 0) {
       for (const file of image) {
-        const { fileId, url } = await uploadImage(file);
+        const { fileId, url } = await uploadWithRetry(file);
         uploadedImages.push({ file_id: fileId, url });
       }
     }
@@ -117,6 +145,7 @@ export default function CreateForm(props: CreateFormProps) {
       is_recurring: false,
       billing_cycle: undefined,
       images: uploadedImages,
+      plan_type: selectedPlan,
     };
 
     try {
@@ -127,9 +156,13 @@ export default function CreateForm(props: CreateFormProps) {
       });
 
       const data = await res.json();
+      router.push(data.checkout_url);
+
       console.log("✅ Site criado:", data);
     } catch (err) {
       console.error("❌ Erro ao criar site:", err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -262,7 +295,11 @@ export default function CreateForm(props: CreateFormProps) {
       </div>
 
       <div className="w-full">
-        <BuyButton disabled={!isFormValid} onClick={handleSubmit} />
+        <BuyButton
+          disabled={!isFormValid}
+          isLoading={isLoading}
+          onClick={handleSubmit}
+        />
         {!isFormValid && (
           <p className="text-purple-400 text-sm mt-2 text-center opacity-80">
             Preencha todos os campos corretamente

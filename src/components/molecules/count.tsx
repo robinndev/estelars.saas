@@ -17,8 +17,6 @@ export const Count = ({ startDate, color }: ICount) => {
     seconds: 0,
   });
 
-  console.log(startDate);
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (!startDate || isNaN(startDate.getTime())) return;
