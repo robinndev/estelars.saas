@@ -11,8 +11,8 @@ import { DarkTimePicker } from "../atoms/time-picker";
 import { BuyButton } from "../atoms/buy-button";
 import { PLAN_PRICES } from "@/src/@types/plans";
 import { validatedSchema } from "@/src/schemas/create";
-import { uploadImage } from "@/lib/supabase/storage";
 import { useRouter } from "next/navigation";
+import { uploadImage } from "@/utils/supabase/upload-image";
 
 type UploadResult = { fileId: string; url: string };
 

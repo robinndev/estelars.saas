@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { supabaseServer } from "@/lib/supabase/storage"; // seu client do supabase
+import { deleteImages } from "@/utils/supabase/delete-images";
 
 export const sitesService = {
   async createDraft({
@@ -67,9 +67,11 @@ export const sitesService = {
       // 2️⃣ Se houver imagens, remove do storage
       if (uploadedFileIds.length > 0) {
         try {
-          await supabaseServer.storage
-            .from("images")
-            .remove(uploadedFileIds.map((id) => `images/${id}`));
+          console.log(
+            "Fazendo rollback, apagando imagens do storage...",
+            uploadedFileIds
+          );
+          await deleteImages(uploadedFileIds);
         } catch (storageError) {
           console.error("Erro ao apagar imagens do storage:", storageError);
         }
@@ -89,6 +91,9 @@ export const sitesService = {
   },
 
   async updatePaymentState(siteId: string, state: "paid" | "canceled") {
+    const site = await this.getById(siteId);
+    if (!site) return null;
+
     return prisma.site.update({
       where: { id: siteId },
       data: { payment_state: state },
@@ -100,20 +105,20 @@ export const sitesService = {
     const site = await this.getById(siteId);
 
     if (!site) return null;
+    if (site.payment_state === "paid") {
+      throw new Error("Não é possível apagar um site pago.");
+    }
 
     // 2️⃣ Monta os caminhos dos arquivos no storage
     const filesToDelete = site.photos.map((photo) => `images/${photo.file_id}`);
 
     // 3️⃣ Apaga as imagens no storage
     if (filesToDelete.length > 0) {
-      const { error: storageError } = await supabaseServer.storage
-        .from("images")
-        .remove(filesToDelete);
-
-      if (storageError) {
-        console.error("Erro ao apagar imagens do Supabase:", storageError);
+      try {
+        await deleteImages(filesToDelete);
+      } catch (error) {
+        console.error("Erro ao apagar imagens do Supabase:", error);
         // ❗️ Não retorna aqui
-        // Se der erro no storage, ainda apagamos o site no banco
       }
     }
 

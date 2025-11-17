@@ -29,7 +29,7 @@ export const stripeService = {
         },
       ],
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success/${siteId}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/cancel`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/cancel/${siteId}`,
       metadata: { siteId },
     });
   },

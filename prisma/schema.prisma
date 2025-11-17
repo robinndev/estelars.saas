@@ -55,6 +55,6 @@ model Photo {
   id      String @id @default(cuid())
   url     String
   file_id String
-  site    Site   @relation(fields: [site_id], references: [id])
+  site    Site   @relation(fields: [site_id], references: [id], onDelete: Cascade)
   site_id String
 }
