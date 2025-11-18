@@ -159,7 +159,6 @@ export const Timeline = ({ startDate, color, setStage }: TimelineProps) => {
       const next = prevIndex + 1;
       if (stories[next]?.confetti) {
         confettiRef.current?.fire({
-          count: 150,
           origin: { y: 0.7 },
           colors: [color, "#FAD02E", "#FFFFFF", "#FF5C9D"],
         });

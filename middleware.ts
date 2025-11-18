@@ -2,7 +2,7 @@
 
 import { updateSupabaseSession } from "./lib/supabase/middleware";
 
-export function middleware(req) {
+export function middleware(req: any) {
   return updateSupabaseSession(req);
 }
 
