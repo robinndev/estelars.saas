@@ -5,6 +5,7 @@ import { couples } from "@/src/mocks/couples";
 import { FaInstagram, FaReddit, FaTiktok } from "react-icons/fa";
 import { CoupleCard } from "../couple-card";
 import { useRouter } from "next/navigation";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export const Hero = ({ setBgImage }: { setBgImage: (img: string) => void }) => {
   const [hoveredCouple, setHoveredCouple] = useState<any>(null);
@@ -13,6 +14,7 @@ export const Hero = ({ setBgImage }: { setBgImage: (img: string) => void }) => {
 
   const handleNavigate = () => {
     router.push("/create");
+    sendGAEvent("event", "buttonClicked", { value: "create" });
   };
 
   return (
