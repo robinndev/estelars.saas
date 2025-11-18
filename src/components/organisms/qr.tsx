@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export const QrSection = () => {
+  const router = useRouter();
+
   return (
     <section className="relative w-full py-28 bg-white overflow-hidden">
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-pink-100/30 blur-2xl rounded-full"></div>
@@ -44,8 +47,9 @@ export const QrSection = () => {
             sério! 💝
           </p>
           <Button
+            onClick={() => router.push("/create")}
             size="lg"
-            className="bg-rose-600 hover:bg-rose-700 text-white text-lg px-8 py-6 rounded-full font-semibold shadow-lg hover:shadow-rose-200 transition-all"
+            className="bg-rose-600 cursor-pointer hover:bg-rose-700 text-white text-lg px-8 py-6 rounded-full font-semibold shadow-lg hover:shadow-rose-200 transition-all"
           >
             Supreender meu amor
           </Button>

@@ -69,8 +69,8 @@ export const Footer = () => {
           <h4 className="text-lg font-semibold text-gray-900 mb-4">Navegar</h4>
           <ul className="space-y-2">
             {[
-              { name: "Blog", href: "#" },
-              { name: "Checklist para casais", href: "#" },
+              { name: "Blog", href: "/blog" },
+              { name: "Checklist para casais", href: "/checklist" },
               { name: "Calculadora de Namoro", href: "#" },
             ].map((item, i) => (
               <li key={i}>

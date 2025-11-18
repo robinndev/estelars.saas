@@ -1,5 +1,6 @@
 "use client";
 
+import { BlogCallout } from "@/src/components/organisms/blog";
 import { Faq } from "@/src/components/organisms/faq";
 import { Footer } from "@/src/components/organisms/footer";
 import { Hero } from "@/src/components/organisms/hero";
@@ -27,6 +28,7 @@ export default function Home() {
         <HowToMake />
         <Price />
         <Faq />
+        <BlogCallout />
         <QrSection />
         <Footer />
       </main>

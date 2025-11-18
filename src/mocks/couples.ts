@@ -34,9 +34,8 @@ export const couples: ICouple[] = [
   },
   {
     title: "Pablo & Marina",
-    image:
-      "https://i.pinimg.com/originals/21/08/41/2108414f70cd864e86465f4886e02c55.jpg",
-    bg: "https://i.pinimg.com/originals/21/08/41/2108414f70cd864e86465f4886e02c55.jpg",
+    image: "/pablo-marina.png",
+    bg: "/pablo-marina.png",
     music: "BL51vmOrQhA",
   },
   {
