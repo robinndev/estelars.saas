@@ -29,6 +29,7 @@ enum Plan {
 model Site {
   id            String        @id @default(cuid())
   couple_name   String
+  slug          String?       @unique
   start_date    DateTime
   start_hour    String
   message       String

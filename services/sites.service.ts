@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { generateSlug } from "@/utils/generate-slug";
 import { deleteImages } from "@/utils/supabase/delete-images";
 
 export const sitesService = {
@@ -32,6 +33,8 @@ export const sitesService = {
     const uploadedFileIds: string[] = [];
 
     try {
+      const slug = generateSlug(couple_name);
+
       // 1️⃣ Cria o site no banco
       const site = await prisma.site.create({
         data: {
@@ -41,6 +44,7 @@ export const sitesService = {
           message,
           color,
           music,
+          slug,
           plan,
           plan_price,
           email_address,
