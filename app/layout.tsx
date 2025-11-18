@@ -1,4 +1,5 @@
 import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata = {
   title: "Estelars",
@@ -11,6 +12,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="antialiased bg-black text-white">{children}</body>
+      <GoogleAnalytics gaId="G-FW66KYRCHY" />
     </html>
   );
 }
