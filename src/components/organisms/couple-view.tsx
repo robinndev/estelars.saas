@@ -60,17 +60,33 @@ export const CoupleView = ({
   const [resolvedSrcs, setResolvedSrcs] = useState<string[] | null>(null);
 
   useEffect(() => {
-    if (!image || image.length === 0) return setResolvedSrcs(null);
+    if (!image || image.length === 0) {
+      setResolvedSrcs(null);
+      return;
+    }
 
     const created: string[] = [];
+
     const final = image.map((img) => {
       if (typeof img === "string") return img;
-      const url = URL.createObjectURL(img);
-      created.push(url);
-      return url;
+
+      // Caso seja File, gera URL
+      if (img instanceof File || img instanceof Blob) {
+        const url = URL.createObjectURL(img);
+        created.push(url);
+        return url;
+      }
+
+      // Caso venha no formato { url: string }
+      if (typeof (img as any).url === "string") {
+        return (img as any).url;
+      }
+
+      console.error("Imagem inválida recebida:", img);
+      return "";
     });
 
-    setResolvedSrcs(final);
+    setResolvedSrcs(final.filter(Boolean));
 
     return () => {
       created.forEach((u) => URL.revokeObjectURL(u));

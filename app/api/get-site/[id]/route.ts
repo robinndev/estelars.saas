@@ -6,6 +6,8 @@ export async function GET(req: Request, context: any) {
     const params = await context.params;
     const { id } = params;
 
+    console.log("ID recebido na rota:", id);
+
     if (!id) {
       return NextResponse.json(
         { error: "ID do site é obrigatório" },

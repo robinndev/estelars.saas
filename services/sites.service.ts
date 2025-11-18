@@ -88,8 +88,19 @@ export const sitesService = {
   },
 
   async getById(siteId: string) {
-    return prisma.site.findUnique({
+    if (!siteId) return null;
+
+    const byId = await prisma.site.findUnique({
       where: { id: siteId },
+      include: { photos: true },
+    });
+
+    if (byId) return byId;
+
+    console.log("Buscando site pelo slug:", siteId);
+
+    return prisma.site.findUnique({
+      where: { slug: siteId },
       include: { photos: true },
     });
   },
