@@ -71,7 +71,6 @@ export const Footer = () => {
             {[
               { name: "Blog", href: "/blog" },
               { name: "Checklist para casais", href: "/checklist" },
-              { name: "Calculadora de Namoro", href: "#" },
             ].map((item, i) => (
               <li key={i}>
                 <Link

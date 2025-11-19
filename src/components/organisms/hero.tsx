@@ -41,8 +41,11 @@ export const Hero = ({ setBgImage }: { setBgImage: (img: string) => void }) => {
               >
                 ▶ Quero criar minha história
               </button>
-              <button className="bg-white/20 hover:bg-white/30 text-white px-6 md:px-8 py-3 rounded-md font-semibold transition-all">
-                Mais informações
+              <button
+                onClick={() => router.push("/blog")}
+                className="bg-white/20 hover:bg-white/30 text-white px-6 md:px-8 py-3 rounded-md font-semibold transition-all"
+              >
+                Conheça nosso blog
               </button>
             </div>
           </div>

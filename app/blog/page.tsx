@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ChevronRight, Heart, Send } from "lucide-react"; // Adicionei o ícone Send
+import { ChevronRight, Heart, Send } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; // Importa o useRouter
+import { useRouter } from "next/navigation";
+import type { Variants } from "framer-motion";
 
 // --- MOCK DE DADOS DO BLOG ---
 const featuredPost = {
@@ -14,8 +15,8 @@ const featuredPost = {
     "Descubra 5 estratégias essenciais para reacender a chama, aprimorar a comunicação e construir uma parceria duradoura e mais feliz. Uma leitura obrigatória para todos os casais que buscam um amor tipo cinema.",
   category: "Destaque da Semana",
   readTime: "7 min de leitura",
-  image: "/images/couple-holding-hands.jpg", // Substitua pelo seu caminho de imagem real
-  gradient: "from-pink-600 to-rose-400",
+  image: "/images/couple-holding-hands.jpg",
+  linear: "from-pink-600 to-rose-400",
   author: "Júlia e Rafael",
   date: "18 de Novembro, 2025",
 };
@@ -40,20 +41,18 @@ const latestPosts = [
     date: "28 de Outubro, 2025",
   },
 ];
-// --- FIM MOCK DE DADOS ---
 
-// Função auxiliar para criar slug a partir do título
-const createSlug = (title) => {
-  return title
+// Função auxiliar para criar slug
+const createSlug = (title: string) =>
+  title
     .toLowerCase()
-    .replace(/ /g, "-") // Substitui espaços por hífens
-    .replace(/[^\w-]+/g, "") // Remove caracteres especiais
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "")
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, ""); // Remove acentos
-};
+    .replace(/[\u0300-\u036f]/g, "");
 
-// Variantes de animação (mantidas)
-const headerVariants = {
+// 🔥 VARIANTS — AGORA TIPADOS CORRETAMENTE
+const headerVariants: Variants = {
   hidden: { opacity: 0, x: -50 },
   visible: {
     opacity: 1,
@@ -62,7 +61,7 @@ const headerVariants = {
   },
 };
 
-const sidebarVariants = {
+const sidebarVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
   visible: {
     opacity: 1,
@@ -72,24 +71,20 @@ const sidebarVariants = {
 };
 
 export default function BlogPage() {
-  const router = useRouter(); // Inicializa o hook do Next.js
+  const router = useRouter();
 
-  // URL amigável do post principal
   const featuredSlug = createSlug(featuredPost.title);
   const featuredUrl = `/blog/${featuredSlug}`;
 
-  // Função que usa router.push
   const handleFeaturedPostClick = () => {
     router.push(`/blog/${featuredPost.id}`);
   };
 
   return (
     <section className="relative w-full min-h-screen py-16 bg-white overflow-hidden">
-      {/* Gradiente Rosa Suave no Fundo (como detalhe) */}
-      <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-r from-rose-50/70 via-white to-white blur-3xl opacity-50"></div>
+      <div className="absolute top-0 left-0 w-full h-96 bg-linear-to-r from-rose-50/70 via-white to-white blur-3xl opacity-50"></div>
 
       <div className="container mx-auto px-6 lg:px-20 relative z-10">
-        {/* Título Principal com Motion */}
         <motion.header
           variants={headerVariants}
           initial="hidden"
@@ -105,9 +100,7 @@ export default function BlogPage() {
           </h1>
         </motion.header>
 
-        {/* Layout Principal: 2/3 Conteúdo + 1/3 Sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Coluna Principal: Post de Destaque */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -116,11 +109,10 @@ export default function BlogPage() {
           >
             <motion.div
               className="mb-10 cursor-pointer"
-              whileHover={{ y: -5, scale: 1.01 }} // Animação de elevação
+              whileHover={{ y: -5, scale: 1.01 }}
               transition={{ type: "spring", stiffness: 150 }}
-              onClick={handleFeaturedPostClick} // Usa o router.push aqui
+              onClick={handleFeaturedPostClick}
             >
-              {/* Imagem de Destaque */}
               <div className="relative w-full h-96 mb-6 overflow-hidden rounded-3xl shadow-xl group">
                 <Image
                   src={"/logo.png"}
@@ -128,21 +120,19 @@ export default function BlogPage() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
-                {/* Overlay de Gradiente Suave na Imagem */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
 
-                {/* Info na Imagem */}
+                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
+
                 <div className="absolute bottom-0 left-0 p-8 text-white">
                   <span className="text-xs font-bold uppercase tracking-widest bg-pink-500 py-1 px-3 rounded-full mb-2 inline-block">
                     {featuredPost.category}
                   </span>
-                  <h2 className="text-4xl font-extrabold tracking-tight leading-tight">
+                  <h2 className="text-4xl font-extrabold leading-tight">
                     {featuredPost.title}
                   </h2>
                 </div>
               </div>
 
-              {/* Texto e Meta Info */}
               <p className="text-gray-600 text-lg mb-4 max-w-2xl leading-relaxed">
                 {featuredPost.summary}
               </p>
@@ -153,21 +143,19 @@ export default function BlogPage() {
                 </span>{" "}
                 •<span className="mx-2">{featuredPost.date}</span> •
                 <span className="ml-1">{featuredPost.readTime}</span>
-                {/* O Link aqui é redundante, mas mantive o estilo visual de CTA */}
                 <span className="flex items-center text-pink-500 font-semibold ml-4 hover:text-pink-700 transition-colors">
                   Leia Agora
-                  <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                  <ChevronRight className="w-4 h-4 ml-1" />
                 </span>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Coluna Lateral: Mais Lidos */}
           <motion.aside
             variants={sidebarVariants}
             initial="hidden"
             animate="visible"
-            className="lg:col-span-1  border-gray-100 lg:pl-8"
+            className="lg:col-span-1 lg:pl-8"
           >
             <h3 className="text-2xl font-bold mb-6 text-gray-900">
               Mais Lidos
@@ -178,12 +166,9 @@ export default function BlogPage() {
                 key={post.id}
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.3 }}
-                className=" border-gray-100 py-4 group"
+                className="py-4 group"
               >
-                <Link
-                  href={`/blog/${createSlug(post.title)}`}
-                  className="block"
-                >
+                <Link href={`/blog/${createSlug(post.title)}`}>
                   <h4 className="text-lg font-semibold mb-1 text-gray-800 group-hover:text-pink-500 transition-colors">
                     {post.title}
                   </h4>
@@ -194,8 +179,7 @@ export default function BlogPage() {
               </motion.div>
             ))}
 
-            {/* CTA de Newsletter (Mais bonito) */}
-            <div className="mt-10 p-6 bg-white border border-pink-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="mt-10 p-6 bg-white border border-pink-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
               <div className="flex items-center text-pink-500 mb-3">
                 <Send className="w-6 h-6 mr-3" />
                 <h4 className="font-extrabold text-xl text-pink-500">
@@ -205,13 +189,13 @@ export default function BlogPage() {
 
               <p className="text-gray-600 mb-4 text-sm">
                 Inscreva-se na nossa newsletter semanal para receber o melhor
-                conteúdo e manter a chama acesa.
+                conteúdo.
               </p>
 
               <form>
                 <input
                   type="email"
-                  placeholder="Seu melhor e-mail romântico..."
+                  placeholder="Seu melhor e-mail..."
                   className="w-full p-3 mb-3 border border-pink-300 rounded-lg text-gray-800 focus:ring-pink-500 focus:border-pink-500 outline-none transition-all"
                   required
                 />

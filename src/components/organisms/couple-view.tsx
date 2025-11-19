@@ -70,17 +70,14 @@ export const CoupleView = ({
     const final = image.map((img) => {
       if (typeof img === "string") return img;
 
-      // Caso seja File, gera URL
-      if (img instanceof File || img instanceof Blob) {
-        const url = URL.createObjectURL(img);
-        created.push(url);
-        return url;
+      // Caso seja File
+      if (img instanceof File) {
+        return URL.createObjectURL(img);
       }
 
       // Caso venha no formato { url: string }
-      if (typeof (img as any).url === "string") {
-        return (img as any).url;
-      }
+      const maybePhoto = img as { url?: string };
+      if (maybePhoto.url) return maybePhoto.url;
 
       console.error("Imagem inválida recebida:", img);
       return "";

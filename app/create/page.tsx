@@ -5,7 +5,11 @@ import CreateForm from "@/src/components/organisms/create-form";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-export default function CreatePage() {
+interface Props {
+  params: { id?: string };
+}
+
+export default function CreatePage({ params }: Props) {
   const [selectedColor, setSelectedColor] = useState("black");
   const [selectedPlan, setSelectedPlan] = useState<"normal" | "premium">(
     "normal"
@@ -29,6 +33,8 @@ export default function CreatePage() {
   const handleImage = (files: File[]) => {
     setImage(files);
   };
+
+  console.log(params.id);
 
   return (
     <motion.div

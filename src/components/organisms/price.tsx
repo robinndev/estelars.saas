@@ -35,10 +35,7 @@ export const Price = () => {
 
   return (
     <section className="relative w-full py-28 bg-white overflow-hidden">
-      {/* Iluminação suave */}
-
       <div className="container mx-auto px-6 lg:px-20 relative z-10">
-        {/* Título */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -58,7 +55,6 @@ export const Price = () => {
           delicadeza.
         </motion.p>
 
-        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
           {plans.map((plan, i) => (
             <motion.div
@@ -74,7 +70,6 @@ export const Price = () => {
               }`}
             >
               <div className="p-10 text-left">
-                {/* Nome */}
                 <h3
                   className={`font-semibold text-2xl mb-3 tracking-tight ${
                     plan.highlight ? "text-gray-900" : "text-gray-800"
@@ -83,7 +78,6 @@ export const Price = () => {
                   {plan.name}
                 </h3>
 
-                {/* Preço */}
                 <div className="mb-6">
                   <span className="text-4xl font-extrabold text-gray-900">
                     {plan.price}
@@ -93,7 +87,6 @@ export const Price = () => {
                   </span>
                 </div>
 
-                {/* Benefícios */}
                 <ul className="space-y-3 mb-10">
                   {plan.features.map((feature, index) => (
                     <motion.li
@@ -108,24 +101,18 @@ export const Price = () => {
                   ))}
                 </ul>
 
-                {/* Botão */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
-                  className={`w-full py-4 rounded-2xl font-medium text-lg transition-all duration-300 ${
+                  className={`w-full cursor-pointer py-4 rounded-2xl font-medium text-lg transition-all duration-300 ${
                     plan.highlight
-                      ? "bg-gradient-to-r from-rose-500 to-pink-400 text-white hover:shadow-lg hover:from-rose-400 hover:to-pink-300"
+                      ? "bg-linear-to-r cursor-pointer from-rose-500 to-pink-400 text-white hover:shadow-lg hover:from-rose-400 hover:to-pink-300"
                       : "bg-gray-100 text-gray-800 hover:bg-gray-200"
                   }`}
                 >
                   {plan.highlight ? "Escolher Premium 💕" : "Escolher Básico"}
                 </motion.button>
               </div>
-
-              {/* Glow suave no Premium */}
-              {plan.highlight && (
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-t from-rose-300/30 via-transparent to-transparent blur-3xl transition-all duration-700"></div>
-              )}
             </motion.div>
           ))}
         </div>

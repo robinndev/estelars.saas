@@ -30,7 +30,7 @@ export function PlanSelector({
       icon: Crown,
       colorTop: "from-purple-700/60 to-purple-900/0",
       iconBg:
-        "bg-gradient-to-br from-purple-700 via-purple-600 to-fuchsia-600 text-white",
+        "bg-linear-to-br from-purple-700 via-purple-600 to-fuchsia-600 text-white",
     },
   ];
 
@@ -62,13 +62,12 @@ export function PlanSelector({
               `}
               onClick={() => setSelectedPlan(p.id as "normal" | "premium")}
             >
-              {/* Glow animado do selecionado */}
               {active && (
                 <motion.div
                   layoutId="planGlow2"
                   className="
                     absolute inset-0 rounded-3xl opacity-[0.24] blur-3xl 
-                    bg-gradient-to-br
+                    bg-linear-to-br
                     from-purple-700 via-purple-500 to-fuchsia-500
                   "
                   transition={{
@@ -79,17 +78,14 @@ export function PlanSelector({
                 />
               )}
 
-              {/* Faixa de destaque topo */}
               <div
                 className={`
                   absolute top-0 left-0 w-full h-24 
-                  bg-gradient-to-b ${p.colorTop} rounded-t-3xl opacity-60
+                  bg-linear-to-b ${p.colorTop} rounded-t-3xl opacity-60
                 `}
               />
 
-              {/* Conteúdo */}
               <div className="relative flex flex-col gap-4">
-                {/* Ícone */}
                 <div
                   className={`
                     w-14 h-14 rounded-2xl flex items-center justify-center

@@ -9,17 +9,19 @@ import {
   Eye,
   MessageSquare,
   Clock,
-} from "lucide-react"; // Novos ícones: MessageSquare e Clock
+  LucideIcon,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 
-// Animação de entrada da página
-const pageVariants = {
+import { Variants } from "framer-motion";
+
+const pageVariants: Variants = {
   hidden: { opacity: 0, scale: 0.98 },
   visible: {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 1.0,
+      duration: 1,
       ease: "easeOut",
       when: "beforeChildren",
       staggerChildren: 0.2,
@@ -27,7 +29,7 @@ const pageVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
@@ -36,8 +38,21 @@ const itemVariants = {
   },
 };
 
-// Componente para um Subtópico Detalhado (Reutilizável)
-const DetailedTopic = ({ icon: Icon, title, content, quote, color }) => (
+interface DetailedTopicProps {
+  icon: LucideIcon;
+  title: string;
+  content: string;
+  quote: string;
+  color: string;
+}
+
+const DetailedTopic = ({
+  icon: Icon,
+  title,
+  content,
+  quote,
+  color,
+}: DetailedTopicProps) => (
   <motion.div variants={itemVariants} className="mb-12">
     <h3
       className={`text-3xl md:text-4xl font-extrabold mb-4 flex items-center text-gray-900 border-b border-${color}-100 pb-2`}
@@ -67,17 +82,14 @@ export default function RelationshipDeepDive() {
       <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-pink-50/50 to-white opacity-80 blur-3xl"></div>
 
       <div className="container mx-auto px-6 lg:px-20 relative z-10 max-w-5xl">
-        {/* --- HERO SECTION: Título Estilo Netflix Impactante --- */}
+        {/* --- HERO SECTION --- */}
         <motion.header
           variants={itemVariants}
           className="text-center mb-24 border-b border-pink-100 pb-12"
         >
-          {/* Subtítulo de Contexto */}
           <p className="text-xl font-medium uppercase tracking-widest text-pink-500 mb-4">
             A Teoria da Conexão Infinita
           </p>
-
-          {/* Título Principal Foda e com Gradiente */}
           <h1 className="text-7xl md:text-9xl font-black tracking-tighter mb-4 leading-none">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-600 via-red-500 to-purple-600">
               O EL O.
@@ -116,7 +128,6 @@ export default function RelationshipDeepDive() {
             A Arquitetura da Permanência
           </h2>
 
-          {/* Subtópico 1: Comunicação (Novo) */}
           <DetailedTopic
             icon={MessageSquare}
             title="A Verdade da Comunicação (O Risco Máximo)"
@@ -125,7 +136,6 @@ export default function RelationshipDeepDive() {
             color="blue"
           />
 
-          {/* Subtópico 2: Vulnerabilidade (Antigo - Detalhado) */}
           <DetailedTopic
             icon={Heart}
             title="A Vulnerabilidade Radical (A Entrega Total)"
@@ -134,7 +144,6 @@ export default function RelationshipDeepDive() {
             color="pink"
           />
 
-          {/* Subtópico 3: Propósito (Antigo - Detalhado) */}
           <DetailedTopic
             icon={Sparkles}
             title="O Propósito e a Individualidade (A Dualidade Fértil)"
@@ -143,7 +152,6 @@ export default function RelationshipDeepDive() {
             color="purple"
           />
 
-          {/* Subtópico 4: Rotina (Novo) */}
           <DetailedTopic
             icon={Clock}
             title="O Combate à Rotina (A Morte Lenta)"
@@ -152,7 +160,6 @@ export default function RelationshipDeepDive() {
             color="orange"
           />
 
-          {/* Subtópico 5: Tempo/Investimento (Antigo - Detalhado) */}
           <DetailedTopic
             icon={Infinity}
             title="O Legado do Investimento (A Linguagem Silenciosa)"
@@ -162,7 +169,7 @@ export default function RelationshipDeepDive() {
           />
         </div>
 
-        {/* --- Conclusão: Bloco de Ação Foda --- */}
+        {/* --- Conclusão: Bloco de Ação --- */}
         <motion.div
           variants={itemVariants}
           className="p-12 text-center bg-gray-900 rounded-[2rem] shadow-3xl border-4 border-pink-500/50"
