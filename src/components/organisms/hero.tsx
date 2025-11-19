@@ -7,7 +7,11 @@ import { CoupleCard } from "../couple-card";
 import { useRouter } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
 
-export const Hero = ({ setBgImage }: { setBgImage: (img: string) => void }) => {
+export const Hero = ({
+  setBgImage,
+}: {
+  setBgImage?: (img: string) => void;
+}) => {
   const [hoveredCouple, setHoveredCouple] = useState<any>(null);
 
   const router = useRouter();
@@ -62,7 +66,7 @@ export const Hero = ({ setBgImage }: { setBgImage: (img: string) => void }) => {
                 title={couple.title}
                 image={couple.image}
                 bg={couple.bg}
-                setBgImage={setBgImage}
+                setBgImage={setBgImage || (() => {})}
                 onMouseEnter={() => setHoveredCouple(couple)}
                 onMouseLeave={() => setHoveredCouple(null)}
               />
