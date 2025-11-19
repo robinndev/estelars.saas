@@ -8,12 +8,7 @@ import { Timeline } from "@/src/components/organisms/timeline";
 import { CoupleView } from "@/src/components/organisms/couple-view";
 import { ISiteData } from "@/src/@types/site";
 import NotFound from "@/src/components/organisms/not-found";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Estelars - Presente do casal",
-  description: "Página de presente do casal",
-};
+import { Metadata } from "next";
 
 export default function CoupleProfile() {
   const [coupleData, setCoupleData] = useState<ISiteData | null>(null);
