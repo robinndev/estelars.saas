@@ -3,7 +3,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata = {
   title: "Estelars",
-  description: "Amor em forma de código 💫",
+  description: "Sentimento estelar 💫",
 };
 
 export default function RootLayout({
