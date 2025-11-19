@@ -1,6 +1,6 @@
 // lib/prisma.ts
 
-import { PrismaClient } from "@/src/generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 declare global {
   // Evita criar múltiplas instâncias em desenvolvimento (Hot Reload)
