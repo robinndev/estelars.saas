@@ -50,7 +50,7 @@ export const Footer = () => {
                 <Github className="w-5 h-5" />
               </Link>
               <Link
-                href="https://instagram.com"
+                href="https://www.instagram.com/robinltss"
                 target="_blank"
                 className="text-gray-600 hover:text-rose-600 transition-colors"
               >
@@ -94,7 +94,7 @@ export const Footer = () => {
           <ul className="space-y-1">
             <li>
               <Link
-                href="#"
+                href="/therms"
                 className="text-gray-600 hover:text-rose-600 transition-colors"
               >
                 Termos de uso
@@ -102,7 +102,7 @@ export const Footer = () => {
             </li>
             <li>
               <Link
-                href="#"
+                href="/policy"
                 className="text-gray-600 hover:text-rose-600 transition-colors"
               >
                 Política de privacidade
