@@ -1,37 +1,16 @@
 "use client";
 
+import { plans } from "@/src/mocks/plans";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export const Price = () => {
-  const plans = [
-    {
-      id: 1,
-      name: "Básico",
-      price: "R$19",
-      period: "/ano",
-      features: [
-        "3 fotos",
-        "1 ano de acesso",
-        "Sem música",
-        "Contador de relacionamento",
-      ],
-      highlight: false,
-    },
-    {
-      id: 2,
-      name: "Premium",
-      price: "R$29",
-      period: "/ano",
-      features: [
-        "8 fotos",
-        "Acesso ilimitado",
-        "Com música",
-        "Contador de relacionamento",
-        "Efeitos ao abrir o site",
-      ],
-      highlight: true,
-    },
-  ];
+  const router = useRouter();
+
+  const handleNavigateWithPlanSelected = (params: string) => {
+    localStorage.setItem("plan_redirect", params);
+    router.push("/create");
+  };
 
   return (
     <section className="relative w-full py-28 bg-white overflow-hidden">
@@ -65,7 +44,7 @@ export const Price = () => {
               whileHover={{ scale: 1.04, y: -5 }}
               className={`relative rounded-3xl overflow-hidden transition-all duration-500 group border backdrop-blur-md ${
                 plan.highlight
-                  ? "border-transparent bg-gradient-to-b from-rose-100 via-white to-white shadow-[0_10px_40px_rgba(244,114,182,0.2)]"
+                  ? "border-transparent bg-linear-to-b from-rose-100 via-white to-white shadow-[0_10px_40px_rgba(244,114,182,0.2)]"
                   : "border-gray-200 bg-white shadow-[0_5px_25px_rgba(0,0,0,0.05)]"
               }`}
             >
@@ -104,6 +83,11 @@ export const Price = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
+                  onClick={() =>
+                    handleNavigateWithPlanSelected(
+                      plan.highlight ? "premium" : "normal"
+                    )
+                  }
                   className={`w-full cursor-pointer py-4 rounded-2xl font-medium text-lg transition-all duration-300 ${
                     plan.highlight
                       ? "bg-linear-to-r cursor-pointer from-rose-500 to-pink-400 text-white hover:shadow-lg hover:from-rose-400 hover:to-pink-300"

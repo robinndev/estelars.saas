@@ -6,32 +6,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { faqs } from "@/src/mocks/faq";
 import { motion } from "framer-motion";
 
 export const Faq = () => {
-  const faqs = [
-    {
-      question: "Posso personalizar o site depois da compra?",
-      answer:
-        "Sim 💕! Após finalizar a compra, você pode editar fotos, textos e detalhes sempre que quiser dentro do período do seu plano.",
-    },
-    {
-      question: "Quanto tempo leva para eu receber meu site?",
-      answer:
-        "Assim que o pagamento é confirmado, seu site é gerado automaticamente e enviado por e-mail em poucos minutos ✨.",
-    },
-    {
-      question: "Meu site fica salvo mesmo depois de um ano?",
-      answer:
-        "Se o plano expirar, ele fica salvo por um tempo extra — você pode renovar facilmente para continuar acessando.",
-    },
-    {
-      question: "Posso adicionar música personalizada?",
-      answer:
-        "Sim! No plano Premium você pode escolher uma música ou enviar um link do Spotify para deixar seu site ainda mais especial 🎶.",
-    },
-  ];
-
   return (
     <section className="relative w-full py-28 bg-gradient-to-b from-white via-rose-50 to-white overflow-hidden">
       {/* Background suave */}
@@ -63,9 +41,9 @@ export const Faq = () => {
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="border border-rose-100 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all"
+                className="border  border-rose-100 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all"
               >
-                <AccordionTrigger className="text-left text-gray-800 font-medium text-lg px-6 py-4 hover:text-rose-600">
+                <AccordionTrigger className="text-left cursor-pointer text-gray-800 font-medium text-lg px-6 py-4 hover:text-rose-600">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600 px-6 pb-5 leading-relaxed">

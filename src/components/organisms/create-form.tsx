@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ColorPicker } from "@/src/components/atoms/color-picker";
 import { Input } from "@/src/components/atoms/input";
 import { PlanSelector } from "@/src/components/atoms/plan-selector";
@@ -13,32 +13,9 @@ import { PLAN_PRICES } from "@/src/@types/plans";
 import { validatedSchema } from "@/src/schemas/create";
 import { useRouter } from "next/navigation";
 import { uploadImage } from "@/utils/supabase/upload-image";
+import type { CreateFormProps } from "@/src/@types/count-form";
 
 type UploadResult = { fileId: string; url: string };
-
-interface CreateFormProps {
-  themes: { id: string; label: string; bg: string; text: string }[];
-  selectedColor: string;
-  setSelectedColor: (color: string) => void;
-  coupleName: string;
-  setCoupleName: (name: string) => void;
-  userEmail: string;
-  setUserEmail: (email: string) => void;
-  message: string;
-  setMessage: (message: string) => void;
-  color: string;
-  setColor: (color: string) => void;
-  startDate: string;
-  setStartDate: (date: string) => void;
-  startHour: string;
-  setStartHour: (hour: string) => void;
-  handleImage: (files: File[]) => void;
-  musicLink: string;
-  setMusicLink: (link: string) => void;
-  selectedPlan: "normal" | "premium";
-  setSelectedPlan: (plan: "normal" | "premium") => void;
-  image: File[] | null;
-}
 
 export default function CreateForm(props: CreateFormProps) {
   const {
@@ -67,11 +44,23 @@ export default function CreateForm(props: CreateFormProps) {
 
   const router = useRouter();
 
+  useEffect(() => {
+    const planFromStorage = localStorage.getItem("plan_redirect");
+    const planosValidos = ["normal", "premium"];
+
+    if (planFromStorage && planosValidos.includes(planFromStorage)) {
+      setSelectedPlan(planFromStorage as "normal" | "premium");
+    } else if (!selectedPlan) {
+      setSelectedPlan("normal");
+    }
+
+    localStorage.removeItem("plan_redirect");
+  }, [setSelectedPlan, selectedPlan]);
+
   const handleTouch = (field: string) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
 
-  // Converter startDate string para Date se necessário
   const startDateObj = startDate ? new Date(startDate) : undefined;
 
   const rawData = {
