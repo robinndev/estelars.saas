@@ -1,19 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
+
 import { ColorPicker } from "@/src/components/atoms/color-picker";
 import { Input } from "@/src/components/atoms/input";
-import { PlanSelector } from "@/src/components/atoms/plan-selector";
 import { TextArea } from "@/src/components/atoms/text-area";
 import { FileDropzone } from "../atoms/file-dropzone";
 import { DarkDatePicker } from "../atoms/date-picker";
 import { DarkTimePicker } from "../atoms/time-picker";
+import { PlanSelector } from "@/src/components/atoms/plan-selector";
 import { BuyButton } from "../atoms/buy-button";
+
 import { PLAN_PRICES } from "@/src/@types/plans";
 import { validatedSchema } from "@/src/schemas/create";
-import { useRouter } from "next/navigation";
-import { uploadImage } from "@/utils/supabase/upload-image";
 import type { CreateFormProps } from "@/src/@types/count-form";
+import { uploadImage } from "@/utils/supabase/upload-image";
 
 type UploadResult = { fileId: string; url: string };
 
@@ -39,31 +41,31 @@ export default function CreateForm(props: CreateFormProps) {
     image,
   } = props;
 
-  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isLoading, setIsLoading] = useState(false);
-
   const router = useRouter();
 
+  // --- EFFECTS ---
   useEffect(() => {
-    const planFromStorage = localStorage.getItem("plan_redirect");
-    const planosValidos = ["normal", "premium"];
+    const storedPlan = localStorage.getItem("plan_redirect");
+    const validPlans = ["normal", "premium"] as const;
 
-    if (planFromStorage && planosValidos.includes(planFromStorage)) {
-      setSelectedPlan(planFromStorage as "normal" | "premium");
+    if (storedPlan && validPlans.includes(storedPlan as any)) {
+      setSelectedPlan(storedPlan as "normal" | "premium");
     } else if (!selectedPlan) {
       setSelectedPlan("normal");
     }
 
     localStorage.removeItem("plan_redirect");
-  }, [setSelectedPlan, selectedPlan]);
+  }, [selectedPlan, setSelectedPlan]);
 
-  const handleTouch = (field: string) => {
+  // --- HELPERS ---
+  const handleTouch = (field: string) =>
     setTouched((prev) => ({ ...prev, [field]: true }));
-  };
 
   const startDateObj = startDate ? new Date(startDate) : undefined;
 
-  const rawData = {
+  const formData = {
     coupleName,
     userEmail,
     message,
@@ -75,18 +77,17 @@ export default function CreateForm(props: CreateFormProps) {
     image,
   };
 
-  const parsed = validatedSchema.safeParse(rawData);
+  const parsed = validatedSchema.safeParse(formData);
   const fieldErrors = parsed.success ? {} : parsed.error.flatten().fieldErrors;
 
-  // Validações extras
-  const additionalErrors: { [key: string]: string } = {};
+  const additionalErrors: Record<string, string> = {};
   if (touched.startHour && !startHour)
     additionalErrors.startHour = "Hora obrigatória";
   if (touched.image && (!image || image.length === 0))
     additionalErrors.image = "Selecione pelo menos uma foto";
 
   const isFormValid =
-    parsed.success && !!startHour && !!startDate && !!image && image.length > 0;
+    parsed.success && !!startHour && !!startDate && !!image?.length;
 
   async function uploadWithRetry(
     file: File,
@@ -95,49 +96,46 @@ export default function CreateForm(props: CreateFormProps) {
   ): Promise<UploadResult> {
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
-        const result = await uploadImage(file); // sua função atual
-        return result; // garante que sempre retorna UploadResult
+        return await uploadImage(file);
       } catch (err) {
         if (attempt < retries) {
-          console.warn(`Upload falhou, tentando novamente (${attempt + 1})...`);
+          console.warn(`Upload failed, retrying (${attempt + 1})...`);
           await new Promise((res) => setTimeout(res, delay));
-        } else {
-          throw err; // todas as tentativas falharam
-        }
+        } else throw err;
       }
     }
-    throw new Error("Falha inesperada no upload"); // só pra TS não reclamar
+    throw new Error("Unexpected upload failure");
   }
 
   async function handleSubmit() {
     if (!isFormValid) return;
     setIsLoading(true);
 
-    const uploadedImages = [];
-    if (image && image.length > 0) {
-      for (const file of image) {
-        const { fileId, url } = await uploadWithRetry(file);
-        uploadedImages.push({ file_id: fileId, url });
-      }
-    }
-
-    const payload = {
-      couple_name: coupleName,
-      start_date: startDateObj,
-      start_hour: startHour,
-      message,
-      color,
-      music: musicLink || undefined,
-      plan: selectedPlan,
-      plan_price: PLAN_PRICES[selectedPlan],
-      email_address: userEmail,
-      is_recurring: false,
-      billing_cycle: undefined,
-      images: uploadedImages,
-      plan_type: selectedPlan,
-    };
-
     try {
+      const uploadedImages =
+        image?.length > 0
+          ? await Promise.all(image.map((file) => uploadWithRetry(file)))
+          : [];
+
+      const payload = {
+        couple_name: coupleName,
+        start_date: startDateObj,
+        start_hour: startHour,
+        message,
+        color,
+        music: musicLink || undefined,
+        plan: selectedPlan,
+        plan_price: PLAN_PRICES[selectedPlan],
+        email_address: userEmail,
+        is_recurring: false,
+        billing_cycle: undefined,
+        images: uploadedImages.map(({ fileId, url }) => ({
+          file_id: fileId,
+          url,
+        })),
+        plan_type: selectedPlan,
+      };
+
       const res = await fetch("/api/create-site", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -146,7 +144,6 @@ export default function CreateForm(props: CreateFormProps) {
 
       const data = await res.json();
       router.push(data.checkout_url);
-
       console.log("✅ Site criado:", data);
     } catch (err) {
       console.error("❌ Erro ao criar site:", err);
@@ -155,18 +152,20 @@ export default function CreateForm(props: CreateFormProps) {
     }
   }
 
+  // --- RENDER ---
+  const renderError = (field: keyof typeof fieldErrors) =>
+    fieldErrors[field]?.[0] && touched[field] ? (
+      <p className="text-red-400 text-sm">{fieldErrors[field]![0]}</p>
+    ) : null;
+
+  const renderAdditionalError = (field: string) =>
+    touched[field] &&
+    additionalErrors[field] && (
+      <p className="text-red-400 text-sm">{additionalErrors[field]}</p>
+    );
+
   return (
     <div className="w-1/2 h-screen p-10 overflow-y-auto flex flex-col justify-between gap-14 bg-black/30 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_-10px_rgba(0,0,0,0.6)] rounded-3xl text-[#e7d8d8]">
-      {/* TEMA */}
-      {/* <div className="border-white/10">
-        <ThemeSelector
-          themes={themes}
-          selectedColor={selectedColor}
-          setSelectedColor={setSelectedColor}
-        />
-      </div> */}
-
-      {/* CAMPOS */}
       <div className="space-y-5">
         <Input
           label="Nome do casal"
@@ -175,9 +174,7 @@ export default function CreateForm(props: CreateFormProps) {
           onChange={(e) => setCoupleName(e.target.value)}
           onBlur={() => handleTouch("coupleName")}
         />
-        {touched.coupleName && fieldErrors.coupleName && (
-          <p className="text-red-400 text-sm">{fieldErrors.coupleName[0]}</p>
-        )}
+        {renderError("coupleName")}
 
         <Input
           label="Seu email"
@@ -187,9 +184,7 @@ export default function CreateForm(props: CreateFormProps) {
           placeholder="Para receber seu QR Code"
           onBlur={() => handleTouch("userEmail")}
         />
-        {touched.userEmail && fieldErrors.userEmail && (
-          <p className="text-red-400 text-sm">{fieldErrors.userEmail[0]}</p>
-        )}
+        {renderError("userEmail")}
 
         <TextArea
           label="Mensagem especial"
@@ -198,20 +193,18 @@ export default function CreateForm(props: CreateFormProps) {
           onChange={(e) => setMessage(e.target.value)}
           onBlur={() => handleTouch("message")}
         />
-        {touched.message && fieldErrors.message && (
-          <p className="text-red-400 text-sm">{fieldErrors.message[0]}</p>
-        )}
+        {renderError("message")}
 
         <div className="pt-3 relative z-[50]">
           <ColorPicker
             value={color}
-            onChange={(e: any) => setColor(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setColor(e.target.value)
+            }
             onBlur={() => handleTouch("color")}
           />
         </div>
-        {touched.color && fieldErrors.color && (
-          <p className="text-red-400 text-sm">{fieldErrors.color[0]}</p>
-        )}
+        {renderError("color")}
 
         <div className="grid grid-cols-2 gap-5">
           <div>
@@ -220,9 +213,7 @@ export default function CreateForm(props: CreateFormProps) {
               onChange={setStartDate}
               onBlur={() => handleTouch("startDate")}
             />
-            {touched.startDate && fieldErrors.startDate && (
-              <p className="text-red-400 text-sm">{fieldErrors.startDate[0]}</p>
-            )}
+            {renderError("startDate")}
           </div>
           <div>
             <DarkTimePicker
@@ -230,11 +221,7 @@ export default function CreateForm(props: CreateFormProps) {
               onChange={setStartHour}
               onBlur={() => handleTouch("startHour")}
             />
-            {touched.startHour && additionalErrors.startHour && (
-              <p className="text-red-400 text-sm">
-                {additionalErrors.startHour}
-              </p>
-            )}
+            {renderAdditionalError("startHour")}
           </div>
         </div>
 
@@ -245,9 +232,7 @@ export default function CreateForm(props: CreateFormProps) {
             handleTouch("image");
           }}
         />
-        {touched.image && additionalErrors.image && (
-          <p className="text-red-400 text-sm">{additionalErrors.image}</p>
-        )}
+        {renderAdditionalError("image")}
 
         <div className="space-y-1">
           <label className="block font-medium text-white/80">
@@ -270,9 +255,7 @@ export default function CreateForm(props: CreateFormProps) {
             }`}
             onBlur={() => handleTouch("musicLink")}
           />
-          {touched.musicLink && fieldErrors.musicLink && (
-            <p className="text-red-400 text-sm">{fieldErrors.musicLink[0]}</p>
-          )}
+          {renderError("musicLink")}
         </div>
       </div>
 

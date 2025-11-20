@@ -3,8 +3,11 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { steps } from "@/src/mocks/steps";
+import { useTranslations } from "next-intl";
 
 export default function HowToMake() {
+  const t = useTranslations("How");
+
   return (
     <section className="relative w-full min-h-screen py-28 overflow-hidden bg-white">
       <div className="container mx-auto px-6 lg:px-20 relative z-10">
@@ -14,7 +17,7 @@ export default function HowToMake() {
           transition={{ duration: 0.6 }}
           className="text-5xl md:text-6xl font-extrabold mb-4 text-center text-gray-900 tracking-tight"
         >
-          Como funciona?
+          {t("title")}
         </motion.h2>
 
         <motion.p
@@ -23,8 +26,7 @@ export default function HowToMake() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-gray-600 text-lg text-center mb-20 max-w-2xl mx-auto leading-relaxed"
         >
-          Crie algo digno de um filme — e transforme o amor de vocês em uma
-          história inesquecível.
+          {t("subtitle")}
         </motion.p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -50,10 +52,10 @@ export default function HowToMake() {
 
               <div className="p-8 text-center">
                 <h3 className="text-gray-900 font-semibold text-xl mb-3 tracking-tight">
-                  {step.id}. {step.title}
+                  {step.id}. {t(`step_${step.id}.title`)}
                 </h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
-                  {step.description}
+                  {t(`step_${step.id}.description`)}
                 </p>
               </div>
 

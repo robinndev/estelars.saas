@@ -1,0 +1,173 @@
+{
+  "Hero": {
+    "title": "Estelars",
+    "subtitle": "Create something worthy of a movie — and turn your love into an unforgettable story.",
+    "first_button": "▶ I want to create my story",
+    "second_button": "Visit our blog",
+    "featured_couples": "Featured Couples",
+    "more_couples": "More than",
+    "histories": "love stories created"
+  },
+  "How": {
+    "title": "How it works",
+    "subtitle": "Create something worthy of a movie — and turn your love into an unforgettable story.",
+    "step_1": {
+      "title": "Fill in the details",
+      "description": "Add the names, date, and your special message."
+    },
+    "step_2": {
+      "title": "Make the payment",
+      "description": "Complete your order quickly and securely."
+    },
+    "step_3": {
+      "title": "Receive your site",
+      "description": "Your personalized link will be sent directly to your email."
+    },
+    "step_4": {
+      "title": "Surprise your love",
+      "description": "Show the surprise in a unique and unforgettable way."
+    }
+  },
+  "Price": {
+    "title": "Plans & Pricing",
+    "subtitle": "Choose the perfect plan to eternalize your love story with beauty and care.",
+    "normal": {
+      "title": "Normal Plan",
+      "description": "Ideal for those who want a simple and elegant tribute.",
+      "price": "$7",
+      "features": {
+        "feature_1": "Personalized website",
+        "feature_2": "Elegant design",
+        "feature_3": "Email support"
+      },
+      "button": "Choose Normal Plan"
+    },
+    "premium": {
+      "title": "Premium Plan",
+      "description": "Perfect for those who want a complete and unforgettable experience.",
+      "price": "$9",
+      "features": {
+        "feature_1": "Everything in the Normal Plan",
+        "feature_2": "Personalized video",
+        "feature_3": "Priority support"
+      },
+      "button": "Choose Premium Plan"
+    }
+  },
+  "Faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Clear your doubts before creating the perfect gift.",
+    "items": [
+      {
+        "question": "What is Estelars?",
+        "answer": "Estelars is a platform that allows you to create personalized relationship pages for couples. You can add photos, a special message, and a timer showing how long you’ve been together. Perfect for surprise gifts. In the future, we aim to be the largest couples platform in the world — start with us now to receive exclusive benefits. ✨"
+      },
+      {
+        "question": "How long does it take to receive my site?",
+        "answer": "Right after the payment! Your site is displayed as soon as the payment is confirmed, and you'll be redirected to a page with the QR Code for instant access and download. ✨"
+      },
+      {
+        "question": "Will my site stay saved even after one year?",
+        "answer": "If you choose the Basic plan, it is valid for one year (or the contracted period). After it expires, your site remains saved for a while longer, and you can easily renew it. **Premium plans never expire.**"
+      },
+      {
+        "question": "Can I add custom music?",
+        "answer": "Yes! In the Premium plan, you can choose a song or send a YouTube link to make your site even more special 🎶."
+      }
+    ]
+  },
+  "BlogCallout": {
+    "title": "Stories That Inspire.",
+    "subtitle": "Let us be your guide. Turn your relationship into an unforgettable movie with our exclusive tips and story ideas.",
+    "button": "Visit the Cine Romance Blog"
+  },
+  "QR": {
+    "title": "Let's make a",
+    "phrase_emphasized": "surprise",
+    "finish_title": "gift for your love?",
+    "description": "It takes less than",
+    "description_emphasized": "5 minutes",
+    "description_continued": "to create something unforgettable.",
+    "really_fast": "Seriously!",
+    "button": "▶ I want to create my story"
+  },
+  "Footer": {
+    "description": "Surprise your loved one by creating a unique relationship time counter 💖",
+    "copyright": "Copyright © 2025 — All rights reserved.",
+    "made_by_title": "Made by",
+    "follow_me": "Follow me on",
+    "creator_name": "Robinndev",
+    "navigation_title": "Navigate",
+    "nav_blog": "Blog",
+    "nav_checklist": "Couples Checklist",
+    "legal_title": "Legal",
+    "legal_terms": "Terms of use",
+    "legal_policy": "Privacy policy",
+    "company_id": "Company ID: 58.236.094/0001-82"
+  },
+  "BlogPage": {
+    "tagline": "Inspiring Together",
+    "title": "Blog",
+    "featured_category": "Highlight of the Week",
+    "read_now": "Read Now",
+    "more_read": "Most Read",
+    "newsletter_title": "Love in Your Inbox!",
+    "newsletter_description": "Subscribe to our weekly newsletter and receive the best curated content.",
+    "newsletter_placeholder": "Your best email...",
+    "newsletter_button": "Subscribe Now",
+    "by": "By",
+    "read_time": "min read",
+    "featured_post": {
+      "title": "Tips to Improve Your Relationship: The Ultimate Guide!",
+      "summary": "Discover 5 essential strategies to rekindle the flame, improve communication, and build a long-lasting, happier partnership. A must-read for all couples seeking movie-like love.",
+      "category": "Highlight of the Week",
+      "author": "Julia & Rafael",
+      "date": "November 18, 2025",
+      "read_time": "7"
+    },
+    "blog_post": {
+      "hero_tagline": "The Theory of Infinite Connection",
+      "hero_title_big": "THE EL O.",
+      "hero_subtitle": "The Remaking of Oneself in the Name of a Greater Love.",
+      "section1_title": "The Great Mirror",
+      "section1_content": "Your partner is your most brutal and honest laboratory. They don’t only reflect your love, but also your deepest shadows. The relationship is not the cause of your problems; it is the visible expression of your unresolved inner life. If you want to transform the relationship, you must first revolutionize who you are.",
+      "section1_quote": "“We don’t seek perfect love. We seek a love that forces us to redraw our internal map.”",
+      "architecture_title": "The Architecture of Permanence",
+      "topic1_title": "The Truth of Communication (The Ultimate Risk)",
+      "topic1_content": "Communication isn’t speaking; it’s ensuring that your intention is truly received. Most couples simply debate defense strategies. To be extraordinary, you must trade the desire to be right for the desire to be understood, even if that leaves you exposed.",
+      "topic1_quote": "“The absence of conflict is not peace. It’s anesthesia. Where there is no friction, there is no growth.”",
+      "topic2_title": "Radical Vulnerability (Total Surrender)",
+      "topic2_content": "It’s the act of letting go of control. True intimacy only exists in the space where armor has fallen. Rethinking life means understanding that strength is not in protecting yourself, but in disarming yourself before the person you chose to be both your battlefield and your refuge.",
+      "topic2_quote": "“Those afraid of getting hurt are already living half-wounded.”",
+      "topic3_title": "Purpose and Individuality (The Fertile Duality)",
+      "topic3_content": "You look in the same direction, but walk in your own shoes. Love is not about merging into one person, but about being the engine that drives the other’s individual journey. The relationship is the team, and each person’s purpose is their role in the game.",
+      "topic3_quote": "“You are not my other half. You are an entire universe beside me.”",
+      "topic4_title": "The War Against Routine (The Slow Death)",
+      "topic4_content": "Routine is the enemy, not time. Routine is the absence of intention. You need rituals, not empty habits. Love isn’t automatic; it’s a series of conscious re-choices. Create micro-adventures, change the angle, invest in the ‘new’ of the partner you already know.",
+      "topic4_quote": "“Boredom is not the lack of things to do, but the lack of meaning in what is done.”",
+      "topic5_title": "The Legacy of Investment (The Silent Language)",
+      "topic5_content": "Time is not spent, it is invested. A relationship is the sum of thousands of ‘me’s from the past, the ‘us’ of the present, and the potential futures. What you build today becomes the foundation of tomorrow’s memory. What are you sacrificing to honor this construction?",
+      "topic5_quote": "“Love is the only investment where losing control leads to the greatest gain.”",
+      "final_title": "The Next Act of Your Life.",
+      "final_subtext": "You can choose to keep living the draft, or pick up the pen and rewrite the script — starting with how you relate to yourself.",
+      "final_button": "Set Your Anchor Now"
+    },
+    "latest_posts": [
+      {
+        "title": "Unforgettable Romantic Destinations for a Couple's Getaway",
+        "author": "Julia & Rafael",
+        "date": "November 10, 2025"
+      },
+      {
+        "title": "The Art of Apologizing: Fixing Mistakes",
+        "author": "Julia & Rafael",
+        "date": "November 5, 2025"
+      },
+      {
+        "title": "10 Creative and Cheap 'Date Night' Ideas",
+        "author": "Julia & Rafael",
+        "date": "October 28, 2025"
+      }
+    ]
+  }
+}

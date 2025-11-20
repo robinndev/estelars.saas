@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Heart, BookOpen, ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const calloutVariants = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -19,6 +20,8 @@ const calloutVariants = {
 } as const;
 
 export const BlogCallout = () => {
+  const t = useTranslations("BlogCallout");
+
   return (
     <section className="relative w-full py-28 bg-white overflow-hidden">
       <div className="container mx-auto px-6 lg:px-20 relative z-10">
@@ -38,7 +41,7 @@ export const BlogCallout = () => {
               transition={{ duration: 0.5, delay: 0.5 }}
               className="text-5xl md:text-6xl font-black mb-4 tracking-tighter"
             >
-              Histórias Que Inspiram.
+              {t("title")}
             </motion.h2>
 
             <motion.p
@@ -47,8 +50,11 @@ export const BlogCallout = () => {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="text-xl font-light mb-8 max-w-2xl mx-auto"
             >
-              Deixe-nos ser seu guia. Transforme o seu relacionamento em um
-              filme inesquecível com nossas dicas e roteiros exclusivos.
+              {
+                t(
+                  "subtitle"
+                ) /* Deixe-nos ser seu guia. Transforme o seu relacionamento em um filme inesquecível com nossas dicas e roteiros exclusivos. */
+              }
             </motion.p>
 
             <motion.div
@@ -61,7 +67,7 @@ export const BlogCallout = () => {
                 className="inline-flex items-center justify-center bg-white text-rose-600 font-extrabold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-rose-50 transition-all duration-300 transform hover:scale-[1.02]"
               >
                 <Heart className="w-5 h-5 mr-3 fill-rose-600" />
-                Acessar o Blog Cine Romance
+                {t("button")}
                 <ArrowRight className="w-5 h-5 ml-3" />
               </Link>
             </motion.div>

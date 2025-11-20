@@ -6,10 +6,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { faqs } from "@/src/mocks/faq";
+import type { FaqItem } from "@/src/@types/faq";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export const Faq = () => {
+  const t = useTranslations();
+
+  // Busca tipada do JSON
+  const faqs = t.raw("Faq.items") as FaqItem[];
+
   return (
     <section className="relative w-full py-28 bg-gradient-to-b from-white via-rose-50 to-white overflow-hidden">
       {/* Background suave */}
@@ -23,7 +29,7 @@ export const Faq = () => {
           transition={{ duration: 0.6 }}
           className="text-5xl md:text-6xl font-extrabold mb-4 text-center text-gray-900 tracking-tight"
         >
-          Perguntas Frequentes 💬
+          {t("Faq.title")} 💬
         </motion.h2>
 
         <motion.p
@@ -32,20 +38,21 @@ export const Faq = () => {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-gray-600 text-lg text-center mb-16 max-w-2xl mx-auto leading-relaxed"
         >
-          Tire suas dúvidas antes de criar o presente perfeito 💝
+          {t("Faq.subtitle")} 💝
         </motion.p>
 
         <div className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, i) => (
+            {faqs.map((faq, index) => (
               <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                className="border  border-rose-100 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all"
+                key={index}
+                value={`item-${index}`}
+                className="border border-rose-100 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all"
               >
                 <AccordionTrigger className="text-left cursor-pointer text-gray-800 font-medium text-lg px-6 py-4 hover:text-rose-600">
                   {faq.question}
                 </AccordionTrigger>
+
                 <AccordionContent className="text-gray-600 px-6 pb-5 leading-relaxed">
                   {faq.answer}
                 </AccordionContent>

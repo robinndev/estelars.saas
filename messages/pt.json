@@ -1,0 +1,176 @@
+{
+  "Hero": {
+    "title": "Estelars",
+    "subtitle": "Crie algo digno de um filme — e transforme o amor de vocês em uma história inesquecível.",
+    "first_button": "▶ Quero criar minha história",
+    "second_button": "Conheça nosso blog",
+    "featured_couples": "Casais em destaque",
+    "more_couples": "Mais de",
+    "histories": "histórias de amor criadas"
+  },
+  "How": {
+    "title": "Como funciona",
+    "subtitle": "Crie algo digno de um filme — e transforme o amor de vocês em uma história inesquecível.",
+    "step_1": {
+      "title": "Preencha os dados",
+      "description": "Coloque o nome, a data e sua mensagem especial."
+    },
+    "step_2": {
+      "title": "Faça o pagamento",
+      "description": "Conclua seu pedido de forma rápida e segura."
+    },
+    "step_3": {
+      "title": "Receba seu site",
+      "description": "Seu link chega diretamente no e-mail com seu site personalizado."
+    },
+    "step_4": {
+      "title": "Surpreenda seu amor",
+      "description": "Mostre a surpresa de forma única e inesquecível."
+    }
+  },
+  "Price": {
+    "title": "Planos & Preços",
+    "subtitle": "Escolha o plano perfeito para eternizar a história de vocês com amor e delicadeza.",
+    "normal": {
+      "title": "Plano Normal",
+      "description": "Ideal para quem deseja uma homenagem simples e elegante.",
+      "price": "R$ 19,90",
+      "features": {
+        "feature_1": "3 fotos",
+        "feature_2": "1 ano de acesso",
+        "feature_3": "Sem música",
+        "feature_4": "Contador de relacionamento"
+      },
+      "button": "Escolher Plano Normal"
+    },
+    "premium": {
+      "title": "Plano Premium",
+      "description": "Perfeito para quem quer uma experiência completa e inesquecível.",
+      "price": "R$ 29,90",
+      "features": {
+        "feature_1": "8 fotos",
+        "feature_2": "Acesso ilimitado",
+        "feature_3": "Com música",
+        "feature_4": "Contador de relacionamento",
+        "feature_5": "Efeitos ao abrir o site"
+      },
+      "button": "Escolher Plano Premium"
+    }
+  },
+  "Faq": {
+    "title": "Perguntas Frequentes",
+    "subtitle": "Tire suas dúvidas antes de criar o presente perfeito.",
+    "items": [
+      {
+        "question": "O que é a Estelars?",
+        "answer": "A Estelars é uma plataforma que permite criar páginas personalizadas de relacionamento para casais. Você pode adicionar fotos, uma mensagem especial e um contador que mostra há quanto tempo vocês estão juntos. Perfeito para presentes surpresa. No futuro, seremos a maior plataforma de casais do mundo — comece com a gente agora e tenha benefícios exclusivos. ✨"
+      },
+      {
+        "question": "Quanto tempo leva para eu receber meu site?",
+        "answer": "Você recebe na hora! Assim que o pagamento for confirmado, seu site é exibido automaticamente, e você será redirecionado para uma página com o QR Code para download e acesso imediato. ✨"
+      },
+      {
+        "question": "Meu site fica salvo mesmo depois de um ano?",
+        "answer": "Se o seu plano for o Normal, ele é válido por 1 ano. Após expirar, seu site ainda fica salvo por um período extra e você pode renová-lo facilmente. **Nos planos Premium, o acesso é ilimitado.**"
+      },
+      {
+        "question": "Posso adicionar música personalizada?",
+        "answer": "Sim! No plano Premium, você pode escolher uma música ou enviar um link do YouTube para deixar seu site ainda mais especial 🎶."
+      }
+    ]
+  },
+  "BlogCallout": {
+    "title": "Histórias Que Inspiram.",
+    "subtitle": "Deixe-nos ser seu guia. Transforme o seu relacionamento em um filme inesquecível com nossas dicas e roteiros exclusivos.",
+    "button": "Acessar o Blog Cine Romance"
+  },
+  "QR": {
+    "title": "Vamos fazer um presente",
+    "phrase_emphasized": "surpresa",
+    "finish_title": "para o seu amor?",
+    "description": "Demora menos de",
+    "description_emphasized": "5 minutos",
+    "description_continued": "para criar algo inesquecível.",
+    "really_fast": "É sério!",
+    "button": "▶ Quero criar minha história"
+  },
+  "Footer": {
+    "description": "Surpreenda o seu amor criando um contador de tempo de relacionamento inesquecível 💖",
+    "copyright": "Copyright © 2025 — Todos os direitos reservados.",
+    "made_by_title": "Feito por",
+    "follow_me": "Me siga no",
+    "creator_name": "Robinndev",
+    "navigation_title": "Navegar",
+    "nav_blog": "Blog",
+    "nav_checklist": "Checklist para casais",
+    "legal_title": "Legal",
+    "legal_terms": "Termos de uso",
+    "legal_policy": "Política de privacidade",
+    "company_id": "CNPJ: 58.236.094/0001-82"
+  },
+  "BlogPage": {
+    "tagline": "Inspirando Juntos",
+    "title": "Blog",
+    "featured_category": "Destaque da Semana",
+    "read_now": "Ler Agora",
+    "more_read": "Mais Lidos",
+    "newsletter_title": "Amor na Sua Caixa de Entrada!",
+    "newsletter_description": "Assine nossa newsletter semanal e receba os melhores conteúdos selecionados especialmente para você.",
+    "newsletter_placeholder": "Seu melhor e-mail...",
+    "newsletter_button": "Quero Receber",
+    "by": "Por",
+    "read_time": "min de leitura",
+    "featured_post": {
+      "title": "Dicas para Melhorar seu Relacionamento: O Guia Definitivo!",
+      "summary": "Descubra 5 estratégias essenciais para reacender a chama, melhorar a comunicação e construir um relacionamento mais feliz e duradouro. Leitura obrigatória para casais que buscam um amor de cinema.",
+      "category": "Destaque da Semana",
+      "author": "Julia & Rafael",
+      "date": "18 de Novembro de 2025",
+      "read_time": "7"
+    },
+    "latest_posts": [
+      {
+        "title": "Destinos Românticos Inesquecíveis para uma Viagem a Dois",
+        "author": "Julia & Rafael",
+        "date": "10 de Novembro de 2025"
+      },
+      {
+        "title": "A Arte de Pedir Desculpas: Como Consertar Erros",
+        "author": "Julia & Rafael",
+        "date": "5 de Novembro de 2025"
+      },
+      {
+        "title": "10 Ideias Criativas e Baratas para um 'Date Night' Perfeito",
+        "author": "Julia & Rafael",
+        "date": "28 de Outubro de 2025"
+      }
+    ],
+    "blog_post": {
+      "hero_tagline": "A Teoria da Conexão Infinita",
+      "hero_title_big": "O EL O.",
+      "hero_subtitle": "A Refacção de Si Mesmo em Nome de Um Amor Maior.",
+      "section1_title": "O Grande Espelho",
+      "section1_content": "O seu parceiro é o seu laboratório mais brutal e honesto. Ele não reflete apenas o amor, mas também as suas sombras mais profundas. O relacionamento não é a causa dos seus problemas; é a manifestação visível da sua vida interna não resolvida. Se você quer transformar o relacionamento, precisa primeiro revolucionar quem você é.",
+      "section1_quote": "“Não buscamos um amor perfeito. Buscamos um amor que nos force a refazer nosso próprio mapa interno.”",
+      "architecture_title": "A Arquitetura da Permanência",
+      "topic1_title": "A Verdade da Comunicação (O Risco Máximo)",
+      "topic1_content": "Comunicação não é falar; é garantir que a intenção por trás da palavra seja recebida. A maioria dos casais apenas debate estratégias de defesa. Para ser foda, você precisa trocar o desejo de estar certo pelo desejo de ser compreendido, mesmo que isso te deixe exposto.",
+      "topic1_quote": "“A ausência de conflito não é paz. É anestesia. Onde não há atrito, não há crescimento.”",
+      "topic2_title": "A Vulnerabilidade Radical (A Entrega Total)",
+      "topic2_content": "É o ato de abrir mão do controle. A verdadeira intimidade só existe no espaço onde as armaduras caíram. Repensar a vida é entender que a força não está em se proteger, mas em desarmar-se diante de quem você escolheu para o seu campo de batalha e refúgio.",
+      "topic2_quote": "“Quem tem medo de se machucar já está vivendo machucado pela metade.”",
+      "topic3_title": "O Propósito e a Individualidade (A Dualidade Fértil)",
+      "topic3_content": "Vocês olham na mesma direção, mas caminham em sapatos próprios. O Amor não é sobre se fundir em uma só pessoa, mas sobre ser o motor que impulsiona a jornada individual do outro. O relacionamento é o time, e o propósito de cada um é o seu papel no jogo.",
+      "topic3_quote": "“Você não é a minha outra metade. Você é o universo inteiro ao meu lado.”",
+      "topic4_title": "O Combate à Rotina (A Morte Lenta)",
+      "topic4_content": "A rotina é o inimigo, não o tempo. A rotina é a ausência de intenção. Você precisa de rituais, não de hábitos vazios. O amor não é automático; é uma série de re-escolhas conscientes. Crie micro-aventuras, mude o ângulo, invista no 'novo' do parceiro que você já conhece.",
+      "topic4_quote": "“O tédio não é a falta de coisas para fazer, mas a falta de significado no que se faz.”",
+      "topic5_title": "O Legado do Investimento (A Linguagem Silenciosa)",
+      "topic5_content": "O tempo não é gasto, é investido. Relacionamento é a somatória de milhares de 'eus' do passado, 'nós' do presente e 'futuros potenciais'. O que você está construindo hoje é a fundação da sua memória de amanhã. O que você está sacrificando para honrar essa construção?",
+      "topic5_quote": "“O Amor é o único investimento onde a perda do controle resulta no maior ganho.”",
+      "final_title": "O Próximo Ato da Sua Vida.",
+      "final_subtext": "Você pode escolher continuar vivendo o rascunho, ou tomar a caneta e reescrever o roteiro, começando por como você se relaciona consigo mesmo.",
+      "final_button": "Defina Sua Âncora Agora"
+    }
+  }
+}

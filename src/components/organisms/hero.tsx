@@ -6,6 +6,7 @@ import { FaInstagram, FaReddit, FaTiktok } from "react-icons/fa";
 import { CoupleCard } from "../couple-card";
 import { useRouter } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
+import { useTranslations } from "next-intl";
 
 export const Hero = ({
   setBgImage,
@@ -13,6 +14,7 @@ export const Hero = ({
   setBgImage?: (img: string) => void;
 }) => {
   const [hoveredCouple, setHoveredCouple] = useState<any>(null);
+  const t = useTranslations("Hero");
 
   const router = useRouter();
 
@@ -29,13 +31,11 @@ export const Hero = ({
         <div className="flex-1 w-full">
           <div className="mb-6 text-center lg:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 drop-shadow-lg tracking-tight">
-              Estelars
+              {t("title")}
             </h1>
 
             <p className="text-base md:text-lg max-w-xl text-gray-200 mb-8 leading-relaxed mx-auto lg:mx-0">
-              Transforme o amor de vocês em algo visível e eterno. Crie um
-              contador personalizado que celebra cada momento juntos — do
-              primeiro encontro até hoje.
+              {t("subtitle")}
             </p>
 
             <div className="flex justify-center lg:justify-start gap-4">
@@ -43,20 +43,20 @@ export const Hero = ({
                 onClick={() => handleNavigate()}
                 className="bg-red-600 cursor-pointer hover:bg-red-700 text-white px-6 md:px-8 py-3 rounded-md font-semibold transition-all"
               >
-                ▶ Quero criar minha história
+                {t("first_button")}
               </button>
               <button
                 onClick={() => router.push("/blog")}
                 className="bg-white/20 hover:bg-white/30 text-white px-6 md:px-8 py-3 rounded-md font-semibold transition-all"
               >
-                Conheça nosso blog
+                {t("second_button")}
               </button>
             </div>
           </div>
 
           {/* Featured Couples */}
           <h2 className="text-3xl font-bold mt-8 text-gray-200 tracking-wide mb-4 text-center lg:text-left">
-            Casais Destaque ✨
+            {t("featured_couples")} ✨
           </h2>
 
           <div className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-none pb-4">
@@ -93,10 +93,10 @@ export const Hero = ({
         {/* COUNTER */}
         <div className="text-center sm:text-right">
           <p className="text-xs md:text-sm uppercase tracking-widest text-gray-400">
-            Mais de
+            {t("more_couples")}
           </p>
           <p className="text-xl md:text-2xl font-bold text-white">
-            1.312 histórias de amor criadas 💫
+            1.312 {t("histories")} 💫
           </p>
         </div>
       </div>

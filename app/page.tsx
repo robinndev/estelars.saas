@@ -10,6 +10,7 @@ import { Hero } from "@/src/components/organisms/hero";
 import HowToMake from "@/src/components/organisms/how-make";
 import { Price } from "@/src/components/organisms/price";
 import { QrSection } from "@/src/components/organisms/qr";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 // Importe o novo componente
 

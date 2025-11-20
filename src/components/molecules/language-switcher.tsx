@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { LANGUAGES } from "@/src/mocks/languages";
@@ -10,13 +10,32 @@ export function LanguageSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState(LANGUAGES[0]);
 
+  // 👉 Carrega idioma salvo no cookie ao iniciar
+  useEffect(() => {
+    const cookie = document.cookie
+      .split("; ")
+      .find((c) => c.startsWith("NEXT_LOCALE="));
+
+    if (cookie) {
+      const locale = cookie.split("=")[1];
+      const found = LANGUAGES.find((l) => l.code === locale);
+      if (found) setSelectedLang(found);
+    }
+  }, []);
+
   const toggleOpen = () => setIsOpen(!isOpen);
 
   const handleSelectLanguage = (lang: Language) => {
     console.log(`Idioma selecionado: ${lang.name} (${lang.code})`);
 
+    // 👉 salva o cookie
+    document.cookie = `NEXT_LOCALE=${lang.code}; path=/; max-age=31536000`;
+
     setSelectedLang(lang);
     setIsOpen(false);
+
+    // 👉 recarrega para aplicar tradução
+    window.location.reload();
   };
 
   const availableLanguages = LANGUAGES.filter(
@@ -61,8 +80,7 @@ export function LanguageSwitcher() {
             onClick={() => handleSelectLanguage(lang)}
             className={`
               ${optionSize} rounded-full transition-transform duration-200 cursor-pointer
-              transform hover:scale-110 focus:outline-none 
-              // Adiciona um pequeno atraso para o efeito de "bolinhas subindo"
+              transform hover:scale-110 focus:outline-none
               delay-${(availableLanguages.length - index) * 50}
             `}
             title={`Mudar para ${lang.name}`}

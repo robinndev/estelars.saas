@@ -1,6 +1,7 @@
 import { getSEOTags } from "@/lib/seo";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { NextIntlClientProvider } from "next-intl";
 
 export const metadata = getSEOTags({
   appName: "Estelars",
@@ -35,7 +36,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
-      <body className="antialiased bg-black text-white">{children}</body>
+      <body className="antialiased bg-black text-white">
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+      </body>
       <GoogleAnalytics gaId="G-FW66KYRCHY" />
     </html>
   );
