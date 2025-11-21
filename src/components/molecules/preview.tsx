@@ -162,13 +162,7 @@ export default function Preview({
 
             {/* AUDIO */}
             {selectedPlan === "premium" && musicLink && (
-              <AudioPlayer
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying}
-                progress={progress}
-                musicLink={musicLink}
-                color={color}
-              />
+              <AudioPlayer musicLink={musicLink} color={color} />
             )}
           </div>
         </div>

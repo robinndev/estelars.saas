@@ -4,18 +4,33 @@ import { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 import { motion, useAnimation } from "framer-motion";
 
+// Função util para extrair o videoId de uma URL do YouTube
+function extractVideoId(url: string) {
+  const regex =
+    /(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+}
+
 export const MusicPlayer = ({
-  videoId,
-  title = "Sleeping in my car",
+  youtubeUrl,
+  title = "Tema especial do casal",
   artist = "Roxette",
 }: {
-  videoId: string;
+  youtubeUrl: string;
   title?: string;
   artist?: string;
 }) => {
   const playerRef = useRef<any>(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [currentVideoId, setCurrentVideoId] = useState<string | null>(
+    extractVideoId(youtubeUrl)
+  );
+  const [currentTitle, setCurrentTitle] = useState(title);
+
+  const rotation = useAnimation();
+  console.log(youtubeUrl);
 
   const opts = {
     height: "1",
@@ -44,6 +59,25 @@ export const MusicPlayer = ({
     }
   };
 
+  // Atualiza videoId e reinicia o player se a URL mudar
+  useEffect(() => {
+    const newId = extractVideoId(youtubeUrl);
+    if (newId && newId !== currentVideoId) {
+      setCurrentVideoId(newId);
+      setProgress(0);
+      setPlaying(true);
+
+      const player = getPlayer();
+      if (player) {
+        player.loadVideoById(newId);
+        player.playVideo();
+      }
+
+      // Pode atualizar título manualmente ou futuramente via API
+      setCurrentTitle(title || "Tema especial do casal");
+    }
+  }, [youtubeUrl, currentVideoId, title]);
+
   // Simula barra de progresso
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -56,7 +90,6 @@ export const MusicPlayer = ({
   }, [playing]);
 
   // Animação do disco
-  const rotation = useAnimation();
   useEffect(() => {
     if (playing) {
       rotation.start({
@@ -83,11 +116,13 @@ export const MusicPlayer = ({
         className="w-48 h-48 rounded-full overflow-hidden shadow-2xl z-10 cursor-pointer"
         onClick={togglePlay}
       >
-        <img
-          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-          alt={title}
-          className="w-full h-full object-cover rounded-full"
-        />
+        {currentVideoId && (
+          <img
+            src={`https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`}
+            alt={currentTitle}
+            className="w-full h-full object-cover rounded-full"
+          />
+        )}
       </motion.div>
 
       {/* Barra de progresso */}
@@ -109,19 +144,21 @@ export const MusicPlayer = ({
 
       {/* Nome da música */}
       <div className="text-center z-10">
-        <h2 className="text-lg font-bold text-white">{title}</h2>
+        <h2 className="text-lg font-bold text-white">{currentTitle}</h2>
         <p className="text-sm text-gray-200 mt-1">{artist}</p>
       </div>
 
       {/* Invisible YouTube */}
       <div className="w-0 h-0 overflow-hidden opacity-0 pointer-events-none">
-        <YouTube
-          videoId={videoId}
-          opts={opts}
-          onReady={(e) => {
-            playerRef.current = e;
-          }}
-        />
+        {currentVideoId && (
+          <YouTube
+            videoId={currentVideoId}
+            opts={opts}
+            onReady={(e) => {
+              playerRef.current = e;
+            }}
+          />
+        )}
       </div>
     </div>
   );

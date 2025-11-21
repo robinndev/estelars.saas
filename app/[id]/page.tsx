@@ -54,7 +54,7 @@ export default function CoupleProfile() {
     image: ["/robin-rebeca.png", "/couple-sun.png"],
   };
 
-  const [stage, setStage] = useState(2);
+  const [stage, setStage] = useState(0);
 
   enum GiftStage {
     GetYourGift = 0,

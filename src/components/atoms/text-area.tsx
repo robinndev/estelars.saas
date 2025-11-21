@@ -38,9 +38,9 @@ export function TextArea({
           text-gray-900 text-base placeholder-gray-500
           shadow-sm
           hover:border-gray-400
-          focus:border-red-600 /* Borda Vermelha Forte */
-          focus:ring-2 focus:ring-red-200 /* Anel Vermelho Suave */
-          focus:shadow-lg focus:shadow-red-100 /* Sombra Vermelha de Destaque */
+          focus:border-purple-600 /* Borda Vermelha Forte */
+          focus:ring-2 focus:ring-purple-200 /* Anel Vermelho Suave */
+          focus:shadow-lg focus:shadow-purple-100 /* Sombra Vermelha de Destaque */
         "
       />
     </div>

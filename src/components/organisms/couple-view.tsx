@@ -102,6 +102,7 @@ export const CoupleView = ({
 
   useEffect(() => setCurrentIndex(0), [resolvedSrcs]);
 
+  console.log(musicLink);
   return (
     <div className="w-full min-h-screen relative bg-black flex flex-col">
       {/* HERO */}
@@ -183,13 +184,7 @@ export const CoupleView = ({
 
         {selectedPlan === "premium" && musicLink && (
           <div className="w-full flex items-center justify-center mt-10">
-            <AudioPlayer
-              isPlaying={isPlaying}
-              setIsPlaying={setIsPlaying}
-              progress={progress}
-              musicLink={musicLink}
-              color={color}
-            />
+            <AudioPlayer musicLink={musicLink} color={color} />
           </div>
         )}
       </div>
