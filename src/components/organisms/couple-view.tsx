@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Heart } from "lucide-react";
 import { Count } from "../molecules/count";
 import { AudioPlayer } from "../molecules/audio-player";
+import { useTranslations } from "next-intl";
 
 interface CoupleViewProps {
   coupleName: string;
@@ -28,15 +29,20 @@ export const CoupleView = ({
   musicLink = "",
   selectedPlan,
 }: CoupleViewProps) => {
+  const t = useTranslations("CoupleView");
+
   const [progress, setProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [datePart, setDatePart] = useState("");
+  const [resolvedSrcs, setResolvedSrcs] = useState<string[] | null>(null);
 
+  /** DATE HANDLING */
   useEffect(() => {
     const datePart = startDate
       ? startDate.split("T")[0]
       : new Date().toISOString().split("T")[0];
+
     setDatePart(datePart);
   }, [startDate, startHour]);
 
@@ -44,57 +50,53 @@ export const CoupleView = ({
     const [hours = "00", minutes = "00"] = startHour
       ? startHour.split(":")
       : [];
+
     return new Date(
       `${datePart}T${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`
     );
   }, [datePart, startHour]);
 
+  /** PROGRESS BAR */
   useEffect(() => {
     if (!isPlaying) return;
+
     const interval = setInterval(() => {
       setProgress((prev) => (prev >= 100 ? 0 : prev + 1));
     }, 1000);
+
     return () => clearInterval(interval);
   }, [isPlaying]);
 
-  const [resolvedSrcs, setResolvedSrcs] = useState<string[] | null>(null);
-
+  /** IMAGE RESOLUTION */
   useEffect(() => {
     if (!image || image.length === 0) {
       setResolvedSrcs(null);
       return;
     }
 
-    const created: string[] = [];
-
     const final = image.map((img) => {
       if (typeof img === "string") return img;
 
-      // Caso seja File
-      if (img instanceof File) {
-        return URL.createObjectURL(img);
-      }
+      if (img instanceof File) return URL.createObjectURL(img);
 
-      // Caso venha no formato { url: string }
       const maybePhoto = img as { url?: string };
       if (maybePhoto.url) return maybePhoto.url;
 
-      console.error("Imagem inválida recebida:", img);
+      console.error(t("errors.invalid_image"), img);
       return "";
     });
 
     setResolvedSrcs(final.filter(Boolean));
+  }, [image, t]);
 
-    return () => {
-      created.forEach((u) => URL.revokeObjectURL(u));
-    };
-  }, [image]);
-
+  /** SLIDESHOW */
   useEffect(() => {
     if (!resolvedSrcs || resolvedSrcs.length <= 1) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((i) => (i + 1) % resolvedSrcs.length);
     }, 4200);
+
     return () => clearInterval(interval);
   }, [resolvedSrcs]);
 
@@ -104,7 +106,6 @@ export const CoupleView = ({
     <div className="w-full min-h-screen relative bg-black flex flex-col">
       {/* HERO */}
       <div className="relative w-full h-[55vh] overflow-hidden">
-        {/* SLIDES */}
         <AnimatePresence mode="wait">
           {resolvedSrcs && resolvedSrcs.length > 0 ? (
             resolvedSrcs.length > 1 ? (
@@ -116,7 +117,6 @@ export const CoupleView = ({
                 transition={{ duration: 1.2 }}
                 className="absolute inset-0"
               >
-                {/* overlay com a cor personalizada durante o fade */}
                 <div
                   className="absolute inset-0"
                   style={{
@@ -149,13 +149,11 @@ export const CoupleView = ({
           )}
         </AnimatePresence>
 
-        {/* === OVERLAYS FIXOS — NÃO SOMEM NA TROCA === */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/50 pointer-events-none" />
-
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-black pointer-events-none" />
       </div>
 
-      {/* CONTEÚDO */}
+      {/* CONTENT */}
       <div className="relative z-10 flex flex-col items-center w-full h-full px-4 text-center text-white -mt-8 pb-20">
         <div
           className="p-4 rounded-full mb-4"
@@ -168,15 +166,15 @@ export const CoupleView = ({
         </div>
 
         <h1 className="text-3xl font-bold tracking-tight">
-          {coupleName || "Nome do casal"}
+          {coupleName || t("fallbacks.couple_name")}
         </h1>
 
         <p className="text-gray-300 text-sm w-82 font-light mt-2">
-          {message || "Sua mensagem especial aparecerá aqui..."}
+          {message || t("fallbacks.message")}
         </p>
 
         <p className="text-gray-400 mt-8 -mb-2 text-sm font-normal">
-          Estamos juntos há:
+          {t("fallbacks.together_for")}
         </p>
 
         <div className="mt-2">

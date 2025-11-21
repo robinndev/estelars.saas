@@ -9,6 +9,8 @@ export function ColorPicker({
   onBlur,
 }: {
   value: string;
+  // Ajuste o tipo de onChange se precisar de tipagem mais estrita,
+  // mas 'any' é mantido se você estiver aceitando eventos nativos ou strings.
   onChange: any;
   onBlur?: () => void;
 }) {
@@ -25,7 +27,7 @@ export function ColorPicker({
 
   return (
     <div className="space-y-2 relative">
-      <label className="block font-medium text-gray-200 tracking-wide">
+      <label className="block font-medium text-gray-700 tracking-wide">
         Cor principal
       </label>
 
@@ -33,23 +35,34 @@ export function ColorPicker({
         onClick={openNativePicker}
         className="
           relative
-          flex items-center gap-4 p-4 rounded-2xl
-          bg-black/40 border border-white/10 backdrop-blur-xl
-          shadow-[0_0_20px_-2px_rgba(120,50,255,0.25)]
-          hover:border-purple-500/40 transition-all
+          flex items-center gap-4 p-4 rounded-xl /* Arredondamento grande (Apple) */
+          
+          /* Fundo e Borda Clean (Apple) */
+          bg-white border border-gray-300 /* Fundo branco e borda neutra */
+          
+          /* Sombra Sutil (Apple) */
+          shadow-md
+          
+          /* Efeito Hover (Netflix/Acento) */
+          hover:border-red-500 hover:shadow-lg hover:shadow-red-100 transition-all /* Vermelho no hover */
           cursor-pointer
         "
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
+        {/* Amostra de Cor */}
         <motion.div
           className="
-            w-14 h-14 rounded-xl border border-white/20 shadow-inner
+            w-14 h-14 rounded-lg /* Arredondamento menor para a amostra */
+            border-2 border-white /* Borda branca para contraste com a cor */
+            shadow-inner 
+            transition duration-200 ease-in-out
           "
           style={{ backgroundColor: value }}
           whileHover={{ scale: 1.08 }}
         />
 
+        {/* Campo de Texto para o Código Hexadecimal */}
         <input
           onBlur={onBlur}
           type="text"
@@ -59,13 +72,17 @@ export function ColorPicker({
           onClick={(e) => e.stopPropagation()}
           onFocus={(e) => e.stopPropagation()}
           className="
-            w-28 p-2 rounded-lg font-mono text-sm
-            bg-black/60 text-purple-200 
-            border border-white/10
-            focus:border-purple-500/50 outline-none
+            w-28 p-2 rounded-lg font-mono text-base
+            /* Estilo de Input Clean */
+            bg-gray-100 text-gray-800 /* Fundo cinza claro, texto escuro */
+            border border-gray-300
+            
+            /* Foco (Netflix Acento) */
+            focus:border-red-500 focus:ring-1 focus:ring-red-200 outline-none
           "
         />
 
+        {/* Input type="color" oculto (funcionalidade nativa) */}
         <input
           ref={colorRef}
           type="color"

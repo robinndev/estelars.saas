@@ -172,5 +172,142 @@
       "final_subtext": "Você pode escolher continuar vivendo o rascunho, ou tomar a caneta e reescrever o roteiro, começando por como você se relaciona consigo mesmo.",
       "final_button": "Defina Sua Âncora Agora"
     }
+  },
+  "Preview": {
+    "fallback_couple_name": "Nome do casal",
+    "fallback_message": "Sua mensagem especial aparecerá aqui...",
+    "no_image": "Selecione uma foto",
+    "together_prefix": "Estamos juntos há",
+    "count_title": "Tempo juntos",
+    "audio_label": "Música do casal",
+    "audio_no_music": "Nenhuma música selecionada",
+    "audio_playing": "Tocando agora",
+    "audio_paused": "Pausado",
+    "premium_only_title": "Recurso exclusivo",
+    "premium_only_emphasized": "Premium",
+    "premium_only_description": "Adicione música para deixar tudo ainda mais especial."
+  },
+  "CreatePage": {
+    "theme_black": "Preto",
+    "theme_white": "Branco",
+    "theme_blue": "Azul"
+  },
+  "CreateForm": {
+    "site_details": "Detalhes do Site",
+    "counter_setup": "Configuração do Contador",
+    "fields": {
+      "couple_name": "Nome do casal",
+      "email": "Seu email",
+      "message": "Mensagem especial",
+      "music": "Música (Premium)",
+      "coupon": "Cupom de desconto"
+    },
+    "placeholders": {
+      "couple_name": "Ex: Ana & João (Não use emojis)",
+      "email": "Para receber seu QR Code",
+      "message": "Escreva uma mensagem de amor...",
+      "music_link": "Link da música (YouTube)",
+      "music_premium_only": "Apenas no Premium",
+      "coupon": "Digite seu cupom..."
+    },
+    "errors": {
+      "coupleName": "Nome do casal obrigatório",
+      "userEmail": "Email inválido",
+      "message": "Mensagem obrigatória",
+      "color": "Cor obrigatória",
+      "startDate": "Data obrigatória",
+      "start_hour_required": "Hora obrigatória",
+      "image_required": "Selecione pelo menos uma foto",
+      "musicLink": "Link de música inválido",
+      "fill_all": "Preencha todos os campos corretamente para prosseguir."
+    }
+  },
+  "FileDropzone": {
+    "empty_title": "Arraste fotos aqui",
+    "empty_subtitle_click": "clique",
+    "empty_subtitle_rest": "para selecionar",
+    "empty_limit": "Até {limit} fotos ({plan})",
+    "limit_reached": "Limite de {limit} fotos atingido",
+    "can_upload_up_to": "Você pode enviar até {limit} fotos",
+    "preview_alt": "Prévia da imagem {index}",
+    "error_invalid_file": "Arquivo inválido. Envie apenas imagens.",
+    "error_limit_exceeded": "Você excedeu o limite permitido de fotos.",
+    "error_size_exceeded": "A imagem é muito grande. Tamanho máximo: 10MB."
+  },
+  "DatePicker": {
+    "placeholder": "Selecionar data",
+    "invalid_date": "Data inválida",
+    "calendar_label": "Escolha uma data",
+    "open_calendar": "Abrir calendário"
+  },
+  "TimePicker": {
+    "placeholder": "Selecionar hora",
+    "hours": "Horas",
+    "minutes": "Minutos",
+    "open_timepicker": "Abrir seletor de horário"
+  },
+  "SuccessPage": {
+    "status_badge": "Site Publicado",
+    "title_prefix": "O Espaço de",
+    "subtitle": "Seu universo digital exclusivo, agora online e pronto para compartilhar.",
+    "loading_fetching": "Buscando o universo de",
+    "error_title": "Ops! Erro Galáctico",
+    "error_description": "Não foi possível carregar os dados do site.",
+    "error_button": "Tentar Recarregar",
+    "card_site_id": "ID do Site",
+    "card_event_date": "Data do Evento",
+    "access_link": "Acessar o Link",
+    "created_with_love": "Criado com",
+    "downloads_title": "Baixar imagens para divulgação",
+    "downloads_warning": "Atenção: Upload de foto necessário para habilitar downloads."
+  },
+  "CoupleProfile": {
+    "error_fetching": "Erro ao buscar dados do casal",
+    "loading_fallback": "Carregando...",
+    "mock": {
+      "couple_name": "Ana & Bruno",
+      "message": "Desde que você chegou, tudo ficou mais suave — as noites menos silenciosas, os dias mais leves, as coisas ganharam brilho!"
+    },
+    "stages": {
+      "get_your_gift": "Pegue seu presente",
+      "timeline": "Linha do tempo",
+      "finish": "Finalizar"
+    },
+    "fallbacks": {
+      "couple_name": "Casal",
+      "message": "Mensagem do casal",
+      "date": "0000-00-00",
+      "hour": "00:00"
+    }
+  },
+  "CoupleView": {
+    "fallbacks": {
+      "couple_name": "Nome do casal",
+      "message": "Sua mensagem especial aparecerá aqui...",
+      "together_for": "Estamos juntos há:"
+    },
+    "audio": {
+      "play": "Reproduzir",
+      "pause": "Pausar"
+    },
+    "errors": {
+      "invalid_image": "Imagem inválida recebida"
+    }
+  },
+  "Count": {
+    "years": "anos",
+    "days": "dias",
+    "hours": "horas",
+    "minutes": "minutos",
+    "seconds": "segundos"
+  },
+  "PlanSelector": {
+    "title": "Escolha o plano",
+    "recommended": "Recomendado",
+    "normal_title": "Plano Normal",
+    "normal_description": "Recursos essenciais, sem música.",
+    "premium_title": "Premium",
+    "premium_description": "Música + extras exclusivos.",
+    "price_suffix": ",00"
   }
 }

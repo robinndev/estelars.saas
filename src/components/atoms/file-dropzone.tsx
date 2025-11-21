@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { UploadCloud, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 import {
   Dropzone,
@@ -16,6 +17,8 @@ interface FileDropzoneProps {
 }
 
 export function FileDropzone({ onChange, selectedPlan }: FileDropzoneProps) {
+  const t = useTranslations("FileDropzone");
+
   const LIMIT = selectedPlan === "premium" ? 8 : 3;
 
   const [files, setFiles] = useState<File[]>([]);
@@ -65,56 +68,62 @@ export function FileDropzone({ onChange, selectedPlan }: FileDropzoneProps) {
           maxSize={10 * 1024 * 1024}
           onError={console.error}
           className={`
-            border border-white/10 rounded-2xl hover:bg-black
-            bg-gradient-to-br from-black/80 to-black/90
-            backdrop-blur-xl p-10
+            border border-gray-300 rounded-xl
+            bg-gray-50 hover:bg-white
+            p-10
             flex flex-col items-center justify-center
             transition
-            ${isFull ? "opacity-60" : "hover:border-purple-400 cursor-pointer"}
+            ${
+              isFull
+                ? "opacity-60 cursor-not-allowed"
+                : "hover:border-[#a684ff] cursor-pointer focus-within:ring-2 focus-within:ring-[#a684ff]"
+            }
           `}
         >
-          {/* 🔥 AQUI É O PULO DO GATO:
-               a EmptyState aparece SEMPRE quando não há preview */}
+          {/* Empty state */}
           {files.length === 0 && (
             <DropzoneEmptyState className="text-center space-y-3 select-none">
               <motion.div
                 initial={{ scale: 0.85, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
               >
-                <UploadCloud className="text-purple-300" />
+                <UploadCloud className="text-[#a684ff]" />
               </motion.div>
 
-              <p className="text-gray-200 font-semibold text-lg">
-                Arraste fotos aqui
+              <p className="text-gray-800 font-semibold text-lg">
+                {t("empty_title")}
               </p>
 
-              <p className="text-gray-400 text-sm">
-                ou <span className="text-purple-300 font-medium">clique</span>{" "}
-                para selecionar
+              <p className="text-gray-600 text-sm">
+                {t("empty_subtitle_rest")}{" "}
+                <span className="text-[#a684ff] font-medium">
+                  {t("empty_subtitle_click")}
+                </span>{" "}
               </p>
 
               <p className="text-gray-500 -mt-2 text-xs">
-                Até {LIMIT} fotos ({selectedPlan})
+                {t("empty_limit", {
+                  limit: LIMIT,
+                  plan: selectedPlan,
+                })}
               </p>
             </DropzoneEmptyState>
           )}
 
-          {/* mantém estrutura interna */}
           <DropzoneContent />
 
-          {/* Quando há arquivos, mostra o texto do limite aqui também */}
           {files.length > 0 && !isFull && (
             <p className="text-gray-500 text-xs mt-4">
-              Você pode enviar até {LIMIT} fotos
+              {t("can_upload_up_to", { limit: LIMIT })}
             </p>
           )}
         </Dropzone>
 
-        {/* OVERLAY DO LIMITE */}
+        {/* Overlay limite */}
         {isFull && (
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-            <p className="text-purple-300 font-medium text-sm">
-              Limite de {LIMIT} fotos atingido
+          <div className="absolute inset-0 bg-white/70 backdrop-blur-sm rounded-xl flex items-center justify-center">
+            <p className="text-[#a684ff] font-medium text-sm">
+              {t("limit_reached", { limit: LIMIT })}
             </p>
           </div>
         )}
@@ -133,22 +142,24 @@ export function FileDropzone({ onChange, selectedPlan }: FileDropzoneProps) {
                 exit={{ opacity: 0, scale: 0.75 }}
                 className="
                   group relative rounded-xl overflow-hidden
-                  border border-white/10 bg-black/60 backdrop-blur-lg
-                  shadow-md hover:shadow-xl transition
+                  border border-gray-300 bg-white 
+                  shadow-md hover:shadow-lg transition
                 "
               >
                 <img
                   src={src}
                   className="w-full h-40 object-cover"
-                  alt={`preview-${i}`}
+                  alt={t("preview_alt", { index: i + 1 })}
                 />
 
                 <button
                   onClick={() => removeFile(i)}
                   className="
-                    absolute top-2 right-2 bg-black/60 backdrop-blur-md
-                    border border-white/20 p-1.5 rounded-lg
-                    text-white opacity-0 group-hover:opacity-100 transition
+                    absolute top-2 right-2 bg-white/70 backdrop-blur-sm
+                    border border-gray-300 p-1.5 rounded-lg
+                    text-[#a684ff]
+                    opacity-0 group-hover:opacity-100 transition
+                    hover:bg-[#a684ff] hover:border-[#a684ff]
                   "
                 >
                   <X size={16} />

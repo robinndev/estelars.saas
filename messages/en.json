@@ -169,5 +169,148 @@
         "date": "October 28, 2025"
       }
     ]
+  },
+  "Preview": {
+    "fallback_couple_name": "Couple name",
+    "fallback_message": "Your special message will appear here...",
+    "no_image": "Select a photo",
+    "together_prefix": "We have been together for",
+    "count_title": "Time together",
+    "audio_label": "Couple’s song",
+    "audio_no_music": "No music selected",
+    "audio_playing": "Now playing",
+    "audio_paused": "Paused",
+    "premium_only_title": "Exclusive feature",
+    "premium_only_emphasized": "Premium",
+    "premium_only_description": "Add music to make everything even more special."
+  },
+  "CreatePage": {
+    "theme_black": "Black",
+    "theme_white": "White",
+    "theme_blue": "Blue",
+    "fields": {
+      "coupon": "Discount code"
+    },
+    "placeholders": {
+      "coupon": "Enter your coupon..."
+    }
+  },
+  "CreateForm": {
+    "site_details": "Site Details",
+    "counter_setup": "Counter Setup",
+    "fields": {
+      "couple_name": "Couple's Name",
+      "email": "Your Email",
+      "message": "Special Message",
+      "music": "Music (Premium)",
+      "coupon": "Discount code"
+    },
+    "placeholders": {
+      "couple_name": "Ex: Ana & João (Do not use emojis)",
+      "email": "To receive your QR Code",
+      "message": "Write a love message...",
+      "music_link": "Music link (YouTube)",
+      "music_premium_only": "Premium only",
+      "coupon": "Enter your coupon..."
+    },
+    "errors": {
+      "coupleName": "Couple name is required",
+      "userEmail": "Invalid email",
+      "message": "Message is required",
+      "color": "Color is required",
+      "startDate": "Date is required",
+      "start_hour_required": "Time is required",
+      "image_required": "Select at least one photo",
+      "musicLink": "Invalid music link",
+      "fill_all": "Fill all fields correctly to continue."
+    }
+  },
+  "FileDropzone": {
+    "empty_title": "Drag photos here",
+    "empty_subtitle_click": "click",
+    "empty_subtitle_rest": "to select",
+    "empty_limit": "Up to {limit} photos ({plan})",
+    "limit_reached": "Photo limit of {limit} reached",
+    "can_upload_up_to": "You can upload up to {limit} photos",
+    "preview_alt": "Image preview {index}",
+    "error_invalid_file": "Invalid file. Please upload images only.",
+    "error_limit_exceeded": "You exceeded the allowed photo limit.",
+    "error_size_exceeded": "The image is too large. Max size: 10MB."
+  },
+  "DatePicker": {
+    "placeholder": "Select date",
+    "invalid_date": "Invalid date",
+    "calendar_label": "Choose a date",
+    "open_calendar": "Open calendar"
+  },
+  "TimePicker": {
+    "placeholder": "Select time",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "open_timepicker": "Open time picker"
+  },
+  "SuccessPage": {
+    "status_badge": "Site Published",
+    "title_prefix": "The Space of",
+    "subtitle": "Your exclusive digital universe, now online and ready to share.",
+    "loading_fetching": "Fetching the universe of",
+    "error_title": "Oops! Galactic Error",
+    "error_description": "Unable to load the site data.",
+    "error_button": "Try Again",
+    "card_site_id": "SITE ID",
+    "card_event_date": "EVENT DATE",
+    "access_link": "Open Link",
+    "created_with_love": "Created with",
+    "downloads_title": "Download images to share",
+    "downloads_warning": "Attention: Upload a photo to enable downloads."
+  },
+  "CoupleProfile": {
+    "error_fetching": "Error fetching couple data",
+    "loading_fallback": "Loading...",
+    "mock": {
+      "couple_name": "Ana & Bruno",
+      "message": "Since you arrived, everything became softer — nights less silent, days lighter, everything gained brightness!"
+    },
+    "stages": {
+      "get_your_gift": "Get your present",
+      "timeline": "Timeline",
+      "finish": "Finish"
+    },
+    "fallbacks": {
+      "couple_name": "Couple",
+      "message": "Couple message",
+      "date": "0000-00-00",
+      "hour": "00:00"
+    }
+  },
+  "CoupleView": {
+    "fallbacks": {
+      "couple_name": "Couple's name",
+      "message": "Your special message will appear here...",
+      "together_for": "We've been together for:"
+    },
+    "audio": {
+      "play": "Play",
+      "pause": "Pause"
+    },
+    "errors": {
+      "invalid_image": "Invalid image received"
+    }
+  },
+  "Count": {
+    "years": "years",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+  "PlanSelector": {
+    "title": "Choose a plan",
+    "recommended": "Recommended",
+    "normal_title": "Normal Plan",
+    "normal_description": "Essential features, no music.",
+    "premium_title": "Premium",
+    "premium_description": "Music + exclusive extras.",
+    "price_suffix": ".00"
   }
 }

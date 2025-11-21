@@ -1,6 +1,9 @@
+"use client";
+
 import type { TimeTogether } from "@/src/@types/preview";
 import { useEffect, useState } from "react";
 import { TimeCard } from "./time-card";
+import { useTranslations } from "next-intl";
 
 interface ICount {
   startDate: Date;
@@ -9,6 +12,8 @@ interface ICount {
 }
 
 export const Count = ({ startDate, color }: ICount) => {
+  const t = useTranslations("Count");
+
   const [timeTogether, setTimeTogether] = useState<TimeTogether>({
     years: 0,
     days: 0,
@@ -22,8 +27,8 @@ export const Count = ({ startDate, color }: ICount) => {
       if (!startDate || isNaN(startDate.getTime())) return;
 
       const now = new Date();
-      const diff = now.getTime() - startDate.getTime(); // diferença em ms
-      if (diff < 0) return; // evita negativo
+      const diff = now.getTime() - startDate.getTime();
+      if (diff < 0) return;
 
       setTimeTogether({
         years: Math.floor(diff / (1000 * 60 * 60 * 24 * 365)),
@@ -37,7 +42,14 @@ export const Count = ({ startDate, color }: ICount) => {
     return () => clearInterval(interval);
   }, [startDate]);
 
-  const labels = ["anos", "dias", "horas", "minutos", "segundos"];
+  const labels = [
+    t("years"),
+    t("days"),
+    t("hours"),
+    t("minutes"),
+    t("seconds"),
+  ];
+
   const values = Object.values(timeTogether);
 
   return (
@@ -45,11 +57,11 @@ export const Count = ({ startDate, color }: ICount) => {
       <div className="flex justify-center gap-2 mt-3">
         {labels.map((label, idx) => (
           <TimeCard
-            color={color}
             key={label}
             label={label}
             value={values[idx]}
-            isSeconds={label === "segundos"}
+            color={color}
+            isSeconds={idx === 4}
           />
         ))}
       </div>

@@ -4,7 +4,7 @@ interface InputProps {
   label: string;
   type?: string;
   value: string;
-  onChange: (e: any) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   onBlur?: () => void;
 }
@@ -19,7 +19,7 @@ export function Input({
 }: InputProps) {
   return (
     <div className="space-y-1">
-      <label className="block text-gray-200 font-medium tracking-wide">
+      <label className="block text-sm font-medium text-gray-700 tracking-wide">
         {label}
       </label>
 
@@ -30,13 +30,18 @@ export function Input({
         onChange={onChange}
         onBlur={onBlur}
         className="
-          w-full p-3 rounded-xl outline-none transition
-          bg-white/5 backdrop-blur-xl
-          border border-white/10
-          text-gray-100 placeholder-gray-400
-        
-          focus:border-indigo-400
-          focus:shadow-[0_0_15px_rgba(99,102,241,0.45)]
+          w-full px-4 py-3 /* Padding para um look substancial */
+          rounded-xl /* Arredondamento Apple (Maior) */
+          outline-none
+          transition duration-200 ease-in-out
+          bg-white 
+          border border-gray-300
+          text-gray-900 text-base placeholder-gray-500
+          shadow-sm
+          hover:border-gray-400
+          focus:border-red-600 /* Borda Vermelha Forte */
+          focus:ring-2 focus:ring-red-200 /* Anel Vermelho Suave */
+          focus:shadow-lg focus:shadow-red-100 /* Sombra Vermelha de Destaque */
         "
       />
     </div>

@@ -4,12 +4,15 @@ import Preview from "@/src/components/molecules/preview";
 import CreateForm from "@/src/components/organisms/create-form";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   params: { id?: string };
 }
 
 export default function CreatePage({ params }: Props) {
+  const t = useTranslations("CreatePage");
+
   const [selectedColor, setSelectedColor] = useState("black");
   const [selectedPlan, setSelectedPlan] = useState<"normal" | "premium">(
     "normal"
@@ -25,25 +28,39 @@ export default function CreatePage({ params }: Props) {
   const [musicLink, setMusicLink] = useState("");
 
   const themes = [
-    { id: "black", label: "Black", bg: "bg-black", text: "text-white" },
-    { id: "white", label: "White", bg: "bg-white", text: "text-black" },
-    { id: "blue", label: "Blue", bg: "bg-blue-700", text: "text-white" },
+    {
+      id: "black",
+      label: t("theme_black"),
+      bg: "bg-black",
+      text: "text-white",
+    },
+    {
+      id: "white",
+      label: t("theme_white"),
+      bg: "bg-white",
+      text: "text-black",
+    },
+    {
+      id: "blue",
+      label: t("theme_blue"),
+      bg: "bg-blue-700",
+      text: "text-white",
+    },
   ];
 
   const handleImage = (files: File[]) => {
     setImage(files);
   };
 
-  console.log(params.id);
-
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.97, filter: "blur(20px)" }}
       animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
       transition={{ duration: 0.9, ease: "easeOut" }}
-      className="min-h-screen w-full bg-black flex"
+      className="min-h-screen w-full flex-col-reverse bg-gradient-to-br from-gray-50 via-white to-gray-100 flex flex-col lg:flex-row"
     >
-      <div className="w-1/2 h-screen flex justify-center items-center text-white">
+      {/* Preview - MOBILE abaixo do form / DESKTOP à esquerda */}
+      <div className="w-full flex lg:w-3/4 h-auto lg:h-screen flex justify-center items-center">
         <Preview
           coupleName={coupleName}
           message={message}
@@ -57,29 +74,32 @@ export default function CreatePage({ params }: Props) {
         />
       </div>
 
-      <CreateForm
-        themes={themes}
-        selectedColor={selectedColor}
-        setSelectedColor={setSelectedColor}
-        coupleName={coupleName}
-        setCoupleName={setCoupleName}
-        userEmail={userEmail}
-        setUserEmail={setUserEmail}
-        message={message}
-        setMessage={setMessage}
-        color={color}
-        setColor={setColor}
-        startDate={startDate}
-        setStartDate={setStartDate}
-        startHour={startHour}
-        setStartHour={setStartHour}
-        handleImage={handleImage}
-        musicLink={musicLink}
-        setMusicLink={setMusicLink}
-        selectedPlan={selectedPlan}
-        setSelectedPlan={setSelectedPlan}
-        image={image}
-      />
+      {/* Form - MOBILE em cima / DESKTOP à direita */}
+      <div className="order-1 lg:order-2 w-full lg:w-1/2 h-auto lg:h-screen overflow-y-auto">
+        <CreateForm
+          themes={themes}
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+          coupleName={coupleName}
+          setCoupleName={setCoupleName}
+          userEmail={userEmail}
+          setUserEmail={setUserEmail}
+          message={message}
+          setMessage={setMessage}
+          color={color}
+          setColor={setColor}
+          startDate={startDate}
+          setStartDate={setStartDate}
+          startHour={startHour}
+          setStartHour={setStartHour}
+          handleImage={handleImage}
+          musicLink={musicLink}
+          setMusicLink={setMusicLink}
+          selectedPlan={selectedPlan}
+          setSelectedPlan={setSelectedPlan}
+          image={image}
+        />
+      </div>
     </motion.div>
   );
 }

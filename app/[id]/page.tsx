@@ -8,9 +8,11 @@ import { Timeline } from "@/src/components/organisms/timeline";
 import { CoupleView } from "@/src/components/organisms/couple-view";
 import { ISiteData } from "@/src/@types/site";
 import NotFound from "@/src/components/organisms/not-found";
-import { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 export default function CoupleProfile() {
+  const t = useTranslations("CoupleProfile");
+
   const [coupleData, setCoupleData] = useState<ISiteData | null>(null);
   const [errors, setErrors] = useState<string | null>(null);
   const { id } = useParams();
@@ -25,14 +27,14 @@ export default function CoupleProfile() {
       });
 
       if (!res.ok) {
-        setErrors("Error fetching couple data");
+        setErrors(t("error_fetching"));
         return;
       }
 
       const data = await res.json();
       setCoupleData(data.site);
     } catch (error) {
-      setErrors("Error fetching couple data");
+      setErrors(t("error_fetching"));
     }
   };
 
@@ -44,9 +46,8 @@ export default function CoupleProfile() {
   }, [id]);
 
   const mockCoupleData = {
-    coupleName: "Ana & Bruno",
-    message:
-      "Desde que você chegou, tudo ficou mais suave — as noites menos silenciosas, os dias mais leves, as coisas ganharam brilho!",
+    coupleName: t("mock.couple_name"),
+    message: t("mock.message"),
     color: "#e1d1d1",
     startDate: "2024-03-10",
     startHour: "12:00",
@@ -86,16 +87,16 @@ export default function CoupleProfile() {
           <Timeline
             setStage={setStage}
             color={coupleData?.color || "#e1d1d1"}
-            startDate={coupleData?.start_date || "0000-00-00"}
+            startDate={coupleData?.start_date || t("fallbacks.date")}
           />
         )) ||
         (stage === GiftStage.Finish && coupleData && (
           <CoupleView
-            coupleName={coupleData?.couple_name || "Casal"}
-            message={coupleData?.message || "Mensagem do casal"}
+            coupleName={coupleData?.couple_name || t("fallbacks.couple_name")}
+            message={coupleData?.message || t("fallbacks.message")}
             color={coupleData?.color || "#e1d1d1"}
-            startDate={coupleData?.start_date || "0000-00-00"}
-            startHour={coupleData?.start_hour || "00:00"}
+            startDate={coupleData?.start_date || t("fallbacks.date")}
+            startHour={coupleData?.start_hour || t("fallbacks.hour")}
             image={coupleData?.photos?.map((photo) => photo.url) || null}
             musicLink={coupleData?.music || ""}
             selectedPlan={coupleData?.plan}

@@ -7,7 +7,7 @@ export const createFormSchema = z.object({
   userEmail: z.string().email("Email inválido"),
   message: z.string().min(1, "A mensagem é obrigatória"),
   color: z.string(),
-  startDate: z.date(),
+  startDate: z.date("Data é obrigatória"),
   startHour: z.string().min(1, "Informe a hora"),
   image: z.any().refine((val) => val && val.length > 0, {
     message: "Envie ao menos 1 foto",
