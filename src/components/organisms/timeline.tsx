@@ -125,17 +125,17 @@ export const Timeline = ({ startDate, color, setStage }: TimelineProps) => {
         icon: Timer,
         confetti: true,
       },
+      // {
+      //   id: 3,
+      //   type: "milestone",
+      //   title: "Primeira Viagem Inesquecível 🚗",
+      //   description:
+      //     "Aquele fim de semana que marcou o início das nossas aventuras juntos, cheio de risadas e descobertas.",
+      //   icon: Rocket,
+      //   imageSrc: "/trip-memory.jpg",
+      // },
       {
-        id: 3,
-        type: "milestone",
-        title: "Primeira Viagem Inesquecível 🚗",
-        description:
-          "Aquele fim de semana que marcou o início das nossas aventuras juntos, cheio de risadas e descobertas.",
-        icon: Rocket,
-        imageSrc: "/trip-memory.jpg",
-      },
-      {
-        id: 4,
+        id: 2,
         type: "future",
         title: "O que vem por aí... ✨",
         description:

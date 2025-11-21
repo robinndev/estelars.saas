@@ -79,7 +79,7 @@ export default function CoupleProfile() {
 
       {(stage === GiftStage.GetYourGift && (
         <GetYourPresent
-          color={mockCoupleData.color}
+          color={coupleData?.color ?? "#FF4081"}
           handleClick={() => setStage(GiftStage.Timeline)}
         />
       )) ||
