@@ -87,6 +87,7 @@ export default function CoupleProfile() {
           <Timeline
             setStage={setStage}
             color={coupleData?.color || "#e1d1d1"}
+            musicLink={coupleData?.music || ""}
             startDate={coupleData?.start_date || t("fallbacks.date")}
           />
         )) ||

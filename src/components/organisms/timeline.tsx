@@ -17,6 +17,7 @@ interface TimelineProps {
   startDate: string;
   color: string;
   setStage: (stage: number) => void;
+  musicLink?: string;
 }
 
 interface Story {
@@ -74,7 +75,12 @@ const StarryBackground = ({ color }: { color: string }) => (
   </div>
 );
 
-export const Timeline = ({ startDate, color, setStage }: TimelineProps) => {
+export const Timeline = ({
+  startDate,
+  color,
+  setStage,
+  musicLink,
+}: TimelineProps) => {
   const confettiRef = useRef<ConfettiRef>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [isExiting, setIsExiting] = useState(false);
@@ -348,9 +354,9 @@ export const Timeline = ({ startDate, color, setStage }: TimelineProps) => {
         </AnimatePresence>
       </div>
 
-      <div className="w-full">
-        <AudioPlayer isPlaying={true} progress={0} setIsPlaying={() => {}} />
-      </div>
+      {/* <div className="w-full">
+        <AudioPlayer musicLink={musicLink} />
+      </div> */}
       <div className="mt-8 text-sm text-gray-400 relative z-30">
         <Sparkles
           size={16}
