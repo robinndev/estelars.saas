@@ -45,7 +45,7 @@ export default function CoupleProfile() {
     }
   }, [id]);
 
-  const [stage, setStage] = useState(1);
+  const [stage, setStage] = useState(0);
 
   enum GiftStage {
     GetYourGift = 0,
