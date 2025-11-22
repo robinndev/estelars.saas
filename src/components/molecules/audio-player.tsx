@@ -22,28 +22,40 @@ export const AudioPlayer = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  // Extrai videoId do link do YouTube
+  // Função que extrai videoId de qualquer link YouTube
+  const getYouTubeVideoId = (link: string) => {
+    try {
+      const url = new URL(link);
+
+      // Caso normal: youtube.com/watch?v=xxxx
+      const v = url.searchParams.get("v");
+      if (v) return v;
+
+      // Caso curto: youtu.be/xxxx
+      if (url.hostname.includes("youtu.be")) return url.pathname.slice(1);
+
+      return null;
+    } catch {
+      return null;
+    }
+  };
+
+  // Quando musicLink mudar, extrai o videoId
   useEffect(() => {
     if (!musicLink) return;
-    try {
-      const url = new URL(musicLink);
-      const v = url.searchParams.get("v");
-      if (v) setVideoId(v);
-    } catch (err) {
-      console.error("Invalid YouTube URL:", err);
-    }
+    const id = getYouTubeVideoId(musicLink);
+    if (id) setVideoId(id);
   }, [musicLink]);
 
-  // Quando o videoId mudar, reseta estado
+  // Reset quando troca vídeo
   useEffect(() => {
     setProgress(0);
     setIsPlaying(false);
-    // Pode buscar título real da música via API, aqui fixo
     setTitle("Nossa Música");
     setArtist("Tema especial do casal");
   }, [videoId]);
 
-  // Play/pause
+  // Toggle play/pause
   const togglePlay = () => {
     if (!playerRef.current) return;
     if (isPlaying) {
@@ -55,7 +67,7 @@ export const AudioPlayer = ({
     }
   };
 
-  // Atualiza progress a cada 500ms
+  // Atualiza barra de progresso
   useEffect(() => {
     if (!playerRef.current) return;
     let interval: NodeJS.Timeout;
@@ -73,7 +85,7 @@ export const AudioPlayer = ({
     height: "0",
     width: "0",
     playerVars: {
-      autoplay: 1, // começa tocando automaticamente
+      autoplay: 0, // não toca sozinho, espera clique
       controls: 0,
       disablekb: 1,
       modestbranding: 1,
@@ -145,9 +157,7 @@ export const AudioPlayer = ({
               videoId={videoId}
               opts={opts}
               onReady={(e) => {
-                playerRef.current = e.target; // **aqui é o player real**
-                playerRef.current.playVideo(); // já começa tocando
-                setIsPlaying(true);
+                playerRef.current = e.target;
               }}
             />
           </div>
