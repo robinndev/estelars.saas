@@ -2,7 +2,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useMemo, useCallback } from "react";
-import { Timer, Star, Rocket, Sparkles, Heart } from "lucide-react";
+import { Timer, Star, Sparkles, Heart } from "lucide-react";
 import { Confetti, type ConfettiRef } from "@/components/ui/confetti";
 import type { Story, TimelineProps } from "@/src/@types/timeline";
 import { StarryBackground } from "./starry-background";
@@ -54,7 +54,7 @@ export const Timeline = ({
         type: "future",
         title: "O que vem por aí... ✨",
         description:
-          "Novas datas, novas memórias e um futuro brilhante esperando por nós. Próxima grande meta: [Inserir Próxima Meta].",
+          "Novas datas, novas memórias e um futuro brilhante esperando por nós.",
         icon: Star,
       },
     ],
