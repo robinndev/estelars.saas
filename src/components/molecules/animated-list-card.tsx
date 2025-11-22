@@ -49,7 +49,7 @@ let notifications = [
   },
   {
     name: "Meu sonho acordado 🧸", // Mais curto
-    description: "Obrigada(o) por tornar meus dias especiais.",
+    description: "Você torna meus dias especiais.",
     time: "6m ago",
     icon: "🧸", // Ursinho
     color: "#FFA07A", // Salmão Claro (Ursinho)
@@ -103,7 +103,9 @@ const Notification = ({ name, description, icon, color, time }: Item) => {
             <span className="mx-1">·</span>
             <span className="text-xs text-gray-500">{time}</span>
           </figcaption>
-          <p className="text-sm font-normal text-gray-700">{description}</p>
+          <p className="text-sm text-left font-normal text-gray-700">
+            {description}
+          </p>
         </div>
       </div>
     </figure>
