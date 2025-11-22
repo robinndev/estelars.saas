@@ -58,7 +58,6 @@ export function ColorPicker({
           "
         />
 
-        {/* Input type="color" funcional */}
         <input
           ref={colorRef}
           type="color"

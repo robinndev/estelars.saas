@@ -69,7 +69,7 @@ export function GetYourPresent({ color, handleClick }: IGetYourPresentProps) {
             }}
             whileTap={{ scale: 0.95 }}
             style={{ backgroundColor: specialColor }}
-            className="relative px-10 py-3 rounded-full font-bold text-white text-lg shadow-lg transition-all duration-300"
+            className="relative cursor-pointer px-10 py-3 rounded-full font-bold text-white text-lg shadow-lg transition-all duration-300"
           >
             Ver presente
           </motion.button>

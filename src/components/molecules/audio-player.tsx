@@ -22,32 +22,29 @@ export const AudioPlayer = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  // Função que extrai videoId de qualquer link YouTube
+  const isMobile =
+    typeof window !== "undefined" &&
+    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // Extrai videoId de qualquer link YouTube
   const getYouTubeVideoId = (link: string) => {
     try {
       const url = new URL(link);
-
-      // Caso normal: youtube.com/watch?v=xxxx
       const v = url.searchParams.get("v");
       if (v) return v;
-
-      // Caso curto: youtu.be/xxxx
       if (url.hostname.includes("youtu.be")) return url.pathname.slice(1);
-
       return null;
     } catch {
       return null;
     }
   };
 
-  // Quando musicLink mudar, extrai o videoId
   useEffect(() => {
     if (!musicLink) return;
     const id = getYouTubeVideoId(musicLink);
     if (id) setVideoId(id);
   }, [musicLink]);
 
-  // Reset quando troca vídeo
   useEffect(() => {
     setProgress(0);
     setIsPlaying(false);
@@ -55,9 +52,14 @@ export const AudioPlayer = ({
     setArtist("Tema especial do casal");
   }, [videoId]);
 
-  // Toggle play/pause
   const togglePlay = () => {
-    if (!playerRef.current) return;
+    if (!playerRef.current) {
+      // Mobile workaround: abre YouTube no app/Browser
+      if (isMobile && musicLink) {
+        window.open(musicLink, "_blank");
+      }
+      return;
+    }
     if (isPlaying) {
       playerRef.current.pauseVideo();
       setIsPlaying(false);
@@ -67,7 +69,6 @@ export const AudioPlayer = ({
     }
   };
 
-  // Atualiza barra de progresso
   useEffect(() => {
     if (!playerRef.current) return;
     let interval: NodeJS.Timeout;
@@ -82,12 +83,11 @@ export const AudioPlayer = ({
   }, [isPlaying, videoId]);
 
   const opts = {
-    height: "0",
-    width: "0",
+    height: isMobile ? "200" : "0",
+    width: isMobile ? "320" : "0",
     playerVars: {
-      autoplay: 0, // não toca sozinho, espera clique
-      controls: 0,
-      disablekb: 1,
+      autoplay: 0,
+      controls: isMobile ? 1 : 0, // MOBILE precisa de controles
       modestbranding: 1,
       rel: 0,
     },
@@ -131,7 +131,7 @@ export const AudioPlayer = ({
 
           <button
             onClick={togglePlay}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-white"
+            className="w-10 h-10 cursor-pointer flex items-center justify-center rounded-full bg-white"
           >
             {isPlaying ? (
               <Pause className="w-5 h-5 text-black" />
@@ -152,13 +152,11 @@ export const AudioPlayer = ({
         </div>
 
         {videoId && (
-          <div className="w-0 h-0 overflow-hidden opacity-0 pointer-events-none">
+          <div className={isMobile ? "w-full h-48" : "w-0 h-0"}>
             <YouTube
               videoId={videoId}
               opts={opts}
-              onReady={(e) => {
-                playerRef.current = e.target;
-              }}
+              onReady={(e) => (playerRef.current = e.target)}
             />
           </div>
         )}

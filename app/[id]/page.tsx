@@ -45,16 +45,7 @@ export default function CoupleProfile() {
     }
   }, [id]);
 
-  const mockCoupleData = {
-    coupleName: t("mock.couple_name"),
-    message: t("mock.message"),
-    color: "#e1d1d1",
-    startDate: "2024-03-10",
-    startHour: "12:00",
-    image: ["/robin-rebeca.png", "/couple-sun.png"],
-  };
-
-  const [stage, setStage] = useState(0);
+  const [stage, setStage] = useState(2);
 
   enum GiftStage {
     GetYourGift = 0,
