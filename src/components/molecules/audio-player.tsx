@@ -30,9 +30,19 @@ export const AudioPlayer = ({
   const getYouTubeVideoId = (link: string) => {
     try {
       const url = new URL(link);
+
+      // Vídeo normal
       const v = url.searchParams.get("v");
       if (v) return v;
+
+      // Short link youtu.be
       if (url.hostname.includes("youtu.be")) return url.pathname.slice(1);
+
+      // Link de live
+      if (url.pathname.startsWith("/live/")) {
+        return url.pathname.split("/live/")[1];
+      }
+
       return null;
     } catch {
       return null;
