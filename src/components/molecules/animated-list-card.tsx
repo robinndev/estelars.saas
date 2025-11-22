@@ -13,46 +13,67 @@ interface Item {
 
 let notifications = [
   {
-    name: "Você recebeu um presente! 🎁💖",
-    description: "Alguém pensou em você hoje",
+    name: "Lembrei de você! 🥰💌", // Mais curto
+    description: "Não resisti, precisava te enviar um carinho.",
     time: "1m ago",
-    icon: "💝",
-    color: "#FF4081",
-  },
-  {
-    name: "Sim, é sério! ✨💫",
-    description: "Não é brincadeira, é especial",
-    time: "2m ago",
-    icon: "🌟",
-    color: "#FFD700",
-  },
-  {
-    name: "Vi uma estrela e lembrei de você 🌠",
-    description: "Seu brilho veio à minha mente",
-    time: "3m ago",
-    icon: "🌌",
-    color: "#6A5ACD",
-  },
-  {
-    name: "Borboletas no meu coração 🦋💌",
-    description: "Sempre que penso em você",
-    time: "4m ago",
     icon: "💖",
-    color: "#FF6B6B",
+    color: "#FF69B4", // Rosa Choque (Coração)
   },
   {
-    name: "Arco-íris depois da chuva 🌈💞",
-    description: "Lembrando que coisas lindas existem",
+    name: "Beijo virtual! 😘💞", // Mais curto
+    description: "Sinta meu abraço mesmo de longe.",
+    time: "2m ago",
+    icon: "💋",
+    color: "#FF1493", // Rosa Forte (Beijo)
+  },
+  {
+    name: "Coração sorrindo! 🫶❤️", // Mais curto
+    description: "Só passando para te lembrar o quanto te amo.",
+    time: "3m ago",
+    icon: "✨", // Brilho
+    color: "#FFD700", // Dourado (Brilho)
+  },
+  {
+    name: "Presentinho! 🎁💖", // Mais curto
+    description: "Porque você merece todo o amor do mundo.",
+    time: "4m ago",
+    icon: "🎀", // Laço
+    color: "#FFC0CB", // Rosa Bebê (Laço)
+  },
+  {
+    name: "Saudades! 😢💌", // Mais curto
+    description: "Queria te abraçar agora mesmo.",
     time: "5m ago",
-    icon: "🌈",
-    color: "#00C9A7",
+    icon: "🫂",
+    color: "#8A2BE2", // Azul Violeta (Abraço)
   },
   {
-    name: "Meu mundo sorriu hoje 😍✨",
-    description: "Porque você passou pela minha mente",
+    name: "Meu sonho acordado 🧸", // Mais curto
+    description: "Obrigada(o) por tornar meus dias especiais.",
     time: "6m ago",
-    icon: "😇",
-    color: "#FF3D71",
+    icon: "🧸", // Ursinho
+    color: "#FFA07A", // Salmão Claro (Ursinho)
+  },
+  {
+    name: "Coração acelerado! 💓🥰", // Mais curto
+    description: "Cada pensamento seu me deixa feliz.",
+    time: "7m ago",
+    icon: "🌷", // Tulipa
+    color: "#FF6347", // Tomate (Tulipa)
+  },
+  {
+    name: "Doçura do mundo 🍬💖", // Mais curto
+    description: "Você é meu doce favorito.",
+    time: "8m ago",
+    icon: "😇", // Anjinho
+    color: "#00CED1", // Azul Turquesa (Anjinho)
+  },
+  {
+    name: "Raio de sol! ☀️❤️", // Mais curto
+    description: "Ilumina meu mundo mesmo nos dias nublados.",
+    time: "10m ago",
+    icon: "☀️",
+    color: "#FFA500", // Laranja (Sol)
   },
 ];
 
@@ -110,7 +131,6 @@ export function AnimatedListCard({
       </AnimatedList>
 
       {/* Gradient no final para suavizar saída da lista */}
-      <button>dasa</button>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-white/90 to-transparent"></div>
     </div>
   );

@@ -38,7 +38,7 @@ export function GetYourPresent({ color, handleClick }: IGetYourPresentProps) {
     >
       <AnimatedListCard setIndex={setIndex} />
 
-      {index >= 3 && (
+      {index >= 2 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
