@@ -278,14 +278,15 @@ const Index = () => {
       </div>
 
       {/* DOWNLOADS */}
-      <div className="relative z-10 w-full px-32 mt-24 pb-24">
+      <div className="relative z-10 w-full px-6 lg:px-32 mt-24 pb-24">
         <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
           <Download className="w-5 h-5 text-indigo-400" />
           {t("downloads_title")}
         </h2>
 
-        <div className="flex gap-6">
-          <div className="w-1/3">
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* STORIES - MOBILE FIRST */}
+          <div className="w-full lg:w-1/3">
             <StoriesComponent
               photoUrl={primaryPhotoUrl || ""}
               coupleName={currentData.couple_name}
@@ -296,7 +297,8 @@ const Index = () => {
             />
           </div>
 
-          <div className="w-2/3 flex justify-center">
+          {/* DESKTOP MEMORY */}
+          <div className="w-full lg:w-2/3 flex justify-center">
             <DesktopMemoryComponent
               photoUrl={primaryPhotoUrl || ""}
               coupleName={currentData.couple_name}
