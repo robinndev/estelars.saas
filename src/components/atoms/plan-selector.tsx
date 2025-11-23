@@ -20,7 +20,7 @@ export function PlanSelector({
       id: "normal",
       title: t("normal_title"),
       description: t("normal_description"),
-      price: 19,
+      price: 18.9,
       icon: Music,
       topColor: "from-gray-300/60 to-gray-50/0",
       iconBg: "bg-gray-200 text-gray-700",
@@ -29,7 +29,7 @@ export function PlanSelector({
       id: "premium",
       title: t("premium_title"),
       description: t("premium_description"),
-      price: 29,
+      price: 29.9,
       icon: Crown,
       topColor: "from-purple-500/60 to-white/0",
       iconBg: "bg-purple-600 text-white",
@@ -114,8 +114,7 @@ export function PlanSelector({
                   </p>
 
                   <p className="mt-2 text-purple-600 font-semibold text-sm">
-                    R$ {p.price}
-                    {t("price_suffix")}
+                    R$ {p.price}0
                   </p>
                 </div>
               </div>
