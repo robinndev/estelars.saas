@@ -4,6 +4,7 @@ import type { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
+    console.log("Stripe Webhook Invoked");
     const body = await req.text();
 
     const signature = req.headers.get("stripe-signature");
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
 
     switch (event.type) {
       case "checkout.session.completed":
+        console.log("Checkout session completed event received");
         // Usuário completou a compra - assinatura ou pagamento único
         if (event.data.object.payment_status === "paid") {
           const siteId = event.data.object.metadata?.siteId!;
@@ -32,11 +34,14 @@ export async function POST(req: NextRequest) {
         // Usuário completou o boleto
         break;
       case "customer.subscription.deleted":
+        console.log("Customer subscription deleted event received");
         // Usuário cancelou a assinatura
         break;
       case "checkout.session.async_payment_failed":
         // Usuário não completou o pagamento
         break;
+      default:
+        console.log(`Unhandled event type: ${event.type}`);
     }
 
     return new Response(JSON.stringify({ received: true }));

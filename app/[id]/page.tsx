@@ -49,8 +49,8 @@ export default function CoupleProfile() {
 
   enum GiftStage {
     GetYourGift = 0,
-    Timeline = 1,
-    Finish = 2,
+    Finish = 1,
+    // Timeline = 1,
   }
 
   if (errors) {
@@ -71,17 +71,17 @@ export default function CoupleProfile() {
       {(stage === GiftStage.GetYourGift && (
         <GetYourPresent
           color={coupleData?.color ?? "#FF4081"}
-          handleClick={() => setStage(GiftStage.Timeline)}
+          handleClick={() => setStage(GiftStage.Finish)}
         />
       )) ||
-        (stage === GiftStage.Timeline && (
-          <Timeline
-            setStage={setStage}
-            color={coupleData?.color || "#e1d1d1"}
-            musicLink={coupleData?.music || ""}
-            startDate={coupleData?.start_date || t("fallbacks.date")}
-          />
-        )) ||
+        // (stage === GiftStage.Timeline && (
+        //   <Timeline
+        //     setStage={setStage}
+        //     color={coupleData?.color || "#e1d1d1"}
+        //     musicLink={coupleData?.music || ""}
+        //     startDate={coupleData?.start_date || t("fallbacks.date")}
+        //   />
+        // )) ||
         (stage === GiftStage.Finish && coupleData && (
           <CoupleView
             coupleName={coupleData?.couple_name || t("fallbacks.couple_name")}

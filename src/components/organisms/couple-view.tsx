@@ -31,8 +31,6 @@ export const CoupleView = ({
 }: CoupleViewProps) => {
   const t = useTranslations("CoupleView");
 
-  const [progress, setProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [datePart, setDatePart] = useState("");
   const [resolvedSrcs, setResolvedSrcs] = useState<string[] | null>(null);
@@ -55,17 +53,6 @@ export const CoupleView = ({
       `${datePart}T${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`
     );
   }, [datePart, startHour]);
-
-  /** PROGRESS BAR */
-  useEffect(() => {
-    if (!isPlaying) return;
-
-    const interval = setInterval(() => {
-      setProgress((prev) => (prev >= 100 ? 0 : prev + 1));
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [isPlaying]);
 
   /** IMAGE RESOLUTION */
   useEffect(() => {
@@ -104,9 +91,9 @@ export const CoupleView = ({
 
   console.log(musicLink);
   return (
-    <div className="w-full min-h-screen relative bg-black flex flex-col">
-      {/* HERO */}
-      <div className="relative w-full h-[55vh] overflow-hidden">
+    <div className="w-full min-h-screen relative bg-black flex flex-col lg:flex-row">
+      {/* IMAGEM (MAIOR DESTAQUE NO DESKTOP) */}
+      <div className="relative w-full h-[55vh] lg:h-screen lg:w-3/5 overflow-hidden">
         <AnimatePresence mode="wait">
           {resolvedSrcs && resolvedSrcs.length > 0 ? (
             resolvedSrcs.length > 1 ? (
@@ -131,7 +118,7 @@ export const CoupleView = ({
                   alt={`Hero ${currentIndex}`}
                   fill
                   className="object-cover object-center"
-                  sizes="100vw"
+                  sizes="(max-width: 1024px) 100vw, 60vw" // Otimização de tamanhos
                 />
               </motion.div>
             ) : (
@@ -141,7 +128,7 @@ export const CoupleView = ({
                   alt="Hero"
                   fill
                   className="object-cover object-center"
-                  sizes="100vw"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
                 />
               </div>
             )
@@ -150,43 +137,48 @@ export const CoupleView = ({
           )}
         </AnimatePresence>
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/50 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-black pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/50 pointer-events-none lg:bg-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-black pointer-events-none lg:hidden" />
+
+        <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-black pointer-events-none" />
       </div>
 
-      {/* CONTENT */}
-      <div className="relative z-10 flex flex-col items-center w-full h-full px-4 text-center text-white -mt-8 pb-20">
-        <div
-          className="p-4 rounded-full mb-4"
-          style={{
-            background: color + "30",
-            boxShadow: `0 0 20px ${color}50, 0 0 40px ${color}40, 0 0 60px ${color}30`,
-          }}
-        >
-          <Heart className="w-8 h-8" style={{ color }} />
-        </div>
-
-        <h1 className="text-3xl font-bold tracking-tight">
-          {coupleName || t("fallbacks.couple_name")}
-        </h1>
-
-        <p className="text-gray-300 text-sm w-82 font-light mt-2">
-          {message || t("fallbacks.message")}
-        </p>
-
-        <p className="text-gray-400 mt-8 -mb-2 text-sm font-normal">
-          {t("fallbacks.together_for")}
-        </p>
-
-        <div className="mt-2">
-          <Count startDate={parsedDate} value={0} color={color} />
-        </div>
-
-        {selectedPlan === "premium" && musicLink && (
-          <div className="w-full flex items-center justify-center mt-10">
-            <AudioPlayer musicLink={musicLink} color={color} />
+      <div className="relative z-10 flex flex-col items-center w-full h-full px-4 text-center text-white -mt-8 pb-20 lg:w-2/5 lg:py-20 lg:mt-0 lg:justify-center">
+        <div className="lg:max-w-md lg:mx-auto">
+          <div className="w-full flex items-center justify-center">
+            <div
+              className="p-4 rounded-full mb-4 w-16 h-16"
+              style={{
+                background: color + "30",
+                boxShadow: `0 0 20px ${color}50, 0 0 40px ${color}40, 0 0 60px ${color}30`,
+              }}
+            >
+              <Heart className="w-8 h-8" style={{ color }} />
+            </div>
           </div>
-        )}
+
+          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
+            {coupleName || t("fallbacks.couple_name")}
+          </h1>
+
+          <p className="text-gray-300 text-base w-full font-light mt-4 lg:text-lg">
+            {message || t("fallbacks.message")}
+          </p>
+
+          <p className="text-gray-400 mt-12 -mb-2 text-sm font-normal">
+            {t("fallbacks.together_for")}
+          </p>
+
+          <div className="mt-2">
+            <Count startDate={parsedDate} value={0} color={color} />
+          </div>
+
+          {selectedPlan === "premium" && musicLink && (
+            <div className="w-full flex items-center justify-center mt-12">
+              <AudioPlayer musicLink={musicLink} color={color} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
