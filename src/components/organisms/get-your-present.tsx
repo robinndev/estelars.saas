@@ -63,12 +63,12 @@ export function GetYourPresent({ color, handleClick }: IGetYourPresentProps) {
           {/* Botão principal */}
           <motion.button
             onClick={handleClick}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: `0 0 15px ${specialColor}, 0 0 40px ${glowColor}`,
-            }}
             whileTap={{ scale: 0.95 }}
-            style={{ backgroundColor: specialColor }}
+            style={{
+              backgroundColor: specialColor,
+              boxShadow: `0 0 15px ${specialColor}, 0 0 40px ${glowColor}`,
+              scale: 1.05,
+            }}
             className="relative cursor-pointer px-10 py-3 rounded-full font-bold text-white text-lg shadow-lg transition-all duration-300"
           >
             Ver presente
