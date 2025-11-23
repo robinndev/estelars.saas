@@ -35,7 +35,7 @@ export default function Home() {
       <LanguageSwitcher />
 
       <main className="relative z-10">
-        <Hero setBgImage={setBgImage} />
+        <Hero />
         <HowToMake />
         <Price />
         <Faq />
