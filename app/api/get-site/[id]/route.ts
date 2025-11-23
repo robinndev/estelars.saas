@@ -17,8 +17,6 @@ export async function GET(req: Request, context: any) {
 
     const getSite = await sitesService.getById(id);
 
-    console.log("Site encontrado:", getSite);
-
     if (!getSite) {
       return NextResponse.json(
         { error: "Site não encontrado" },
