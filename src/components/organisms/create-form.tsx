@@ -165,7 +165,7 @@ export default function CreateForm(props: CreateFormProps) {
     );
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-10 lg:p-12 bg-white border border-gray-200 rounded-3xl flex flex-col gap-12 text-gray-900">
+    <div className="w-full max-w-2xl mx-auto  p-10 lg:p-12 bg-white border border-gray-200 rounded-3xl flex flex-col gap-12 text-gray-900">
       <PlanSelector
         selectedPlan={selectedPlan}
         setSelectedPlan={setSelectedPlan}
@@ -259,11 +259,8 @@ export default function CreateForm(props: CreateFormProps) {
         </div>
 
         <div className="space-y-1">
-          <label className="block font-medium text-gray-700 tracking-wide">
-            {t("fields.music")}
-          </label>
-
-          <input
+          <Input
+            label={t("placeholders.music_link")}
             type="text"
             disabled={selectedPlan !== "premium"}
             value={musicLink}
@@ -274,14 +271,6 @@ export default function CreateForm(props: CreateFormProps) {
                 : t("placeholders.music_premium_only")
             }
             onBlur={() => handleTouch("musicLink")}
-            className={`
-              w-full p-3 rounded-xl border outline-none transition duration-200 text-base placeholder-gray-500
-              ${
-                selectedPlan === "premium"
-                  ? "bg-white border-gray-300 text-gray-900 hover:border-red-500 focus:border-red-600 focus:ring-2 focus:ring-red-200"
-                  : "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed"
-              }
-            `}
           />
           {renderError("musicLink")}
         </div>

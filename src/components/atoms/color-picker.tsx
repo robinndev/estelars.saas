@@ -23,16 +23,13 @@ export function ColorPicker({
       <motion.div
         className="
           relative
-          flex items-center gap-4 p-4 rounded-xl
+          flex items-center  gap-4 p-4 rounded-lg
           bg-white border border-gray-300
-          shadow-md
-          hover:border-red-500 hover:shadow-lg hover:shadow-red-100
           cursor-pointer
         "
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
-        {/* Amostra de Cor */}
         <motion.div
           className="
             w-14 h-14 rounded-lg border-2 border-white shadow-inner
@@ -42,7 +39,6 @@ export function ColorPicker({
           whileHover={{ scale: 1.08 }}
         />
 
-        {/* Campo de Texto */}
         <input
           type="text"
           value={value}

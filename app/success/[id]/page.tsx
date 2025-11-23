@@ -155,7 +155,7 @@ const Index = () => {
         <p className="text-gray-400 mb-6">{t("error_description")}</p>
         <Button
           onClick={() => fetchSiteData(urlId!)}
-          className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl"
+          className="bg-indigo-600 cursor-pointer hover:bg-indigo-500 text-white cursor-pointer rounded-xl"
         >
           {t("error_button")}
         </Button>
@@ -184,7 +184,7 @@ const Index = () => {
       >
         <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-24 items-center mt-12">
           {/* RIGHT — IMAGE & QR */}
-          <div className="flex flex-col items-center justify-center animate-scale-in order-1 lg:order-2">
+          <div className="flex flex-col items-center justify-center animate-scale-in order-2">
             <Card className="w-full max-w-sm p-3 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] shadow-2xl">
               <div className="relative w-full aspect-[6/8] rounded-t-3xl overflow-hidden">
                 {primaryPhotoUrl ? (
@@ -210,7 +210,7 @@ const Index = () => {
                     target="_blank"
                     className="flex-1"
                   >
-                    <Button className="w-full h-10 text-sm rounded-lg bg-indigo-600 text-white">
+                    <Button className="w-full h-10 cursor-pointer text-sm rounded-lg bg-indigo-600 text-white">
                       <ExternalLink className="w-4 h-4 mr-2" />
                       {t("access_link")}
                     </Button>
@@ -232,7 +232,7 @@ const Index = () => {
           </div>
 
           {/* LEFT — INFO */}
-          <div className="space-y-10 text-white order-2 lg:order-1">
+          <div className="space-y-10 text-white order-1">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/20 border border-indigo-500/40">
                 <Sparkles className="w-5 h-5 text-indigo-400" />
@@ -278,7 +278,7 @@ const Index = () => {
       </div>
 
       {/* DOWNLOADS */}
-      <div className="relative z-10 w-full px-6 lg:px-32 mt-24 pb-24">
+      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-32 mt-24 pb-24">
         <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
           <Download className="w-5 h-5 text-indigo-400" />
           {t("downloads_title")}
@@ -286,7 +286,7 @@ const Index = () => {
 
         <div className="flex flex-col lg:flex-row gap-6">
           {/* STORIES - MOBILE FIRST */}
-          <div className="w-full lg:w-1/3">
+          <div className="w-full lg:w-1/3 order-1 lg:order-1">
             <StoriesComponent
               photoUrl={primaryPhotoUrl || ""}
               coupleName={currentData.couple_name}
@@ -298,7 +298,7 @@ const Index = () => {
           </div>
 
           {/* DESKTOP MEMORY */}
-          <div className="w-full lg:w-2/3 flex justify-center">
+          <div className="w-full lg:w-2/3 order-2 lg:order-2 flex justify-center">
             <DesktopMemoryComponent
               photoUrl={primaryPhotoUrl || ""}
               coupleName={currentData.couple_name}

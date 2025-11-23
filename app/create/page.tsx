@@ -57,25 +57,9 @@ export default function CreatePage({ params }: Props) {
       initial={{ opacity: 0, scale: 0.97, filter: "blur(20px)" }}
       animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
       transition={{ duration: 0.9, ease: "easeOut" }}
-      className="min-h-screen w-full flex-col-reverse bg-gradient-to-br from-gray-50 via-white to-gray-100 flex flex-col lg:flex-row"
+      className="min-h-screen w-full bg-linear-to-br from-gray-50 via-white to-gray-100 flex flex-col lg:flex-row"
     >
-      {/* Preview - MOBILE abaixo do form / DESKTOP à esquerda */}
-      <div className="w-full flex lg:w-3/4 h-auto lg:h-screen flex justify-center items-center">
-        <Preview
-          coupleName={coupleName}
-          message={message}
-          color={color}
-          startDate={startDate}
-          startHour={startHour}
-          image={image}
-          musicLink={musicLink}
-          selectedPlan={selectedPlan}
-          selectedColor={selectedColor}
-        />
-      </div>
-
-      {/* Form - MOBILE em cima / DESKTOP à direita */}
-      <div className="order-1 lg:order-2 w-full lg:w-1/2 h-auto lg:h-screen overflow-y-auto">
+      <div className="w-full lg:w-1/2 h-auto lg:h-screen overflow-y-auto">
         <CreateForm
           themes={themes}
           selectedColor={selectedColor}
@@ -100,6 +84,19 @@ export default function CreatePage({ params }: Props) {
           image={image}
         />
       </div>
+      <div className="w-full lg:w-3/4 h-auto lg:h-screen flex justify-center items-center">
+        <Preview
+          coupleName={coupleName}
+          message={message}
+          color={color}
+          startDate={startDate}
+          startHour={startHour}
+          image={image}
+          musicLink={musicLink}
+          selectedPlan={selectedPlan}
+          selectedColor={selectedColor}
+        />
+      </div>{" "}
     </motion.div>
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { InputCn } from "@/components/ui/input";
+
 interface InputProps {
   label: string;
   type?: string;
@@ -7,6 +9,7 @@ interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   onBlur?: () => void;
+  disabled?: boolean;
 }
 
 export function Input({
@@ -16,6 +19,7 @@ export function Input({
   onChange,
   placeholder,
   onBlur,
+  disabled = false,
 }: InputProps) {
   return (
     <div className="space-y-1">
@@ -23,25 +27,18 @@ export function Input({
         {label}
       </label>
 
-      <input
+      <InputCn
+        disabled={disabled}
         type={type}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
         className="
-          w-full px-4 py-3 /* Padding para um look substancial */
-          rounded-xl /* Arredondamento Apple (Maior) */
+          w-full px-4 py-3
+          h-12
           outline-none
           transition duration-200 ease-in-out
-          bg-white 
-          border border-gray-300
-          text-gray-900 text-base placeholder-gray-500
-          shadow-sm
-          hover:border-gray-400
-          focus:border-purple-600 /* Borda Vermelha Forte */
-          focus:ring-2 focus:ring-purple-200 /* Anel Vermelho Suave */
-          focus:shadow-lg focus:shadow-purple-100 /* Sombra Vermelha de Destaque */
         "
       />
     </div>

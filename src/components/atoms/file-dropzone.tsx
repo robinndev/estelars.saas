@@ -131,7 +131,10 @@ export function FileDropzone({ onChange, selectedPlan }: FileDropzoneProps) {
 
       {/* PREVIEWS */}
       {previews.length > 0 && (
-        <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 gap-5">
+        <motion.div
+          layout="position"
+          className="grid grid-cols-2 sm:grid-cols-3 gap-5"
+        >
           <AnimatePresence>
             {previews.map((src, i) => (
               <motion.div
@@ -144,22 +147,24 @@ export function FileDropzone({ onChange, selectedPlan }: FileDropzoneProps) {
                   group relative rounded-xl overflow-hidden
                   border border-gray-300 bg-white 
                   shadow-md hover:shadow-lg transition
+                  min-h-40
                 "
               >
                 <img
                   src={src}
-                  className="w-full h-40 object-cover"
+                  className="w-full h-40 object-cover select-none"
                   alt={t("preview_alt", { index: i + 1 })}
                 />
 
+                {/* X SEMPRE VISÍVEL */}
                 <button
                   onClick={() => removeFile(i)}
                   className="
-                    absolute top-2 right-2 bg-white/70 backdrop-blur-sm
+                    absolute top-2 right-2 bg-white/80 backdrop-blur-sm
                     border border-gray-300 p-1.5 rounded-lg
                     text-[#a684ff]
-                    opacity-0 group-hover:opacity-100 transition
-                    hover:bg-[#a684ff] hover:border-[#a684ff]
+                    opacity-100 transition
+                    hover:bg-[#a684ff] hover:border-[#a684ff] hover:text-white
                   "
                 >
                   <X size={16} />

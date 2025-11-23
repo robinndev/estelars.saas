@@ -128,7 +128,7 @@ export const DesktopMemoryComponent = ({
           border: `2px solid ${themeColor}`,
           backgroundColor: themeColor + "22", // leve transparência
         }}
-        className="mt-6 md:mt-8 px-6 py-3 text-lg text-white rounded-xl shadow-lg hover:opacity-90 transition"
+        className="mt-6 md:mt-8 cursor-pointer px-6 py-3 text-lg text-white rounded-xl shadow-lg hover:opacity-90 transition"
       >
         Baixar Versão Desktop
       </button>

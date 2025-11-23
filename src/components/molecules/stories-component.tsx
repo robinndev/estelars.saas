@@ -89,7 +89,7 @@ export const StoriesComponent = ({
           border: `2px solid ${themeColor}`,
           backgroundColor: themeColor + "22",
         }}
-        className="mt-4 px-4 py-3 text-white rounded-xl shadow-lg hover:opacity-90 transition"
+        className="mt-4 px-4 cursor-pointer py-3 text-white rounded-xl shadow-lg hover:opacity-90 transition"
       >
         Baixar Story do Instagram
       </button>

@@ -43,9 +43,8 @@ export function DatePicker({
           className="
             w-full h-12 px-4
             justify-start text-left font-normal
-            rounded-xl text-base
-            bg-white border border-gray-300 text-gray-900 
-            shadow-sm
+            rounded-lg text-base
+            bg-white cursor-pointer
             hover:bg-gray-50 hover:border-[#a684ff]
             focus:border-[#a684ff] focus:ring-2 focus:ring-[#a684ff]
             transition-all
@@ -67,7 +66,7 @@ export function DatePicker({
       <PopoverContent
         align="start"
         className="
-          p-2 rounded-xl
+          p-2 rounded-lg
           bg-white border border-gray-200 shadow-xl 
           text-gray-900 
           w-auto

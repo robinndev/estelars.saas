@@ -73,9 +73,8 @@ export function TimePicker({ value, onChange, onBlur }: TimePickerProps) {
         onClick={handleTriggerClick}
         aria-label={t("open_timepicker")}
         className="
-          w-full h-12 px-4 flex items-center justify-start text-left cursor-pointer font-normal rounded-xl
+          w-full h-12 px-4 flex items-center justify-start text-left cursor-pointer font-normal rounded-lg
           bg-white border border-gray-300 text-gray-900 
-          shadow-sm
           hover:bg-gray-50 hover:border-violet-500
           focus:border-violet-600 focus:ring-2 focus:ring-violet-200
           transition-all outline-none
@@ -90,12 +89,11 @@ export function TimePicker({ value, onChange, onBlur }: TimePickerProps) {
         )}
       </button>
 
-      {/* Popover */}
       {open && (
         <div
           className="
-            absolute mt-2 p-6 w-64 rounded-xl left-1/2 -translate-x-1/2
-            bg-white border border-gray-200 shadow-xl
+            absolute mt-2 p-6 w-64 rounded-lg left-1/2 -translate-x-1/2
+            bg-white border border-gray-200 
             text-gray-900 select-none
           "
         >
