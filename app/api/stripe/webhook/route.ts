@@ -1,3 +1,4 @@
+import { emailTemplatePaid } from "@/lib/email/templates/paid";
 import { sitesService } from "@/services/sites.service";
 import { stripe } from "@/services/stripe.service";
 import type { NextRequest } from "next/server";
@@ -22,6 +23,20 @@ export async function POST(req: NextRequest) {
         // Usuário completou a compra - assinatura ou pagamento único
         if (event.data.object.payment_status === "paid") {
           const siteId = event.data.object.metadata?.siteId!;
+
+          const emailTemplate = emailTemplatePaid(
+            event.data.object.metadata?.coupleName || "Casal Estelar",
+            siteId || ""
+          );
+
+          try {
+            await sitesService.sendEmailWithCredentials({
+              siteId: siteId,
+              emailTemplate,
+            });
+          } catch (error) {
+            console.error("Erro ao enviar e-mail:", error);
+          }
 
           try {
             await sitesService.updatePaymentState(siteId, "paid");

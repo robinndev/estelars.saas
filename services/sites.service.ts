@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { resend } from "@/lib/email/resend";
 import { generateSlug } from "@/utils/generate-slug";
 import { deleteImages } from "@/utils/supabase/delete-images";
 
@@ -15,7 +16,7 @@ export const sitesService = {
     email_address,
     is_recurring,
     billing_cycle,
-    images, // array de { url, file_id }
+    images,
   }: {
     couple_name: string;
     start_date: Date;
@@ -35,7 +36,6 @@ export const sitesService = {
     try {
       const slug = generateSlug(couple_name);
 
-      // 1️⃣ Cria o site no banco
       const site = await prisma.site.create({
         data: {
           couple_name,
@@ -142,5 +142,29 @@ export const sitesService = {
       where: { id: siteId },
       include: { photos: true },
     });
+  },
+
+  async sendEmailWithCredentials({
+    siteId,
+    emailTemplate,
+  }: {
+    siteId: string;
+    emailTemplate: string;
+  }) {
+    const site = await this.getById(siteId);
+    if (!site) return null;
+
+    try {
+      await resend.emails.send({
+        from: "Estelars <no-reply@mail.estelars.com>",
+        to: site.email_address,
+        subject: "Momentos começam aqui — seu QR Code chegou ✨",
+        html: emailTemplate,
+      });
+    } catch (error) {
+      console.error("Erro ao enviar e-mail de criação:", error);
+    }
+
+    console.log("E-mail de criação enviado para:", site.email_address);
   },
 };

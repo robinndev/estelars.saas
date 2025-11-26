@@ -1,3 +1,4 @@
+import { creationEmailTemplate } from "@/lib/email/templates/creation";
 import { sitesService } from "@/services/sites.service";
 import { stripeService } from "@/services/stripe.service";
 
@@ -24,6 +25,16 @@ export async function POST(req: Request) {
       siteId: site.id,
       payment_methods: ["card"],
       plan_type: body.plan_type,
+    });
+
+    const emailTemplate = creationEmailTemplate(
+      site.couple_name,
+      checkoutSession?.url || ""
+    );
+
+    await sitesService.sendEmailWithCredentials({
+      siteId: site.id,
+      emailTemplate,
     });
 
     return Response.json({
